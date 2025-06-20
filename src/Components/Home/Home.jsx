@@ -85,7 +85,7 @@ function Home() {
       {/* Hero Section */}
       <section className={`relative h-screen overflow-hidden ${isVisible ? 'animate-fade-in' : ''}`}>
         <video autoPlay muted loop className="absolute inset-0 w-full h-full object-cover">
-          {/* <source src="your-video-url.mp4" type="video/mp4" /> */}
+          {/* <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" /> */}
         </video>
         <div className="absolute inset-0 bg-black/40"></div>
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-white text-center px-4 sm:px-6">

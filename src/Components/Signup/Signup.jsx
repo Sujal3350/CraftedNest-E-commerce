@@ -3,10 +3,40 @@ import Image from "../../assets/image.png";
 import GoogleSvg from "../../assets/google.svg";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth,db} from "../firebase";
+import { doc, setDoc } from "firebase/firestore"; 
+import { toast } from 'react-toastify';
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    
+    try{
+      await createUserWithEmailAndPassword(auth, email, password)
+      const user=auth.currentUser;
+      console.log(user)
+      
+      if(user){
+        await setDoc(doc(db, "users", user.uid),{
+          email: user.email,
+          createdAt: new Date(),
+        });
+      }
+      
+      toast.success("Signup successful!");
+      window.location.href = "/";
+    }catch(error) {
+      console.error("Registration failed:", error);
+    }
+  };
 
   return (
     <div className="flex flex-col md:flex-row h-screen font-poppins bg-[#F7F7F7]">
@@ -26,6 +56,7 @@ const Signup = () => {
           </div>
 
           {/* Form Content */}
+          
           <div className="text-center my-6 md:my-8">
             <h2 className="text-2xl sm:text-3xl font-semibold mb-2">Create an account</h2>
             <p className="text-base sm:text-lg mb-4 sm:mb-6">Please enter your details to sign up</p>
@@ -35,6 +66,7 @@ const Signup = () => {
                 type="email"
                 placeholder="Email"
                 className="w-full px-3 sm:px-4 py-2 sm:py-3 border-b border-gray-500 focus:outline-none text-sm sm:text-base"
+                onChange={(e) => setEmail(e.target.value)}
               />
 
               <div className="relative">
@@ -42,6 +74,7 @@ const Signup = () => {
                   type={showPassword ? "text" : "password"}
                   placeholder="Password"
                   className="w-full px-3 sm:px-4 py-2 sm:py-3 border-b border-gray-500 focus:outline-none text-sm sm:text-base"
+                  onChange={(e) => setPassword(e.target.value)}
                 />
                 {showPassword ? (
                   <FaEyeSlash
@@ -61,6 +94,7 @@ const Signup = () => {
                   type={showConfirmPassword ? "text" : "password"}
                   placeholder="Confirm Password"
                   className="w-full px-3 sm:px-4 py-2 sm:py-3 border-b border-gray-500 focus:outline-none text-sm sm:text-base"
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                 />
                 {showConfirmPassword ? (
                   <FaEyeSlash
@@ -89,6 +123,7 @@ const Signup = () => {
                 <button
                   type="button"
                   className="bg-black text-white py-2 sm:py-3 rounded-full font-semibold hover:bg-white hover:text-black border border-black transition duration-300 text-sm sm:text-base"
+                  onClick={handleRegister}
                 >
                   Sign Up
                 </button>

@@ -4,14 +4,26 @@ import GoogleSvg from "../../assets/google.svg";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase"; 
+import { toast } from 'react-toastify';
 
 const User = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
   
-  const handleClick=(e) => {
+  const handleClick= async(e) => {
     e.preventDefault();
-    navigate("/");    
+    // navigate("/"); 
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      toast.success("Login successful!");
+      window.location.href = "/";
+    }catch (error) {
+
+    }   
   }
   return (
     <div className="flex flex-col md:flex-row h-screen font-poppins bg-[#F7F7F7]">
@@ -40,6 +52,8 @@ const User = () => {
                 type="email"
                 placeholder="Email"
                 className="w-full px-3 sm:px-4 py-2 sm:py-3 border-b border-gray-500 focus:outline-none text-sm sm:text-base"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
               />
 
               <div className="relative">
@@ -47,6 +61,8 @@ const User = () => {
                   type={showPassword ? "text" : "password"}
                   placeholder="Password"
                   className="w-full px-3 sm:px-4 py-2 sm:py-3 border-b border-gray-500 focus:outline-none text-sm sm:text-base"
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
                 />
                 {showPassword ? (
                   <FaEyeSlash
@@ -73,7 +89,7 @@ const User = () => {
 
               <div className="flex flex-col gap-3 mt-4 sm:mt-6">
                 <button
-                  onClick={(e) =>handleClick(e)}
+                  onClick={handleClick}
                   type="button"
                   className="bg-black text-white py-2 sm:py-3 rounded-full font-semibold hover:bg-white hover:text-black border border-black transition duration-300 text-sm sm:text-base"
                 >
