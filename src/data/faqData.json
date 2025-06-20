@@ -1,0 +1,121 @@
+[
+  {
+    "question": "How do I cancel my order?",
+    "answer": "To cancel an order, visit 'My Orders' in your account. If the order hasn’t been shipped yet, you’ll see a 'Cancel' option next to it."
+  },
+  {
+    "question": "Do you offer installation services for appliances?",
+    "answer": "Yes, we offer free installation for select appliances. You’ll be contacted by our service team within 48 hours after delivery."
+  },
+  {
+    "question": "Are there any discounts for first-time users?",
+    "answer": "Yes! First-time customers get a 10% discount on their first order. Use code WELCOME10 at checkout."
+  },
+  {
+    "question": "How do I apply a promo code?",
+    "answer": "During checkout, you’ll see an 'Apply Promo Code' option. Enter your code there, and the discount will be applied automatically."
+  },
+  {
+    "question": "Do you ship internationally?",
+    "answer": "Currently, we only ship within India. We are working on expanding our services internationally soon."
+  },
+  {
+    "question": "What if I receive the wrong item?",
+    "answer": "If you receive an incorrect item, contact our support within 3 days of delivery. We’ll arrange a free return or replacement immediately."
+  },
+  {
+    "question": "Can I modify my delivery address after placing an order?",
+    "answer": "Yes, but only if the order hasn’t been shipped. Contact our support team with the new address as soon as possible."
+  },
+  {
+    "question": "Do you provide EMI options?",
+    "answer": "Yes, we offer EMI options on orders above ₹2,500. You can select your preferred EMI plan during checkout."
+  },
+  {
+    "question": "How can I contact customer support?",
+    "answer": "You can reach our support team via email at support@craftednest.com or call us at 1800-123-4567 (Mon–Sat, 9AM–8PM)."
+  },
+  {
+    "question": "What should I do if my order is delayed?",
+    "answer": "If your order is delayed beyond the estimated date, check the tracking link or contact our customer support for immediate assistance."
+  },{
+    "question": "Do I need to create an account to place an order?",
+    "answer": "No, you can checkout as a guest. However, creating an account helps you track orders and access exclusive offers."
+  },
+  {
+    "question": "How do I reset my account password?",
+    "answer": "Click 'Forgot Password' on the login page, enter your email, and follow the instructions to reset your password securely."
+  },
+  {
+    "question": "Are there any loyalty rewards or points?",
+    "answer": "Yes, every purchase earns you points that can be redeemed for discounts on future orders. Join our Rewards Program to start earning."
+  },
+  {
+    "question": "How do I change my email or phone number?",
+    "answer": "Go to your Account Settings, select 'Profile Info,' and edit your contact details. Save changes to update."
+  },
+  {
+    "question": "What payment methods do you accept?",
+    "answer": "We accept all major credit/debit cards, UPI, net banking, and wallets like Paytm, Google Pay, and PhonePe."
+  },
+  {
+    "question": "Can I schedule a delivery time?",
+    "answer": "Yes, for eligible pin codes, you can choose a preferred delivery slot at checkout. Additional charges may apply."
+  },
+  {
+    "question": "How do I redeem a gift card?",
+    "answer": "Enter your gift card code at the payment page during checkout. The amount will be deducted from your total bill."
+  },
+  {
+    "question": "What should I do if an item is out of stock?",
+    "answer": "Click 'Notify Me' on the product page to receive an email as soon as the item is back in stock."
+  },
+  {
+    "question": "Do you offer gift wrapping services?",
+    "answer": "Yes, gift wrapping is available at checkout for a small additional charge. You can also add a custom message."
+  },
+  {
+    "question": "Is my personal information secure?",
+    "answer": "Absolutely. We use advanced encryption and follow strict data privacy policies to ensure your information is safe."
+  },
+  {
+    "question": "How do I write a product review?",
+    "answer": "After your order is delivered, go to 'My Orders,' select the item, and click 'Write a Review'."
+  },
+  {
+    "question": "Can I reorder previous purchases?",
+    "answer": "Yes, go to 'My Orders' and click on 'Reorder' next to the product you want to buy again."
+  },
+  {
+    "question": "How do I apply for a return or replacement?",
+    "answer": "Visit 'My Orders,' select the item, and choose 'Return or Replace'. Follow the steps to initiate the request."
+  },
+  {
+    "question": "What products are non-returnable?",
+    "answer": "Products like perishable items, customized goods, and opened hygiene products are not eligible for return. Check product details before purchase."
+  },
+  {
+    "question": "Do you have a mobile app?",
+    "answer": "Yes, our mobile app is available on both Android and iOS. Download it for faster shopping and exclusive app-only deals."
+  },
+  {
+    "question": "Will I get an invoice with my order?",
+    "answer": "Yes, an invoice is sent to your email and also included in the package for every order."
+  },
+  {
+    "question": "What happens if I miss the delivery?",
+    "answer": "Our courier partner will attempt delivery up to 3 times. You can also reschedule delivery through the tracking link."
+  },
+  {
+    "question": "Do you offer bulk purchase discounts?",
+    "answer": "Yes, for bulk or corporate orders, please contact our sales team at bulk@craftednest.com for custom pricing."
+  },
+  {
+    "question": "Can I edit my cart after placing an order?",
+    "answer": "Unfortunately, once an order is placed, you cannot edit the cart. You’ll need to cancel the order and place a new one."
+  },
+  {
+    "question": "What should I do if my payment fails?",
+    "answer": "If your payment fails, try again with a different method. If the amount is deducted, it will be refunded automatically within 3-5 business days."
+  }
+]
