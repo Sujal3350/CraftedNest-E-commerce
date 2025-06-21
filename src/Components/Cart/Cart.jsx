@@ -3,54 +3,34 @@ import axios from 'axios';
 
 function Cart() {
   const [cartItems, setCartItems] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const userId = "guest"; // Change this to actual userId if user login is implemented
+  const userId = "guest";
 
   useEffect(() => {
     async function fetchCart() {
-      try {
-        const res = await axios.get(`http://localhost:5000/api/cart/${userId}`);
-        setCartItems(res.data.items || []);
-      } catch (err) {
-        console.error("Failed to fetch cart:", err);
-      } finally {
-        setIsLoading(false);
-      }
+      const res = await axios.get(`http://localhost:5000/api/cart/${userId}`);
+      setCartItems(res.data.items);
     }
     fetchCart();
   }, []);
 
-  const getTotal = () => {
-    return cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  };
-
   return (
-    <div className="cart-container p-4">
-      <h2 className="text-xl font-bold mb-4">🛒 Your Cart</h2>
-
-      {isLoading ? (
-        <p>Loading cart...</p>
-      ) : cartItems.length === 0 ? (
-        <p>No items in cart.</p>
+    <div className="p-6">
+      <h2 className="text-2xl font-bold mb-4">Your Cart</h2>
+      {cartItems.length === 0 ? (
+        <p>Your cart is empty</p>
       ) : (
-        <>
-          {cartItems.map(item => (
-            <div key={item.productId} className="flex items-center mb-4 p-2 border rounded shadow">
-              <img src={item.image} alt={item.name} width={60} className="mr-4" />
-              <div>
-                <h4 className="font-semibold">{item.name}</h4>
-                <p className="text-gray-600">₹{item.price} * {item.quantity}</p>
-              </div>
+        cartItems.map((item) => (
+          <div key={item.productId} className="flex gap-4 items-center border-b py-4">
+            <img src={item.image} alt={item.name} className="w-24 h-24 object-cover" />
+            <div>
+              <h3 className="text-lg font-bold">{item.name}</h3>
+              <p>₹{item.price}</p>
+              <p>Quantity: {item.quantity}</p>
             </div>
-          ))}
-          <hr className="my-4" />
-          <div className="text-right font-bold text-lg">
-            Total: ₹{getTotal()}
           </div>
-        </>
+        ))
       )}
     </div>
   );
 }
-
 export default Cart;

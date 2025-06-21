@@ -1,37 +1,3 @@
-// const express = require('express');
-// const app = express();
-// require('dotenv').config();
-// const fetch = require('node-fetch');
-
-
-
-// app.use(express.json());
-// app.use(express.static('dist')); // Serve Vite's build output
-
-// const cors = require('cors');
-// app.use(cors());
-
-// app.post('/api/gemini', async (req, res) => {
-//   const { prompt } = req.body;
-//   const apiKey = process.env.GEMINI_API_KEY;
-//   const endpoint = 'https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent';
-
-//   try {
-//     const response = await fetch(`${endpoint}?key=${apiKey}`, {
-//       method: 'POST',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify({
-//         contents: [{ parts: [{ text: prompt }] }],
-//       }),
-//     });
-//     const data = await response.json();
-//     res.json({ response: data.candidates[0].content.parts[0].text });
-//   } catch (error) {
-//     res.status(500).json({ error: 'API request failed' });
-//   }
-// });
-
-// app.listen(3000, () => console.log('Server running on port 3000'));
 
 
 const express = require('express');
@@ -88,3 +54,40 @@ app.use('/api/products', productRoutes);
 app.listen(5000, () => {
   console.log('Server running on port 5000');
 });
+
+
+const cartRoutes = require('./routes/cart');
+app.use('/api/cart', cartRoutes);
+
+
+const Cart = require('../backend/models/Cart'); // Cart model
+
+const router = express.Router();
+router.post('/add', async (req, res) => {
+  const { userId, product } = req.body;
+
+  let cart = await Cart.findOne({ userId });
+
+  if (!cart) {
+    cart = new Cart({ userId, items: [] });
+  }
+
+  const existingItem = cart.items.find(item => item.productId === product._id);
+
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    cart.items.push({
+      productId: product._id,
+      name: product.name,
+      price: product.price,
+      image: product.image,
+      quantity: 1,
+    });
+  }
+
+  await cart.save();
+  res.status(200).json({ message: "Added to cart" });
+});
+
+module.exports = router;

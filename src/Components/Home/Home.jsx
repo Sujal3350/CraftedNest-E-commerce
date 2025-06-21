@@ -5,6 +5,7 @@ import kitchen from '../../assets/kitchen.webp';
 import chair from '../../assets/Cane Lounge Chair.jpg';
 import sofa from '../../assets/decor.avif';
 import shelf from '../../assets/shelf.jpg';
+import axios from 'axios';
 
 function Home() {
   const [isVisible, setIsVisible] = useState(false);
@@ -14,6 +15,19 @@ function Home() {
   const [roomStyle, setRoomStyle] = useState('Modern');
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [chatMessage, setChatMessage] = useState('');
+
+  const handleAddToCart = async (product) => {
+  const userId = "guest"; // Replace with actual user ID if you have auth
+  try {
+    const res = await axios.post("http://localhost:5000/api/cart/add", {
+      userId,
+      product,
+    });
+    alert("Added to cart successfully!");
+  } catch (error) {
+    console.error("Error adding to cart", error);
+  }
+};
 
   useEffect(() => {
     setIsVisible(true);
@@ -135,7 +149,7 @@ function Home() {
                 </div>
                 {/* Cart & Wishlist */}
                 <div className="flex items-center justify-between px-0 pb-4 pt-0">
-                  <button  className="flex items-center gap-2 bg-gray-100 text-black font-bold px-4 py-2 border border-gray-300 rounded font-poppins transition">
+                  <button onClick={() => handleAddToCart(product)} className="flex items-center gap-2 bg-gray-100 text-black font-bold px-4 py-2 border border-gray-300 rounded font-poppins transition">
                     Add to Cart
                   </button>
                   <button className="text-red-500 h-10 w-10 flex items-center">
