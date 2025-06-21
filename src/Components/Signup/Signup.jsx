@@ -7,6 +7,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth,db} from "../firebase";
 import { doc, setDoc } from "firebase/firestore"; 
 import { toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -16,27 +17,39 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleRegister = async (e) => {
-    e.preventDefault();
+  const navigate = useNavigate();
+
+const handleRegister = async (e) => {
+  e.preventDefault();
+
+  if (password !== confirmPassword) {
+    toast.error("Passwords do not match.");
+    return;
+  }
+
+  try {
+    // 1. Firebase Auth: Create user
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+
+    // 2. Firestore: Store additional info
+    await setDoc(doc(db, "users", user.uid), {
+      email: user.email,
+      createdAt: new Date(),
+    });
+
+    // 3. Save to localStorage for user context (e.g., cart)
+    localStorage.setItem("user", JSON.stringify({ id: user.uid, email: user.email }));
+
+    // 4. Show success toast and navigate
+    toast.success("Signup successful!");
+    navigate("/");
     
-    try{
-      await createUserWithEmailAndPassword(auth, email, password)
-      const user=auth.currentUser;
-      console.log(user)
-      
-      if(user){
-        await setDoc(doc(db, "users", user.uid),{
-          email: user.email,
-          createdAt: new Date(),
-        });
-      }
-      
-      toast.success("Signup successful!");
-      window.location.href = "/";
-    }catch(error) {
-      console.error("Registration failed:", error);
-    }
-  };
+  } catch (error) {
+    console.error("Signup error:", error);
+    toast.error("Signup failed. Please try again.");
+  }
+};
 
   return (
     <div className="flex flex-col md:flex-row h-screen font-poppins bg-[#F7F7F7]">

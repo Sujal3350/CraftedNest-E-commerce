@@ -14,17 +14,24 @@ const User = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   
-  const handleClick= async(e) => {
-    e.preventDefault();
-    // navigate("/"); 
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      toast.success("Login successful!");
-      window.location.href = "/";
-    }catch (error) {
+const handleClick = async (e) => {
+  e.preventDefault();
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    
+    // Optionally store user info in localStorage for cart
+    const user = auth.currentUser;
+    localStorage.setItem("user", JSON.stringify({ id: user.uid, email: user.email }));
 
-    }   
+    toast.success("Login successful!");
+    navigate("/"); // ✅ Use navigate instead of window.location.href
+  } catch (error) {
+    toast.error("Login failed. Please check your credentials.");
+    console.error(error);
   }
+};
+
+
   return (
     <div className="flex flex-col md:flex-row h-screen font-poppins bg-[#F7F7F7]">
       {/* Left Side Image */}
