@@ -17,17 +17,30 @@ function Home() {
   const [chatMessage, setChatMessage] = useState('');
 
   const handleAddToCart = async (product) => {
-  const userId = "guest"; // Replace with actual user ID if you have auth
-  try {
-    const res = await axios.post("http://localhost:5000/api/cart/add", {
-      userId,
-      product,
-    });
-    alert("Added to cart successfully!");
-  } catch (error) {
-    console.error("Error adding to cart", error);
-  }
-};
+    // Use logged-in userId from localStorage (set during login)
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const userId = storedUser?.id || "guest";
+
+    try {
+      const cleanProduct = {
+        id: product.id,
+        name: product.name,
+        image: product.image,
+        // ✅ Ensure prices are numbers (remove ₹ and commas)
+        price: Number(String(product.price).replace(/[₹,]/g, "")),
+      };
+
+      const res = await axios.post("http://localhost:5000/api/cart/add", {
+        userId,
+        product: cleanProduct,
+      });
+
+      alert("Added to cart successfully!");
+    } catch (error) {
+      console.error("Error adding to cart", error);
+      alert("Failed to add to cart.");
+    }
+  };
 
   useEffect(() => {
     setIsVisible(true);
