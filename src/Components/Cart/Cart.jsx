@@ -3,7 +3,7 @@ import axios from 'axios';
 
 function Cart() {
   const [cartItems, setCartItems] = useState([]);
-  const userId = "guest";
+  const userId = JSON.parse(localStorage.getItem('user'))?.id; // Assuming user ID is stored in localStorage
 
   useEffect(() => {
     async function fetchCart() {
