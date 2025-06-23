@@ -14,7 +14,8 @@ function Product() {
 
     try {
       const cleanProduct = {
-        id: product.id,
+        id: product._id,
+        _id: product._id, // Ensure both id and _id are sent
         name: product.name,
         image: product.image,
         price: Number(String(product.price).replace(/[₹,]/g, "")),

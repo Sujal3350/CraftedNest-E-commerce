@@ -12,13 +12,15 @@ router.post('/add', async (req, res) => {
     cart = new Cart({ userId, items: [] });
   }
 
-  const existingItem = cart.items.find(item => item.productId === product._id);
+  // Support both product._id and product.id for productId
+  const productId = String(product._id || product.id);
+  const existingItem = cart.items.find(item => item.productId === productId);
 
   if (existingItem) {
     existingItem.quantity += 1;
   } else {
     cart.items.push({
-      productId: String(product.id), 
+      productId: productId, 
       name: product.name,
       price: Number(product.price),
       image: product.image,
