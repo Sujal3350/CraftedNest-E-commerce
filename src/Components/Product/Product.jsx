@@ -57,11 +57,11 @@ function Product() {
             className="bg-white rounded-xl shadow-md hover:shadow-lg transition duration-300 overflow-hidden border border-gray-100 group"
           >
             {/* Image */}
-            <div className="p-4 flex justify-center items-center">
+            <div className="p-4 flex justify-center h-48items-center">
               <img
                 src={product.image}
                 alt={product.name}
-                className="rounded-md object-cover w-full h-48 max-w-full"
+                className="rounded-md object-cover w-full h-fit max-w-full"
               />
             </div>
 
