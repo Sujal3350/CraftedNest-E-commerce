@@ -1,25 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faCartShopping, faBars, faTimes, faComment, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { RiGeminiFill } from "react-icons/ri";
 import { toast } from 'react-toastify';
+import { auth } from '../firebase'; // Import Firebase auth
+import { onAuthStateChanged, signOut } from 'firebase/auth'; // Import Firebase auth methods
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // Persist login state in localStorage
-  const [loggedIn, setLoggedIn] = useState(() => {
-    return localStorage.getItem('loggedIn') === 'true';
-  });
+  const [loggedIn, setLoggedIn] = useState(false); // Initialize as false
+  const navigate = useNavigate();
 
+  // Listen to Firebase auth state changes
   useEffect(() => {
-    localStorage.setItem('loggedIn', loggedIn);
-  }, [loggedIn]);
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is logged in
+        setLoggedIn(true);
+        localStorage.setItem('loggedIn', 'true');
+      } else {
+        // User is logged out
+        setLoggedIn(false);
+        localStorage.setItem('loggedIn', 'false');
+      }
+    });
 
-  const handleLogin = () => setLoggedIn(true);
-  const handleLogout = () => {
-    setLoggedIn(false);
-    toast.success("Logout successful!");
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth); // Sign out from Firebase
+      localStorage.removeItem('user'); // Clear user data from localStorage
+      localStorage.setItem('loggedIn', 'false'); // Update localStorage
+      toast.success("Logout successful!");
+      navigate('/user');
+    } catch (error) {
+      console.error("Logout error:", error);
+      toast.error("Logout failed. Please try again.");
+    }
   };
 
   return (
@@ -102,7 +123,7 @@ function Header() {
               <NavLink 
                 to="/user" 
                 className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`}
-                onClick={() => { setIsMenuOpen(false); handleLogin(); }}
+                onClick={() => setIsMenuOpen(false)}
               >
                 <FontAwesomeIcon icon={faUser} className="text-lg" title="Login" />
               </NavLink>
@@ -145,7 +166,7 @@ function Header() {
       </nav>
 
       {/* Desktop Icons */}
-      <div className="hidden  items-center lg:flex justify-between gap-5">
+      <div className="hidden items-center lg:flex justify-between gap-5">
         <NavLink to="/cart" className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`}>
           <FontAwesomeIcon icon={faCartShopping} className="text-lg" />
         </NavLink>
@@ -155,12 +176,12 @@ function Header() {
             <FontAwesomeIcon icon={faSignOutAlt} className="text-lg" title="Logout" />
           </button>
         ) : (
-          <NavLink to="/user" className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`} onClick={handleLogin}>
+          <NavLink to="/user" className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`}>
             <FontAwesomeIcon icon={faUser} className="text-lg" title="Login" />
           </NavLink>
         )}
         <NavLink to="/chat" className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`}>
-          <RiGeminiFill icon={RiGeminiFill} className="text-lg" />
+          <RiGeminiFill className="text-lg" />
         </NavLink>
       </div>
     </header>
