@@ -10,6 +10,8 @@ function Contact() {
 
     const form = e.target;
     const formData = new FormData(form);
+    // Add replyto field for Web3Forms
+    formData.append('replyto', form.email.value);
 
     try {
       const response = await fetch('https://api.web3forms.com/submit', {
@@ -17,12 +19,13 @@ function Contact() {
         body: formData,
       });
       const data = await response.json();
+      console.log(data); // Debug: see full response
 
       if (data.success) {
         setResult('Thank you! Your message has been sent.');
         form.reset();
       } else {
-        setResult('Oops! Something went wrong.');
+        setResult(data.message || 'Oops! Something went wrong.');
       }
     } catch (error) {
       setResult(`Error: ${error.message}`);
