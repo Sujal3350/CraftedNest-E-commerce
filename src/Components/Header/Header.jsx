@@ -1,10 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faCartShopping, faBars, faTimes, faComment } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faCartShopping, faBars, faTimes, faComment, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { NavLink } from 'react-router-dom';
 import { RiGeminiFill } from "react-icons/ri";
+import { toast } from 'react-toastify';
+
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // Persist login state in localStorage
+  const [loggedIn, setLoggedIn] = useState(() => {
+    return localStorage.getItem('loggedIn') === 'true';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('loggedIn', loggedIn);
+  }, [loggedIn]);
+
+  const handleLogin = () => setLoggedIn(true);
+  const handleLogout = () => {
+    setLoggedIn(false);
+    toast.success("Logout successful!");
+  };
 
   return (
     <header className='bg-[#F7F7F7] w-full h-16 flex items-center justify-between px-4 sm:px-6 lg:px-10 border-b border-gray-300' style={{ boxShadow: 'inset 0 -1px 3px rgba(0,0,0,0.1)' }}>
@@ -77,13 +93,20 @@ function Header() {
             >
               <FontAwesomeIcon icon={faCartShopping} className="text-lg" />
             </NavLink>
-            <NavLink 
-              to="/user" 
-              className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <FontAwesomeIcon icon={faUser} className="text-lg" />
-            </NavLink>
+            {/* User/Login/Logout Icon */}
+            {loggedIn ? (
+              <button onClick={() => { setIsMenuOpen(false); handleLogout(); }} className="text-gray-800 hover:text-orange-700">
+                <FontAwesomeIcon icon={faSignOutAlt} className="text-lg" title="Logout" />
+              </button>
+            ) : (
+              <NavLink 
+                to="/user" 
+                className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`}
+                onClick={() => { setIsMenuOpen(false); handleLogin(); }}
+              >
+                <FontAwesomeIcon icon={faUser} className="text-lg" title="Login" />
+              </NavLink>
+            )}
             <NavLink 
               to="/chat" 
               className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`}
@@ -126,9 +149,16 @@ function Header() {
         <NavLink to="/cart" className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`}>
           <FontAwesomeIcon icon={faCartShopping} className="text-lg" />
         </NavLink>
-        <NavLink to="/user" className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`}>
-          <FontAwesomeIcon icon={faUser} className="text-lg" />
-        </NavLink>
+        {/* User/Login/Logout Icon */}
+        {loggedIn ? (
+          <button onClick={handleLogout} className="text-gray-800 hover:text-orange-700">
+            <FontAwesomeIcon icon={faSignOutAlt} className="text-lg" title="Logout" />
+          </button>
+        ) : (
+          <NavLink to="/user" className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`} onClick={handleLogin}>
+            <FontAwesomeIcon icon={faUser} className="text-lg" title="Login" />
+          </NavLink>
+        )}
         <NavLink to="/chat" className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`}>
           <RiGeminiFill icon={RiGeminiFill} className="text-lg" />
         </NavLink>
