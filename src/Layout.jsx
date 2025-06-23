@@ -1,14 +1,17 @@
-import React from 'react'
+import React, { use } from 'react'
 import Header from './Components/Header/Header'
 import Footer from './Components/Footer/Footer'
-import {Outlet} from 'react-router-dom'
+import {Outlet, useLocation} from 'react-router-dom'
 
-function Layout() {
+const Layout = () => {
+  const location=useLocation();
+  const hideHeader = location.pathname === '/user' || location.pathname === '/signup' ;
+  const hideFooter = location.pathname === '/user' || location.pathname === '/signup';
   return (
     <>
-    <Header/>
+    {!hideHeader && <Header/>}
     <Outlet/>
-    <Footer/>
+    {!hideFooter && <Footer/>}
     </>
   )
 }

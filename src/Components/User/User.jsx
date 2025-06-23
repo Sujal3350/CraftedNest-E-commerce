@@ -35,7 +35,7 @@ const handleClick = async (e) => {
   return (
     <div className="flex flex-col md:flex-row h-screen font-poppins bg-[#F7F7F7]">
       {/* Left Side Image */}
-      <div className="flex-1 bg-[#F7F7F7] flex justify-center items-center p-4 md:p-0 order-1 md:order-none">
+      <div className="hidden md:flex flex-1 bg-[#F7F7F7] justify-center items-center p-4 md:p-0 order-1 md:order-none">
         <img src={Image} alt="Login visual" className="w-64 sm:w-80 md:w-[400px]" />
       </div>
 
