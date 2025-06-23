@@ -35,7 +35,7 @@ function Home() {
         product: cleanProduct,
       });
 
-      // alert("Added to cart successfully!");
+      alert("Added to cart successfully!");
     } catch (error) {
       console.error("Error adding to cart", error);
       alert("Failed to add to cart.");
