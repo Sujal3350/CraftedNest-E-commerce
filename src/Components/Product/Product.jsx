@@ -100,7 +100,7 @@ function Product() {
               <img
                 src={product.image}
                 alt={product.name}
-                className="rounded-md object-cover w-full h-48 max-w-full transition-transform duration-300 group-hover:scale-105"
+                className="rounded-md object-cover w-full h-48 max-w-full"
               />
             </div>
 

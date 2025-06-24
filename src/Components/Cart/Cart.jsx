@@ -61,10 +61,14 @@ function Cart() {
   };
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <h2 className="text-2xl font-bold mb-6">Your Cart</h2>
+    <div className="p-6 max-w-4xl mx-auto flex flex-col items-center">
+      <img
+        src="https://res.cloudinary.com/dlltgglm3/image/upload/v1750738645/empty_cart_rtwnr5.png"
+        alt="Cart Banner"
+        className="w-fit h-74 flex "
+      />
       {cartItems.length === 0 ? (
-        <p className="text-gray-600">Your cart is empty</p>
+        <p className="text-gray-600"></p>
       ) : (
         <>
           <div className="space-y-4">

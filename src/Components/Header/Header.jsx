@@ -44,7 +44,7 @@ function Header() {
   };
 
   return (
-    <header className='bg-[#F7F7F7] w-full h-16 flex items-center justify-between px-4 sm:px-6 lg:px-10 border-b border-gray-300' style={{ boxShadow: 'inset 0 -1px 3px rgba(0,0,0,0.1)' }}>
+    <header className='bg-[#F7F7F7] sticky top-0 z-50 w-full h-16 flex items-center justify-between px-4 sm:px-6 lg:px-10 border-b border-gray-300' style={{ boxShadow: 'inset 0 -1px 3px rgba(0,0,0,0.1)' }}>
       
       {/* Brand */}
       <div className='flex items-center'>
@@ -69,7 +69,7 @@ function Header() {
           <ul className='flex flex-col gap-4 text-gray-800 font-medium items-center mb-4'>
             <li>
               <NavLink 
-                to="/" 
+                to="/home" 
                 className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`}
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -106,7 +106,7 @@ function Header() {
           </ul>
 
           {/* Icons */}
-          <div className="flex justify-between w-full max-w-[130px]">
+          <div className="flex justify-center w-full max-w-[171px]">
             <NavLink 
               to="/cart" 
               className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`}
