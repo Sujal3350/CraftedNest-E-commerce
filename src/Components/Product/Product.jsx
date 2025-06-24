@@ -6,6 +6,8 @@ import axios from 'axios'; // ✅ Ensure axios is imported
 function Product() {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [categories, setCategories] = useState([]);
 
   // ✅ Function to handle Add to Cart
   const handleAddToCart = async (product) => {
@@ -37,14 +39,21 @@ function Product() {
   useEffect(() => {
     fetch('http://localhost:5000/api/products')
       .then(res => res.json())
-      .then(data => setProducts(data))
+      .then(data => {
+        setProducts(data);
+        // Extract unique categories
+        const cats = Array.from(new Set(data.map(p => p.category).filter(Boolean)));
+        setCategories(['All', ...cats]);
+      })
       .catch(err => console.error(err));
   }, []);
 
-  // Filter products based on search term
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Filter products based on search term and selected category
+  const filteredProducts = products.filter((product) => {
+    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === 'All' || product.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
 
   // Clear search term
   const handleClearSearch = () => {
@@ -60,8 +69,20 @@ function Product() {
         fontFamily: 'Poppins, sans-serif'
       }}
     >
-      {/* Search Bar */}
-      <div className="flex justify-center mb-8 px-4 sm:px-8">
+      {/* Filter Section */}
+      <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-8 px-4 sm:px-8">
+        <div className="relative w-full max-w-xs">
+          <select
+            value={selectedCategory}
+            onChange={e => setSelectedCategory(e.target.value)}
+            className="w-full p-2 border border-black rounded-lg focus:outline-none text-sm sm:text-base font-poppins"
+          >
+            {categories.map(cat => (
+              <option key={cat} value={cat}>{cat}</option>
+            ))}
+          </select>
+        </div>
+        {/* Search Bar */}
         <div className="relative w-full max-w-xl">
           <input
             type="text"
@@ -85,14 +106,14 @@ function Product() {
       </div>
 
       {/* Not Found Message */}
-      {searchTerm && filteredProducts.length === 0 && (
+      {filteredProducts.length === 0 && (
         <div className="text-center text-gray-600 mb-8">Product not found</div>
       )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-4 sm:px-8">
         {filteredProducts.map((product) => (
           <div
-            key={product.id || product.name}
+            key={product.id || product._id || product.name}
             className="bg-white rounded-xl shadow-md hover:shadow-lg transition duration-300 overflow-hidden border border-gray-100 group"
           >
             {/* Image */}

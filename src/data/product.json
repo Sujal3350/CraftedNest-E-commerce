@@ -6,295 +6,328 @@
     "originalPrice": 1299,
     "rating": 4.4,
     "reviews": 134,
-    "image": "https://plus.unsplash.com/premium_photo-1674406481284-43eba097a291?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8a2V0dGxlfGVufDB8fDB8fHww"
-    },
-    {
-        "name": "Mixer Grinder 750W",
-        "description": "Powerful mixer grinder with 3 jars and stainless steel blades",
-        "price": 2499,
-        "originalPrice": 3499,
-        "rating": 4.2,
-        "reviews": 212,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750669334/mixer_fpbttd.jpg"
-    },
-    {
-        "name": "Study Table with Drawer",
-        "description": "Compact study desk for home office with drawer and shelf",
-        "price": 2999,
-        "originalPrice": 4499,
-        "rating": 4.1,
-        "reviews": 118,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673984/Study_Table_with_Drawer_wqhmyb.jpg"
-    },
-    {
-        "name": "Shoe Rack Wooden",
-        "description": "3-tier wooden shoe rack with seating top",
-        "price": 2299,
-        "originalPrice": 3299,
-        "rating": 4.0,
-        "reviews": 89,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673980/Shoe_Rack_Wooden_djesdp.jpg"
-    },
-    {
-        "name": "Wall-Mounted Corner Shelf",
-        "description": "Set of 3 wall-mounted corner display shelves",
-        "price": 999,
-        "originalPrice": 1499,
-        "rating": 4.2,
-        "reviews": 76,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673984/Wall-Mounted_Corner_Shelf_gh48h4.jpg"
-    },
-    {
-        "name": "Air Fryer",
-        "description": "Oil-free digital air fryer with 3.5L capacity for healthy cooking",
-        "price": 4599,
-        "originalPrice": 6999,
-        "rating": 4.6,
-        "reviews": 310,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750669333/Air_Fryer_ql1sdf.jpg"
-    },
-    {
-        "name": "Induction Cooktop",
-        "description": "Touch panel induction cooktop with 8 cooking modes",
-        "price": 2099,
-        "originalPrice": 2999,
-        "rating": 4.3,
-        "reviews": 187,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750669334/Induction_Cooktop_ow0rhh.jpg"
-    },
-    {
-        "name": "Refrigerator Organizer Bins",
-        "description": "Set of 6 plastic fridge storage bins for fruits and veggies",
-        "price": 699,
-        "originalPrice": 1199,
-        "rating": 4.1,
-        "reviews": 89,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750669335/Refrigerator_Organizer_Bins_fhd9wz.jpg"
-    },
-    {
-        "name": "Electric Rice Cooker",
-        "description": "1.8L rice cooker with automatic keep warm function",
-        "price": 1899,
-        "originalPrice": 2499,
-        "rating": 4.2,
-        "reviews": 156,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750669334/Electric_Rice_Cooker_e4xabf.jpg"
-    },
-    {
-        "name": "Water Purifier RO + UV",
-        "description": "7-stage RO water purifier with UV and mineral booster",
-        "price": 8999,
-        "originalPrice": 12499,
-        "rating": 4.5,
-        "reviews": 432,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750669334/Water_Purifier_RO_UV_ebhgyu.jpg"
-    },
-    {
-        "name": "Microwave Oven",
-        "description": "20L solo microwave oven with defrost and timer function",
-        "price": 4899,
-        "originalPrice": 5999,
-        "rating": 4.4,
-        "reviews": 201,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750669334/Microwave_Oven_tg7bv6.jpg"
-    },
-    {
-        "name": "Hand Blender",
-        "description": "300W ergonomic hand blender with detachable shaft",
-        "price": 999,
-        "originalPrice": 1499,
-        "rating": 4.0,
-        "reviews": 73,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750671157/hand_blender_fiury9.jpg"
-    },
-    {
-        "name": "Wall-Mounted Study Table",
-        "description": "Foldable space-saving study table for small rooms",
-        "price": 1799,
-        "originalPrice": 2499,
-        "rating": 4.1,
-        "reviews": 87,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673984/Wall-Mounted_Study_Table_apfyqq.jpg"
-    },
-    {
-        "name": "Bar Stool Set of 2",
-        "description": "Height-adjustable modern bar stools with footrest",
-        "price": 4399,
-        "originalPrice": 5999,
-        "rating": 4.2,
-        "reviews": 108,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673978/Bar_Stool_Set_of_2_qikby4.jpg"
-    },
-    {
-        "name": "Side Table with Drawer",
-        "description": "Modern side table with drawer and open shelf",
-        "price": 1599,
-        "originalPrice": 2299,
-        "rating": 4.1,
-        "reviews": 72,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673981/Side_Table_with_Drawer_hmqlkl.jpg"
-    },
-    {
-        "name": "Console Table",
-        "description": "Elegant hallway console table with bottom shelf",
-        "price": 3199,
-        "originalPrice": 4199,
-        "rating": 4.3,
-        "reviews": 91,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673979/Console_Table_fqfooi.jpg"
-    },
-     {
-        "name": "Queen Size Storage Bed",
-        "description": "Hydraulic storage queen bed with upholstered headboard",
-        "price": 17499,
-        "originalPrice": 21999,
-        "rating": 4.5,
-        "reviews": 297,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673979/Queen_Size_Storage_Bed_zu5vvo.jpg"
-    },
-    {
-        "name": "Accent Chair",
-        "description": "Stylish fabric accent chair for living room or bedroom",
-        "price": 4899,
-        "originalPrice": 6499,
-        "rating": 4.3,
-        "reviews": 132,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673978/Accent_Chair_rxay8c.jpg"
-    },
-    {
-        "name": "Chest of Drawers",
-        "description": "Wooden storage chest with 4 spacious drawers",
-        "price": 5999,
-        "originalPrice": 7999,
-        "rating": 4.4,
-        "reviews": 155,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673979/Chest_of_Drawers_ynrnvv.jpg"
-    },
-    {
-        "name": "Office Chair Ergonomic",
-        "description": "Mesh office chair with lumbar support and swivel base",
-        "price": 3299,
-        "originalPrice": 4999,
-        "rating": 4.3,
-        "reviews": 198,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673979/Office_Chair_Ergonomic_wuzmcm.jpg"
-    },
-    {
-        "name": "Toaster 2 Slice",
-        "description": "Pop-up toaster with adjustable browning settings",
-        "price": 1199,
-        "originalPrice": 1799,
-        "rating": 4.1,
-        "reviews": 128,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750670852/Toaster_2_Slice_qsk17c.jpg"
-    },
-    {
-        "name": "Steam Iron",
-        "description": "Non-stick 1600W steam iron with vertical steam boost",
-        "price": 1499,
-        "originalPrice": 2299,
-        "rating": 4.2,
-        "reviews": 193,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750670851/Steam_Iron_bvzujl.jpg"
-    },
-    {
-        "name": "Dish Rack Organizer",
-        "description": "2-tier stainless steel dish drying rack with utensil holder",
-        "price": 1199,
-        "originalPrice": 1699,
-        "rating": 4.3,
-        "reviews": 111,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750670846/Dish_Rack_Organizer_kzl9x5.jpg"
-    },
-    {
-        "name": "Juicer Machine",
-        "description": "Centrifugal juicer for fresh fruit juice in seconds",
-        "price": 2799,
-        "originalPrice": 3799,
-        "rating": 4.2,
-        "reviews": 142,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750670849/Juicer_Machine_qlvxjd.jpg"
-    },
-    {
-        "name": "Electric Chimney",
-        "description": "Auto-clean kitchen chimney with baffle filter",
-        "price": 7999,
-        "originalPrice": 10499,
-        "rating": 4.4,
-        "reviews": 244,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750670846/Electric_Chimney_vax0gd.jpg"
-    },
-    {
-        "name": "Non-Stick Cookware Set",
-        "description": "5-piece non-stick cookware set with induction base",
-        "price": 2499,
-        "originalPrice": 3499,
-        "rating": 4.5,
-        "reviews": 311,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750670850/Non-Stick_Cookware_Set_kyg0yw.jpg"
-    },
-    {
-        "name": "Gas Stove 2 Burner",
-        "description": "Glass top 2-burner gas stove with brass burners",
-        "price": 2899,
-        "originalPrice": 3999,
-        "rating": 4.3,
-        "reviews": 199,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750670847/Gas_Stove_2_Burner_sjywa5.jpg"
-    },
-    {
-        "name": "Chopper & Slicer",
-        "description": "Manual vegetable chopper with sharp stainless blades",
-        "price": 599,
-        "originalPrice": 999,
-        "rating": 4.0,
-        "reviews": 87,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750670845/Chopper_Slicer_wyzi74.jpg"
-    },
-    {
-        "name": "Egg Boiler",
-        "description": "Automatic electric egg boiler with 7 egg capacity",
-        "price": 499,
-        "originalPrice": 799,
-        "rating": 4.1,
-        "reviews": 78,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750670846/Egg_Boiler_lyn0j9.jpg"
-    },
-    {
-        "name": "Kitchen Scale Digital",
-        "description": "10kg capacity digital kitchen weighing scale",
-        "price": 699,
-        "originalPrice": 1099,
-        "rating": 4.3,
-        "reviews": 65,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750670849/Kitchen_Scale_Digital_qtd2nx.jpg"
-    },
-    {
-        "name": "Electric Tandoor",
-        "description": "Multipurpose tandoor for grilling and baking at home",
-        "price": 3199,
-        "originalPrice": 4299,
-        "rating": 4.2,
-        "reviews": 92,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750670847/Electric_Tandoor_hjmpup.jpg"
-    },
-    {
-      "name": "Smart LED TV 43 Inch",
-      "description": "Full HD Smart Android LED TV with built-in apps and voice control",
-      "price": 22999,
-      "originalPrice": 28999,
-      "rating": 4.5,
-      "reviews": 514,
-      "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750672057/Smart_LED_TV_43_Inch_d2ooot.jpg"
+    "image": "https://plus.unsplash.com/premium_photo-1674406481284-43eba097a291?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8a2V0dGxlfGVufDB8fDB8fHww",
+    "category": "Kitchen Appliances"
   },
   {
-      "name": "Front Load Washing Machine",
-      "description": "6.5 kg inverter fully automatic front load with hygiene steam",
-      "price": 27999,
-      "originalPrice": 34999,
-      "rating": 4.6,
-      "reviews": 402,
-      "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750672055/Front_Load_Washing_Machine_lw2uoi.jpg"
+    "name": "Mixer Grinder 750W",
+    "description": "Powerful mixer grinder with 3 jars and stainless steel blades",
+    "price": 2499,
+    "originalPrice": 3499,
+    "rating": 4.2,
+    "reviews": 212,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750669334/mixer_fpbttd.jpg",
+    "category": "Kitchen Appliances"
+  },
+  {
+    "name": "Study Table with Drawer",
+    "description": "Compact study desk for home office with drawer and shelf",
+    "price": 2999,
+    "originalPrice": 4499,
+    "rating": 4.1,
+    "reviews": 118,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673984/Study_Table_with_Drawer_wqhmyb.jpg",
+    "category": "Furniture"
+  },
+  {
+    "name": "Shoe Rack Wooden",
+    "description": "3-tier wooden shoe rack with seating top",
+    "price": 2299,
+    "originalPrice": 3299,
+    "rating": 4.0,
+    "reviews": 89,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673980/Shoe_Rack_Wooden_djesdp.jpg",
+    "category": "Storage"
+  },
+  {
+    "name": "Wall-Mounted Corner Shelf",
+    "description": "Set of 3 wall-mounted corner display shelves",
+    "price": 999,
+    "originalPrice": 1499,
+    "rating": 4.2,
+    "reviews": 76,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673984/Wall-Mounted_Corner_Shelf_gh48h4.jpg",
+    "category": "Storage"
+  },
+  {
+    "name": "Air Fryer",
+    "description": "Oil-free digital air fryer with 3.5L capacity for healthy cooking",
+    "price": 4599,
+    "originalPrice": 6999,
+    "rating": 4.6,
+    "reviews": 310,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750669333/Air_Fryer_ql1sdf.jpg",
+    "category": "Kitchen Appliances"
+  },
+  {
+    "name": "Induction Cooktop",
+    "description": "Touch panel induction cooktop with 8 cooking modes",
+    "price": 2099,
+    "originalPrice": 2999,
+    "rating": 4.3,
+    "reviews": 187,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750669334/Induction_Cooktop_ow0rhh.jpg",
+    "category": "Kitchen Appliances"
+  },
+  {
+    "name": "Refrigerator Organizer Bins",
+    "description": "Set of 6 plastic fridge storage bins for fruits and veggies",
+    "price": 699,
+    "originalPrice": 1199,
+    "rating": 4.1,
+    "reviews": 89,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750669335/Refrigerator_Organizer_Bins_fhd9wz.jpg",
+    "category": "Kitchen Accessories"
+  },
+  {
+    "name": "Electric Rice Cooker",
+    "description": "1.8L rice cooker with automatic keep warm function",
+    "price": 1899,
+    "originalPrice": 2499,
+    "rating": 4.2,
+    "reviews": 156,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750669334/Electric_Rice_Cooker_e4xabf.jpg",
+    "category": "Kitchen Appliances"
+  },
+  {
+    "name": "Water Purifier RO + UV",
+    "description": "7-stage RO water purifier with UV and mineral booster",
+    "price": 8999,
+    "originalPrice": 12499,
+    "rating": 4.5,
+    "reviews": 432,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750669334/Water_Purifier_RO_UV_ebhgyu.jpg",
+    "category": "Kitchen Appliances"
+  },
+  {
+    "name": "Microwave Oven",
+    "description": "20L solo microwave oven with defrost and timer function",
+    "price": 4899,
+    "originalPrice": 5999,
+    "rating": 4.4,
+    "reviews": 201,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750669334/Microwave_Oven_tg7bv6.jpg",
+    "category": "Kitchen Appliances"
+  },
+  {
+    "name": "Hand Blender",
+    "description": "300W ergonomic hand blender with detachable shaft",
+    "price": 999,
+    "originalPrice": 1499,
+    "rating": 4.0,
+    "reviews": 73,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750671157/hand_blender_fiury9.jpg",
+    "category": "Kitchen Appliances"
+  },
+  {
+    "name": "Wall-Mounted Study Table",
+    "description": "Foldable space-saving study table for small rooms",
+    "price": 1799,
+    "originalPrice": 2499,
+    "rating": 4.1,
+    "reviews": 87,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673984/Wall-Mounted_Study_Table_apfyqq.jpg",
+    "category": "Furniture"
+  },
+  {
+    "name": "Bar Stool Set of 2",
+    "description": "Height-adjustable modern bar stools with footrest",
+    "price": 4399,
+    "originalPrice": 5999,
+    "rating": 4.2,
+    "reviews": 108,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673978/Bar_Stool_Set_of_2_qikby4.jpg",
+    "category": "Furniture"
+  },
+  {
+    "name": "Side Table with Drawer",
+    "description": "Modern side table with drawer and open shelf",
+    "price": 1599,
+    "originalPrice": 2299,
+    "rating": 4.1,
+    "reviews": 72,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673981/Side_Table_with_Drawer_hmqlkl.jpg",
+    "category": "Furniture"
+  },
+  {
+    "name": "Console Table",
+    "description": "Elegant hallway console table with bottom shelf",
+    "price": 3199,
+    "originalPrice": 4199,
+    "rating": 4.3,
+    "reviews": 91,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673979/Console_Table_fqfooi.jpg",
+    "category": "Furniture"
+  },
+  {
+    "name": "Queen Size Storage Bed",
+    "description": "Hydraulic storage queen bed with upholstered headboard",
+    "price": 17499,
+    "originalPrice": 21999,
+    "rating": 4.5,
+    "reviews": 297,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673979/Queen_Size_Storage_Bed_zu5vvo.jpg",
+    "category": "Furniture"
+  },
+  {
+    "name": "Accent Chair",
+    "description": "Stylish fabric accent chair for living room or bedroom",
+    "price": 4899,
+    "originalPrice": 6499,
+    "rating": 4.3,
+    "reviews": 132,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673978/Accent_Chair_rxay8c.jpg",
+    "category": "Furniture"
+  },
+  {
+    "name": "Chest of Drawers",
+    "description": "Wooden storage chest with 4 spacious drawers",
+    "price": 5999,
+    "originalPrice": 7999,
+    "rating": 4.4,
+    "reviews": 155,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673979/Chest_of_Drawers_ynrnvv.jpg",
+    "category": "Furniture"
+  },
+  {
+    "name": "Office Chair Ergonomic",
+    "description": "Mesh office chair with lumbar support and swivel base",
+    "price": 3299,
+    "originalPrice": 4999,
+    "rating": 4.3,
+    "reviews": 198,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673979/Office_Chair_Ergonomic_wuzmcm.jpg",
+    "category": "Furniture"
+  },
+  {
+    "name": "Toaster 2 Slice",
+    "description": "Pop-up toaster with adjustable browning settings",
+    "price": 1199,
+    "originalPrice": 1799,
+    "rating": 4.1,
+    "reviews": 128,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750670852/Toaster_2_Slice_qsk17c.jpg",
+    "category": "Kitchen Appliances"
+  },
+  {
+    "name": "Steam Iron",
+    "description": "Non-stick 1600W steam iron with vertical steam boost",
+    "price": 1499,
+    "originalPrice": 2299,
+    "rating": 4.2,
+    "reviews": 193,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750670851/Steam_Iron_bvzujl.jpg",
+    "category": "Kitchen Appliances"
+  },
+  {
+    "name": "Dish Rack Organizer",
+    "description": "2-tier stainless steel dish drying rack with utensil holder",
+    "price": 1199,
+    "originalPrice": 1699,
+    "rating": 4.3,
+    "reviews": 111,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750670846/Dish_Rack_Organizer_kzl9x5.jpg",
+    "category": "Kitchen Accessories"
+  },
+  {
+    "name": "Juicer Machine",
+    "description": "Centrifugal juicer for fresh fruit juice in seconds",
+    "price": 2799,
+    "originalPrice": 3799,
+    "rating": 4.2,
+    "reviews": 142,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750670849/Juicer_Machine_qlvxjd.jpg",
+    "category": "Kitchen Appliances"
+  },
+  {
+    "name": "Electric Chimney",
+    "description": "Auto-clean kitchen chimney with baffle filter",
+    "price": 7999,
+    "originalPrice": 10499,
+    "rating": 4.4,
+    "reviews": 244,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750670846/Electric_Chimney_vax0gd.jpg",
+    "category": "Kitchen Appliances"
+  },
+  {
+    "name": "Non-Stick Cookware Set",
+    "description": "5-piece non-stick cookware set with induction base",
+    "price": 2499,
+    "originalPrice": 3499,
+    "rating": 4.5,
+    "reviews": 311,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750670850/Non-Stick_Cookware_Set_kyg0yw.jpg",
+    "category": "Kitchen Appliances"
+  },
+  {
+    "name": "Gas Stove 2 Burner",
+    "description": "Glass top 2-burner gas stove with brass burners",
+    "price": 2899,
+    "originalPrice": 3999,
+    "rating": 4.3,
+    "reviews": 199,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750670847/Gas_Stove_2_Burner_sjywa5.jpg",
+    "category": "Kitchen Appliances"
+  },
+  {
+    "name": "Chopper & Slicer",
+    "description": "Manual vegetable chopper with sharp stainless blades",
+    "price": 599,
+    "originalPrice": 999,
+    "rating": 4.0,
+    "reviews": 87,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750670845/Chopper_Slicer_wyzi74.jpg",
+    "category": "Kitchen Accessories"
+  },
+  {
+    "name": "Egg Boiler",
+    "description": "Automatic electric egg boiler with 7 egg capacity",
+    "price": 499,
+    "originalPrice": 799,
+    "rating": 4.1,
+    "reviews": 78,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750670846/Egg_Boiler_lyn0j9.jpg",
+    "category": "Kitchen Appliances"
+  },
+  {
+    "name": "Kitchen Scale Digital",
+    "description": "10kg capacity digital kitchen weighing scale",
+    "price": 699,
+    "originalPrice": 1099,
+    "rating": 4.3,
+    "reviews": 65,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750670849/Kitchen_Scale_Digital_qtd2nx.jpg",
+    "category": "Kitchen Accessories"
+  },
+  {
+    "name": "Electric Tandoor",
+    "description": "Multipurpose tandoor for grilling and baking at home",
+    "price": 3199,
+    "originalPrice": 4299,
+    "rating": 4.2,
+    "reviews": 92,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750670847/Electric_Tandoor_hjmpup.jpg",
+    "category": "Kitchen Appliances"
+  },
+  {
+    "name": "Smart LED TV 43 Inch",
+    "description": "Full HD Smart Android LED TV with built-in apps and voice control",
+    "price": 22999,
+    "originalPrice": 28999,
+    "rating": 4.5,
+    "reviews": 514,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750672057/Smart_LED_TV_43_Inch_d2ooot.jpg",
+    "category": "Electronics"
+  },
+  {
+    "name": "Front Load Washing Machine",
+    "description": "6.5 kg inverter fully automatic front load with hygiene steam",
+    "price": 27999,
+    "originalPrice": 34999,
+    "rating": 4.6,
+    "reviews": 402,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750672055/Front_Load_Washing_Machine_lw2uoi.jpg",
+    "category": "Home Appliances"
   },
   {
     "name": "Air Purifier with HEPA Filter",
@@ -303,7 +336,8 @@
     "originalPrice": 10999,
     "rating": 4.3,
     "reviews": 194,
-    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750671981/Air_Purifier_with_HEPA_Filter_ln44ic.jpg"
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750671981/Air_Purifier_with_HEPA_Filter_ln44ic.jpg",
+    "category": "Home Appliances"
   },
   {
     "name": "Split Air Conditioner 1.5 Ton",
@@ -312,7 +346,8 @@
     "originalPrice": 37999,
     "rating": 4.4,
     "reviews": 371,
-    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750672057/Split_Air_Conditioner_1.5_Ton_ox7gao.jpg"
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750672057/Split_Air_Conditioner_1.5_Ton_ox7gao.jpg",
+    "category": "Home Appliances"
   },
   {
     "name": "Ceiling Fan with Remote",
@@ -321,7 +356,8 @@
     "originalPrice": 3799,
     "rating": 4.2,
     "reviews": 141,
-    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750672055/Ceiling_Fan_with_Remote_luyciy.jpg"
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750672055/Ceiling_Fan_with_Remote_luyciy.jpg",
+    "category": "Home Appliances"
   },
   {
     "name": "Room Heater",
@@ -330,7 +366,8 @@
     "originalPrice": 1999,
     "rating": 4.1,
     "reviews": 238,
-    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750672056/Room_Heater_ojzufz.jpg"
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750672056/Room_Heater_ojzufz.jpg",
+    "category": "Home Appliances"
   },
   {
     "name": "Robot Vacuum Cleaner",
@@ -339,7 +376,8 @@
     "originalPrice": 19999,
     "rating": 4.4,
     "reviews": 309,
-    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750672056/Robot_Vacuum_Cleaner_f5whhk.jpg"
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750672056/Robot_Vacuum_Cleaner_f5whhk.jpg",
+    "category": "Home Appliances"
   },
   {
     "name": "Cordless Vacuum Cleaner",
@@ -348,7 +386,8 @@
     "originalPrice": 7999,
     "rating": 4.3,
     "reviews": 211,
-    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750672055/Cordless_Vacuum_Cleaner_pobotx.jpg"
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750672055/Cordless_Vacuum_Cleaner_pobotx.jpg",
+    "category": "Home Appliances"
   },
   {
     "name": "Tower Fan",
@@ -357,7 +396,8 @@
     "originalPrice": 4499,
     "rating": 4.1,
     "reviews": 124,
-    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750672057/Tower_Fan_g3oxiv.jpg"
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750672057/Tower_Fan_g3oxiv.jpg",
+    "category": "Home Appliances"
   },
   {
     "name": "Semi Automatic Washing Machine",
@@ -366,7 +406,8 @@
     "originalPrice": 13999,
     "rating": 4.3,
     "reviews": 166,
-    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750672056/Semi_Automatic_Washing_Machine_essmey.jpg"
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750672056/Semi_Automatic_Washing_Machine_essmey.jpg",
+    "category": "Home Appliances"
   },
   {
     "name": "Microwave Oven Convection 28L",
@@ -375,7 +416,8 @@
     "originalPrice": 10999,
     "rating": 4.4,
     "reviews": 198,
-    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750672056/Microwave_Oven_Convection_28L_xpfjnx.jpg"
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750672056/Microwave_Oven_Convection_28L_xpfjnx.jpg",
+    "category": "Kitchen Appliances"
   },
   {
     "name": "Inverter Refrigerator 260L",
@@ -384,7 +426,8 @@
     "originalPrice": 26999,
     "rating": 4.5,
     "reviews": 241,
-    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750672055/Inverter_Refrigerator_260L_uiovzi.jpg"
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750672055/Inverter_Refrigerator_260L_uiovzi.jpg",
+    "category": "Kitchen Appliances"
   },
   {
     "name": "Portable Air Cooler 20L",
@@ -393,7 +436,8 @@
     "originalPrice": 6999,
     "rating": 4.1,
     "reviews": 134,
-    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750672056/Portable_Air_Cooler_20L_jpkkz3.jpg"
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750672056/Portable_Air_Cooler_20L_jpkkz3.jpg",
+    "category": "Home Appliances"
   },
   {
     "name": "Iron Box Dry",
@@ -402,7 +446,8 @@
     "originalPrice": 1199,
     "rating": 4.0,
     "reviews": 89,
-    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750672056/Iron_Box_Dry_ht32um.jpg"
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750672056/Iron_Box_Dry_ht32um.jpg",
+    "category": "Kitchen Appliances"
   },
   {
     "name": "Mosquito Killer Lamp",
@@ -411,7 +456,8 @@
     "originalPrice": 1499,
     "rating": 4.2,
     "reviews": 95,
-    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750672056/Mosquito_Killer_Lamp_l9pyg9.jpg"
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750672056/Mosquito_Killer_Lamp_l9pyg9.jpg",
+    "category": "Home Appliances"
   },
   {
     "name": "Electric Blanket",
@@ -420,7 +466,8 @@
     "originalPrice": 2199,
     "rating": 4.1,
     "reviews": 78,
-    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750672055/Electric_Blanket_nmdmzy.jpg"
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750672055/Electric_Blanket_nmdmzy.jpg",
+    "category": "Home Appliances"
   },
   {
     "name": "LED Emergency Light",
@@ -429,7 +476,8 @@
     "originalPrice": 899,
     "rating": 4.0,
     "reviews": 61,
-    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750672056/LED_Emergency_Light_i4gj7b.jpg"
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750672056/LED_Emergency_Light_i4gj7b.jpg",
+    "category": "Home Appliances"
   },
   {
     "name": "Smart Doorbell Camera",
@@ -438,7 +486,8 @@
     "originalPrice": 4799,
     "rating": 4.4,
     "reviews": 114,
-    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750672056/Smart_Doorbell_Camera_j9xnhw.jpg"
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750672056/Smart_Doorbell_Camera_j9xnhw.jpg",
+    "category": "Electronics"
   },
   {
     "name": "Electric Air Pump",
@@ -447,84 +496,87 @@
     "originalPrice": 1199,
     "rating": 4.3,
     "reviews": 72,
-    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750672055/Electric_Air_Pump_wnfvp1.jpg"
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750672055/Electric_Air_Pump_wnfvp1.jpg",
+    "category": "Home Appliances"
   },
-
-  
-    {
-        "name": "Wooden Coffee Table",
-        "description": "Solid wood coffee table with storage shelf and rustic finish",
-        "price": 3499,
-        "originalPrice": 4999,
-        "rating": 4.5,
-        "reviews": 198,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673985/Wooden_Coffee_Table_grxrcv.jpg"
-    },
-    {
-        "name": "Recliner Chair",
-        "description": "Manual fabric recliner with adjustable back and footrest",
-        "price": 12999,
-        "originalPrice": 15999,
-        "rating": 4.6,
-        "reviews": 234,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673980/Recliner_Chair_vcrkg8.jpg"
-    },
-    {
-        "name": "Bookshelf 5-Tier",
-        "description": "Freestanding bookshelf with modern open shelves for living room",
-        "price": 2799,
-        "originalPrice": 3999,
-        "rating": 4.4,
-        "reviews": 146,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673979/Bookshelf_5-Tier_pf5s2u.jpg"
-    },
-    {
-        "name": "King Size Bed Frame",
-        "description": "Solid wood king size bed with headboard and slats",
-        "price": 18499,
-        "originalPrice": 22999,
-        "rating": 4.5,
-        "reviews": 312,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673979/King_Size_Bed_Frame_mh4ldz.jpg"
-    },
-    {
-        "name": "L-Shaped Sofa Set",
-        "description": "Modern L-shaped fabric sectional sofa with cushions",
-        "price": 22999,
-        "originalPrice": 29999,
-        "rating": 4.7,
-        "reviews": 412,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673979/L-Shaped_Sofa_Set_bq6iqr.jpg"
-    },
-    {
-        "name": "Dining Table Set 4-Seater",
-        "description": "Wooden dining table with 4 cushioned chairs",
-        "price": 9499,
-        "originalPrice": 12499,
-        "rating": 4.3,
-        "reviews": 183,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673979/Dining_Table_Set_4-Seater_b2scpd.jpg"
-    },
-    {
-        "name": "Wardrobe with Mirror",
-        "description": "3-door wooden wardrobe with mirror and spacious drawers",
-        "price": 14999,
-        "originalPrice": 19999,
-        "rating": 4.4,
-        "reviews": 203,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673984/Wardrobe_with_Mirror_zg093n.jpg"
-    },
-    {
-        "name": "TV Unit with Storage",
-        "description": "Modern entertainment unit with shelves and cabinets",
-        "price": 5599,
-        "originalPrice": 7999,
-        "rating": 4.2,
-        "reviews": 97,
-        "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673984/TV_Unit_with_Storage_yngygg.jpg"
-    }
-    
-   
-    
-
+  {
+    "name": "Wooden Coffee Table",
+    "description": "Solid wood coffee table with storage shelf and rustic finish",
+    "price": 3499,
+    "originalPrice": 4999,
+    "rating": 4.5,
+    "reviews": 198,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673985/Wooden_Coffee_Table_grxrcv.jpg",
+    "category": "Furniture"
+  },
+  {
+    "name": "Recliner Chair",
+    "description": "Manual fabric recliner with adjustable back and footrest",
+    "price": 12999,
+    "originalPrice": 15999,
+    "rating": 4.6,
+    "reviews": 234,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673980/Recliner_Chair_vcrkg8.jpg",
+    "category": "Furniture"
+  },
+  {
+    "name": "Bookshelf 5-Tier",
+    "description": "Freestanding bookshelf with modern open shelves for living room",
+    "price": 2799,
+    "originalPrice": 3999,
+    "rating": 4.4,
+    "reviews": 146,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673979/Bookshelf_5-Tier_pf5s2u.jpg",
+    "category": "Furniture"
+  },
+  {
+    "name": "King Size Bed Frame",
+    "description": "Solid wood king size bed with headboard and slats",
+    "price": 18499,
+    "originalPrice": 22999,
+    "rating": 4.5,
+    "reviews": 312,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673979/King_Size_Bed_Frame_mh4ldz.jpg",
+    "category": "Furniture"
+  },
+  {
+    "name": "L-Shaped Sofa Set",
+    "description": "Modern L-shaped fabric sectional sofa with cushions",
+    "price": 22999,
+    "originalPrice": 29999,
+    "rating": 4.7,
+    "reviews": 412,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673979/L-Shaped_Sofa_Set_bq6iqr.jpg",
+    "category": "Furniture"
+  },
+  {
+    "name": "Dining Table Set 4-Seater",
+    "description": "Wooden dining table with 4 cushioned chairs",
+    "price": 9499,
+    "originalPrice": 12499,
+    "rating": 4.3,
+    "reviews": 183,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673979/Dining_Table_Set_4-Seater_b2scpd.jpg",
+    "category": "Furniture"
+  },
+  {
+    "name": "Wardrobe with Mirror",
+    "description": "3-door wooden wardrobe with mirror and spacious drawers",
+    "price": 14999,
+    "originalPrice": 19999,
+    "rating": 4.4,
+    "reviews": 203,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673984/Wardrobe_with_Mirror_zg093n.jpg",
+    "category": "Furniture"
+  },
+  {
+    "name": "TV Unit with Storage",
+    "description": "Modern entertainment unit with shelves and cabinets",
+    "price": 5599,
+    "originalPrice": 7999,
+    "rating": 4.2,
+    "reviews": 97,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673984/TV_Unit_with_Storage_yngygg.jpg",
+    "category": "Furniture"
+  }
 ]
