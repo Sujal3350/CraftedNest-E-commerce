@@ -7,6 +7,7 @@ import sofa from '../../assets/decor.avif';
 import shelf from '../../assets/shelf.jpg';
 import axios from 'axios';
 import homebg from '../../assets/home bg.avif';
+import { toast } from 'react-toastify';
 
 function Home() {
   const [isVisible, setIsVisible] = useState(false);
@@ -36,10 +37,10 @@ function Home() {
         product: cleanProduct,
       });
 
-      alert("Added to cart successfully!");
+      toast.success("Added to cart successfully!");
     } catch (error) {
       console.error("Error adding to cart", error);
-      alert("Failed to add to cart.");
+      toast.error("Failed to add to cart.");
     }
   };
 
