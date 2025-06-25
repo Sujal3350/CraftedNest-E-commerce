@@ -29,6 +29,110 @@
     "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673984/Study_Table_with_Drawer_wqhmyb.jpg",
     "category": "Furniture"
   },
+
+
+  {
+    "name": "Multipurpose Storage Cabinet",
+    "description": "Wooden 4-door cabinet for kitchen, living room or office use",
+    "price": 2999,
+    "originalPrice": 4299,
+    "rating": 4.3,
+    "reviews": 88,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750833736/Multipurpose_Storage_Cabinet_nbiifu.jpg",
+    "category": "Storage"
+  },
+  {
+    "name": "Under-Bed Storage Box (Set of 2)",
+    "description": "Foldable fabric storage bins with zip cover and handles",
+    "price": 1149,
+    "originalPrice": 1599,
+    "rating": 4.4,
+    "reviews": 120,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750833740/Under-Bed_Storage_Box_Set_of_2_t2doai.jpg",
+    "category": "Storage"
+  },
+  {
+    "name": "Plastic Drawer Organizer (4-Tier)",
+    "description": "Compact multi-purpose organizer with 4 drawers for home or office",
+    "price": 1799,
+    "originalPrice": 2499,
+    "rating": 4.1,
+    "reviews": 102,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750833740/Plastic_Drawer_Organizer_4-Tier_iczrgm.jpg",
+    "category": "Storage"
+  },
+  {
+    "name": "Over-the-Door Shoe Rack",
+    "description": "Space-saving 12-pair metal shoe organizer for closet or bedroom",
+    "price": 1399,
+    "originalPrice": 1899,
+    "rating": 4.2,
+    "reviews": 97,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750833737/Over-the-Door_Shoe_Rack_ey3itw.jpg",
+    "category": "Storage"
+  },
+  {
+    "name": "Kitchen Wall Storage Rack",
+    "description": "Metal spice rack with hooks for utensils and jars",
+    "price": 799,
+    "originalPrice": 1199,
+    "rating": 4.3,
+    "reviews": 83,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750833735/Kitchen_Wall_Storage_Rack_kzlpnd.jpg",
+    "category": "Storage"
+  },
+  {
+    "name": "Foldable Storage Ottoman",
+    "description": "Storage box cum seating ottoman with cushioned top",
+    "price": 1299,
+    "originalPrice": 1899,
+    "rating": 4.5,
+    "reviews": 65,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750833735/Foldable_Storage_Ottoman_bqkbsp.jpg",
+    "category": "Storage"
+  },
+  {
+    "name": "Wall-Mounted Bookshelf",
+    "description": "Floating bookshelf rack with wooden finish and metal brackets",
+    "price": 1599,
+    "originalPrice": 2199,
+    "rating": 4.4,
+    "reviews": 110,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750833741/Wall-Mounted_Bookshelf_drpz4a.jpg",
+    "category": "Storage"
+  },
+  {
+    "name": "Hanging Closet Organizer",
+    "description": "5-shelf hanging wardrobe fabric organizer with sturdy hooks",
+    "price": 699,
+    "originalPrice": 999,
+    "rating": 4.1,
+    "reviews": 79,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750833735/Hanging_Closet_Organizer_tckmvw.jpg",
+    "category": "Storage"
+  },
+  {
+    "name": "Modular Kitchen Storage Rack",
+    "description": "3-tier multipurpose rack for kitchen or bathroom",
+    "price": 899,
+    "originalPrice": 1299,
+    "rating": 4.3,
+    "reviews": 91,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750833735/Modular_Kitchen_Storage_Rack_cgueel.jpg",
+    "category": "Storage"
+  },
+  {
+    "name": "Rotating Spice Rack Organizer",
+    "description": "360-degree rotating spice stand with 12 glass jars",
+    "price": 1099,
+    "originalPrice": 1499,
+    "rating": 4.5,
+    "reviews": 122,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750833740/Rotating_Spice_Rack_Organizer_k5yaur.jpg",
+    "category": "Storage"
+  },
+
+
   {
     "name": "Shoe Rack Wooden",
     "description": "3-tier wooden shoe rack with seating top",
@@ -578,5 +682,65 @@
     "reviews": 97,
     "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750673984/TV_Unit_with_Storage_yngygg.jpg",
     "category": "Furniture"
+  },
+  {
+    "name": "Automatic Roti Maker",
+    "description": "Non-stick electric roti maker with temperature control and power indicator",
+    "price": 2299,
+    "originalPrice": 2999,
+    "rating": 4.1,
+    "reviews": 132,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750833046/Automatic_Roti_Maker_ox503j.jpg",
+    "category": "Electronics"
+  },
+  {
+    "name": "Electric Vegetable Peeler",
+    "description": "Cordless rechargeable peeler with stainless steel blade",
+    "price": 899,
+    "originalPrice": 1299,
+    "rating": 4.0,
+    "reviews": 67,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750833046/Electric_Vegetable_Peeler_fm2fng.jpg",
+    "category": "Electronics"
+  },
+  {
+    "name": "Chopper & Food Processor",
+    "description": "Manual hand chopper for vegetables, fruits, and nuts with 3-blade system",
+    "price": 799,
+    "originalPrice": 1099,
+    "rating": 4.4,
+    "reviews": 204,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750833046/Chopper_Food_Processor_exsx2g.jpg",
+    "category": "Electronics"
+  },
+  {
+    "name": "Compact Dishwasher Rack",
+    "description": "Foldable stainless steel dish rack with utensil holder and tray",
+    "price": 1199,
+    "originalPrice": 1599,
+    "rating": 4.1,
+    "reviews": 95,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750833046/Compact_Dishwasher_Rack_wvmbtv.jpg",
+    "category": "Electronics"
+  },
+  {
+    "name": "Induction Cooktop",
+    "description": "Touch control cooktop with preset cooking modes and energy-efficient design",
+    "price": 2499,
+    "originalPrice": 3299,
+    "rating": 4.3,
+    "reviews": 221,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750833046/Induction_Cooktop_eoa2q9.jpg",
+    "category": "Electronics"
+  },
+  {
+    "name": "Smart LED Aroma Diffuser",
+    "description": "Ultrasonic essential oil diffuser with color-changing LED and timer",
+    "price": 1499,
+    "originalPrice": 1999,
+    "rating": 4.5,
+    "reviews": 142,
+    "image": "https://res.cloudinary.com/dlltgglm3/image/upload/v1750833046/Smart_LED_Aroma_Diffuser_n6k27x.jpg",
+    "category": "Electronics"
   }
 ]
