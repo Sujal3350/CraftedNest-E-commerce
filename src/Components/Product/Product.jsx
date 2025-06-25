@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faCartShopping, faSearch, faTimes, faFilter, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { FcSearch } from 'react-icons/fc';
 
 function Product() {
   const [products, setProducts] = useState([]);
@@ -88,6 +89,7 @@ function Product() {
               className="w-full p-1.5 sm:p-2 pl-8 pr-8 bg-white text-gray-900 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400 text-xs sm:text-base font-poppins"
               aria-label="Search products"
             />
+            <FcSearch className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 text-xs sm:text-base" />
             {searchTerm && (
               <FontAwesomeIcon
                 icon={faTimes}

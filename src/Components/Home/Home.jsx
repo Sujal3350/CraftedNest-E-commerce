@@ -14,9 +14,7 @@ function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
-  const [roomStyle, setRoomStyle] = useState('Modern');
-  const [isChatOpen, setIsChatOpen] = useState(false);
-  const [chatMessage, setChatMessage] = useState('');
+
 
   const handleAddToCart = async (product) => {
     // Use logged-in userId from localStorage (set during login)

@@ -3,7 +3,7 @@ import axios from 'axios';
 
 function Cart() {
   const [cartItems, setCartItems] = useState([]);
-  const userId = JSON.parse(localStorage.getItem('user'))?.id; // Assuming user ID is stored in localStorage
+  const userId = JSON.parse(localStorage.getItem('user'))?.id;
 
   useEffect(() => {
     async function fetchCart() {
@@ -55,14 +55,13 @@ function Cart() {
   };
 
   const handleCheckout = () => {
-    // Placeholder for checkout logic
     alert('Proceeding to checkout...');
-    // In a real app, this would redirect to a checkout page or payment gateway
   };
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <h2 className="text-2xl text-center font-bold mb-6">Your Cart</h2>
+    <div className="p-4 sm:p-6 max-w-6xl mx-auto">
+      <h2 className="text-xl sm:text-2xl text-center font-bold mb-6">Your Cart</h2>
+
       {cartItems.length === 0 ? (
         <p className="text-gray-600 text-center">Your cart is empty</p>
       ) : (
@@ -71,17 +70,22 @@ function Cart() {
             {cartItems.map((item) => (
               <div
                 key={item.productId}
-                className="flex gap-4 items-center border-b py-4"
+                className="flex items-center justify-between gap-4 border-b pb-4 flex-wrap sm:flex-nowrap"
               >
+                {/* Product Image */}
                 <img
                   src={item.image}
                   alt={item.name}
-                  className="w-24 h-24 object-cover rounded"
+                  className="w-24 h-24 object-cover rounded flex-shrink-0"
                 />
-                <div className="flex-1">
-                  <h3 className="text-lg font-bold">{item.name}</h3>
-                  <p className="text-gray-600">₹{item.price.toFixed(2)}</p>
-                  <div className="flex items-center gap-2 mt-2">
+
+                {/* Product Details */}
+                <div className="flex-1 min-w-[180px]">
+                  <h3 className="text-base font-semibold leading-tight">{item.name}</h3>
+                  <p className="text-sm text-gray-600">₹{item.price.toFixed(2)}</p>
+
+                  {/* Quantity Buttons */}
+                  <div className="flex items-center gap-2 mt-2 flex-wrap sm:flex-nowrap">
                     <button
                       onClick={() => handleRemoveQuantity(item)}
                       className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300"
@@ -89,7 +93,7 @@ function Cart() {
                     >
                       -
                     </button>
-                    <span className="px-3">{item.quantity}</span>
+                    <span className="px-2">{item.quantity}</span>
                     <button
                       onClick={() => handleAddQuantity(item)}
                       className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300"
@@ -98,25 +102,27 @@ function Cart() {
                     </button>
                     <button
                       onClick={() => removeItem(item.productId)}
-                      className="ml-4 text-red-500 hover:text-red-700"
+                      className="ml-2 text-red-500 hover:text-red-700 text-sm"
                     >
                       Remove
                     </button>
                   </div>
                 </div>
-                <p className="font-semibold">
+
+                {/* Total for Item */}
+                <div className="text-right font-semibold text-sm sm:text-base min-w-[80px]">
                   ₹{(item.price * item.quantity).toFixed(2)}
-                </p>
+                </div>
               </div>
             ))}
           </div>
-          <div className="mt-6 flex justify-between items-center">
-            <h3 className="text-xl font-bold">
-              Total: ₹{calculateTotal()}
-            </h3>
+
+          {/* Total & Checkout */}
+          <div className="mt-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <h3 className="text-xl font-bold">Total: ₹{calculateTotal()}</h3>
             <button
               onClick={handleCheckout}
-              className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+              className="w-full md:w-auto px-6 py-2 bg-black text-white rounded hover:bg-white hover:text-black border border-black transition-colors duration-300"
             >
               Proceed to Checkout
             </button>
