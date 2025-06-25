@@ -163,6 +163,16 @@ function Product() {
                 </label>
               ))}
             </div>
+            {/* Clear Filters Button */}
+            <button
+              onClick={() => {
+                setSelectedCategory('All');
+                setSelectedPriceRange([0, Infinity]);
+              }}
+              className="w-full mt-2 sm:mt-4 bg-gray-200 text-gray-700 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-base rounded-lg hover:bg-gray-300 transition-colors duration-300"
+            >
+              Clear Filters
+            </button>
             <button
               onClick={() => setIsFilterOpen(false)}
               className="lg:hidden w-full mt-3 sm:mt-6 bg-blue-600 text-white px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-base rounded-lg hover:bg-blue-700 transition-colors duration-300"
