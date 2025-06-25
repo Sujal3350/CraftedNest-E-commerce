@@ -43,7 +43,7 @@ function Product() {
   // Fetch products from backend API
   useEffect(() => {
     setLoading(true);
-    fetch('http://localhost:5000/api/products')
+    fetch('https://craftednest.onrender.com/api/products')
       .then(res => res.json())
       .then(data => {
         setProducts(data);
