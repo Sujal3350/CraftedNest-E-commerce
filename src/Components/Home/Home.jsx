@@ -6,6 +6,7 @@ import chair from '../../assets/Cane Lounge Chair.jpg';
 import sofa from '../../assets/decor.avif';
 import shelf from '../../assets/shelf.jpg';
 import axios from 'axios';
+import homebg from '../../assets/home bg.avif';
 
 function Home() {
   const [isVisible, setIsVisible] = useState(false);
@@ -111,9 +112,11 @@ function Home() {
     <div className="min-h-screen bg-[#F7F7F7] font-poppins">
       {/* Hero Section */}
       <section className={`relative h-screen overflow-hidden ${isVisible ? 'animate-fade-in' : ''}`}>
-        <video autoPlay muted loop className="absolute inset-0 w-full h-full object-cover">
-          {/* <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" /> */}
-        </video>
+        <img
+          src={homebg}
+          alt="Hero Background"
+          className="absolute inset-0 object-cover  w-full h-full"
+        />
         <div className="absolute inset-0 bg-black/40"></div>
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-white text-center px-4 sm:px-6">
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight">Transform Your Space with CraftedNest</h1>
