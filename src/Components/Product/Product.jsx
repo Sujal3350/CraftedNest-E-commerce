@@ -113,7 +113,7 @@ function Product() {
           className={`lg:w-64 flex-shrink-0 ${isFilterOpen ? 'fixed inset-0 bg-black/50 z-50 lg:bg-transparent lg:static' : 'hidden lg:block'} lg:h-auto`}
         >
           <div
-            className={`bg-white sm:rounded-xl shadow-md p-3 sm:p-6 border border-gray-200 lg:sticky lg:top-24 ${isFilterOpen ? 'w-3/4 max-w-xs h-full overflow-y-auto' : ''}`}
+            className={`bg-white shadow-md p-3 sm:p-6 border border-gray-200 lg:sticky lg:top-24 ${isFilterOpen ? 'w-3/4 max-w-xs h-full overflow-y-auto' : ''}`}
           >
             <div className="flex  justify-between items-center mb-2 sm:mb-4">
               <h3 className="text-base sm:text-lg font-semibold text-gray-900">Filters</h3>
@@ -211,13 +211,13 @@ function Product() {
                   <div className="p-2 sm:p-4 pt-0 flex items-center justify-between">
                     <button
                       onClick={() => handleAddToCart(product)}
-                      className="flex items-center gap-1 sm:gap-2 bg-blue-600 text-white font-semibold px-2 sm:px-4 py-1 sm:py-2 text-xs sm:text-base rounded-lg transition-all duration-300 hover:bg-blue-700 active:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="flex items-center gap-1 sm:gap-2 bg-black text-white font-semibold px-2 sm:px-4 py-1 sm:py-2 text-xs sm:text-base rounded-lg transition-all duration-300 "
                       aria-label="Add to Cart"
                     >
                       <FontAwesomeIcon icon={faCartShopping} className="text-xs sm:text-sm" /> Add to Cart
                     </button>
                     <button
-                      className="text-blue-600 h-8 sm:h-10 w-8 sm:w-10 flex items-center transition-colors duration-300 hover:text-blue-800 focus:outline-none"
+                      className="  h-8 sm:h-10 w-8 sm:w-10 flex items-center transition-colors duration-300 hover:text-red-500 focus:outline-none"
                       aria-label="Add to Wishlist"
                     >
                       <FontAwesomeIcon icon={faHeart} style={{ fontSize: '1.25rem sm:1.5rem' }} />
