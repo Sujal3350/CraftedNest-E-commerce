@@ -106,7 +106,7 @@ function Header() {
           </ul>
 
           {/* Icons */}
-          <div className="flex justify-center w-full max-w-[171px]">
+          <div className="flex justify-center gap-2 w-full max-w-[171px]">
             <NavLink 
               to="/cart" 
               className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`}

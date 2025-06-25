@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faCartShopping, faSearch, faTimes, faFilter, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 function Product() {
   const [products, setProducts] = useState([]);
@@ -31,10 +32,10 @@ function Product() {
         product: cleanProduct,
       });
 
-      alert("Added to cart successfully!");
+      toast.success("Added to cart successfully!");
     } catch (error) {
       console.error("Error adding to cart", error);
-      alert("Failed to add to cart.");
+      toast.error("Failed to add to cart.");
     }
   };
 
@@ -113,10 +114,10 @@ function Product() {
           className={`lg:w-64 flex-shrink-0 ${isFilterOpen ? 'fixed inset-0 bg-black/50 z-50 lg:bg-transparent lg:static' : 'hidden lg:block'} lg:h-auto`}
         >
           <div
-            className={`bg-white shadow-md p-3 sm:p-6 border border-gray-200 lg:sticky lg:top-24 ${isFilterOpen ? 'w-3/4 max-w-xs h-full overflow-y-auto' : ''}`}
+            className={`bg-gray-50 shadow-md p-3 sm:p-6 border border-gray-200 lg:sticky lg:top-24 ${isFilterOpen ? 'w-3/4 max-w-xs h-full overflow-y-auto' : ''}`}
           >
             <div className="flex  justify-between items-center mb-2 sm:mb-4">
-              <h3 className="text-base sm:text-lg font-semibold text-gray-900">Filters</h3>
+              <h3 className="text-base sm:text-lg font-semibold text-gray-700">Filters</h3>
               <button
                 onClick={() => setIsFilterOpen(false)}
                 className="lg:hidden text-gray-400 hover:text-gray-600"
@@ -127,7 +128,7 @@ function Product() {
 
             {/* Category Filter */}
             <div className="mb-4 sm:mb-6">
-              <h4 className="text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">Category</h4>
+              <h4 className="text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">Category</h4>
               {categories.map((cat) => (
                 <label key={cat} className="flex items-center gap-1 sm:gap-2 mb-1 sm:mb-2">
                   <input
@@ -144,7 +145,7 @@ function Product() {
 
             {/* Price Range Filter */}
             <div>
-              <h4 className="text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">Price Range</h4>
+              <h4 className="text-xs sm:text-sm  text-gray-700 font-semibold mb-1 sm:mb-2">Price Range</h4>
               {[
                 { label: '₹0 - ₹2000', min: 0, max: 2000 },
                 { label: '₹2000 - ₹5000', min: 2000, max: 5000 },
@@ -169,7 +170,7 @@ function Product() {
                 setSelectedCategory('All');
                 setSelectedPriceRange([0, Infinity]);
               }}
-              className="w-full mt-2 sm:mt-4 bg-black text-white px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-base rounded-lg "
+              className="w-full mt-2 sm:mt-4 bg-gray-300 font-semibold text-black px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-base rounded-lg "
             >
               Clear Filters
             </button>
@@ -196,13 +197,13 @@ function Product() {
               {filteredProducts.map((product) => (
                 <div
                   key={product._id || product.name}
-                  className="bg-white rounded-lg sm:rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-200 group"
+                  className="bg-gray-200 rounded-lg sm:rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-200 group"
                 >
-                  <div className="p-2 sm:p-4 flex justify-center items-center bg-white">
+                  <div className="p-2 sm:p-4 flex justify-center items-center bg-gray-200">
                     <img
                       src={product.image}
                       alt={product.name}
-                      className="rounded-md object-cover w-full h-32 sm:h-48 max-w-full transition-transform duration-300 group-hover:scale-105"
+                      className="rounded-md object-cover w-full h-32 sm:h-48 max-w-full "
                     />
                   </div>
                   <div className="px-2 sm:px-4 pb-2 sm:pb-4">
@@ -221,16 +222,16 @@ function Product() {
                   <div className="p-2 sm:p-4 pt-0 flex items-center justify-between">
                     <button
                       onClick={() => handleAddToCart(product)}
-                      className="flex items-center gap-1 sm:gap-2 bg-black text-white font-semibold px-2 sm:px-4 py-1 sm:py-2 text-xs sm:text-base rounded-lg transition-all duration-300 "
+                      className="flex items-center gap-1 sm:gap-2 bg-gray-100 text-black font-semibold px-2 sm:px-4 py-1 sm:py-2 text-xs sm:text-base rounded-lg  "
                       aria-label="Add to Cart"
                     >
                       <FontAwesomeIcon icon={faCartShopping} className="text-xs sm:text-sm" /> Add to Cart
                     </button>
                     <button
-                      className="  h-8 sm:h-10 w-8 sm:w-10 flex items-center transition-colors duration-300 hover:text-red-500 focus:outline-none"
+                      className="  bg-gray-100 text-gray- font-semibold px-2 sm:px-4 py-1 sm:py-2 text-xs sm:text-base rounded-lg flex items-center "
                       aria-label="Add to Wishlist"
                     >
-                      <FontAwesomeIcon icon={faHeart} style={{ fontSize: '1.25rem sm:1.5rem' }} />
+                      <FontAwesomeIcon icon={faHeart} style={{ fontSize: '1.25rem sm:1.5rem' }}  /> 
                     </button>
                   </div>
                 </div>

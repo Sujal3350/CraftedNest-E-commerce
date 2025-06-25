@@ -41,18 +41,18 @@ app.post('/api/gemini', async (req, res) => {
 const mongoose = require('mongoose');
 const productRoutes = require('./routes/productRoutes');
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
 
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
-}).then(() => console.log('MongoDB connected'))
+}).then(() => console.log('✅ MongoDB connected'))
   .catch((err) => console.error(err));
 
 app.use('/api/products', productRoutes);
 
 app.listen(5000, () => {
-  console.log('Server running on port 5000');
+  console.log('🚀 Server running on port 5000');
 });
 
 
