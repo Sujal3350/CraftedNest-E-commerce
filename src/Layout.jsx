@@ -5,8 +5,8 @@ import {Outlet, useLocation} from 'react-router-dom'
 
 const Layout = () => {
   const location=useLocation();
-  const hideHeader = location.pathname === '/user' || location.pathname === '/signup' ;
-  const hideFooter = location.pathname === '/user' || location.pathname === '/signup';
+  const hideHeader = location.pathname === '/' || location.pathname === '/signup' ;
+  const hideFooter = location.pathname === '/' || location.pathname === '/signup';
   return (
     <>
     {!hideHeader && <Header/>}

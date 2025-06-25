@@ -24,7 +24,7 @@ const handleClick = async (e) => {
     localStorage.setItem("user", JSON.stringify({ id: user.uid, email: user.email }));
 
     toast.success("Login successful!");
-    navigate("/"); // ✅ Use navigate instead of window.location.href
+    navigate("home"); // ✅ Use navigate instead of window.location.href
   } catch (error) {
     toast.error("Login failed. Please check your credentials.");
     console.error(error);

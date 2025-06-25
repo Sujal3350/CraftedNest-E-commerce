@@ -36,7 +36,7 @@ function Header() {
       localStorage.removeItem('user'); // Clear user data from localStorage
       localStorage.setItem('loggedIn', 'false'); // Update localStorage
       toast.success("Logout successful!");
-      navigate('/user');
+      navigate('/');
     } catch (error) {
       console.error("Logout error:", error);
       toast.error("Logout failed. Please try again.");

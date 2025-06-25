@@ -23,14 +23,14 @@ const router=createBrowserRouter(
   createRoutesFromElements(
     
     <Route path='/' element={<Layout/>}>
-      <Route path='' element={<Home/>}/>
-      <Route path='product' element={<Product/>}/>
-      <Route path='about' element={<About/>}/>
-      <Route path='Contact' element={<Contact/>}/>
-      <Route path='cart' element={<Cart/>}/>
-      <Route path='user' element={<User/>}/>
-      <Route path='signup' element={<Signup/>}/>
-      <Route path='chat' element={<Chat/>}/>
+      <Route path='/home' element={<Home/>}/>
+      <Route path='/product' element={<Product/>}/>
+      <Route path='/about' element={<About/>}/>
+      <Route path='/contact' element={<Contact/>}/>
+      <Route path='/cart' element={<Cart/>}/>
+      <Route path='' element={<User/>}/>
+      <Route path='/signup' element={<Signup/>}/>
+      <Route path='/chat' element={<Chat/>}/>
     </Route>
     
   )

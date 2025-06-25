@@ -43,7 +43,7 @@ const handleRegister = async (e) => {
 
     // 4. Show success toast and navigate
     toast.success("Signup successful!");
-    navigate("/");
+    navigate("/home");
     
   } catch (error) {
     console.error("Signup error:", error);
@@ -154,7 +154,7 @@ const handleRegister = async (e) => {
           {/* Bottom Text */}
           <p className="text-center text-xs sm:text-sm pb-8 md:pb-10">
             Already have an account?{" "}
-            <Link to="/user" className="font-semibold hover:underline">
+            <Link to="/" className="font-semibold hover:underline">
               Log In
             </Link>
           </p>
