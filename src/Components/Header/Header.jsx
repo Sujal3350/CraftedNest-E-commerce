@@ -121,7 +121,7 @@ function Header() {
               </button>
             ) : (
               <NavLink 
-                to="/user" 
+                to="/signup" 
                 className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`}
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -143,7 +143,7 @@ function Header() {
       <nav className="hidden lg:flex items-center gap-8">
         <ul className='flex gap-6 text-gray-800 font-medium items-center'>
           <li>
-            <NavLink to="/" className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`}>
+            <NavLink to="/home" className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`}>
               Home
             </NavLink>
           </li>
