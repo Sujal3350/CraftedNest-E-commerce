@@ -8,7 +8,7 @@ function Cart() {
   useEffect(() => {
     async function fetchCart() {
       try {
-        const res = await axios.get(`http://localhost:5000/api/cart/${userId}`);
+        const res = await axios.get(`https://craftednest.onrender.com/api/cart/${userId}`);
         setCartItems(res.data.items);
       } catch (error) {
         console.error('Error fetching cart:', error);
@@ -19,7 +19,7 @@ function Cart() {
 
   const updateQuantity = async (productId, quantity) => {
     try {
-      const res = await axios.put(`http://localhost:5000/api/cart/${userId}`, {
+      const res = await axios.put(`https://craftednest.onrender.com/api/cart/${userId}`, {
         productId,
         quantity,
       });
@@ -43,7 +43,7 @@ function Cart() {
 
   const removeItem = async (productId) => {
     try {
-      const res = await axios.delete(`http://localhost:5000/api/cart/${userId}/${productId}`);
+      const res = await axios.delete(`https://craftednest.onrender.com/api/cart/${userId}/${productId}`);
       setCartItems(res.data.items);
     } catch (error) {
       console.error('Error removing item:', error);

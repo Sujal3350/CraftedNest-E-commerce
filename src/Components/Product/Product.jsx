@@ -28,7 +28,7 @@ function Product() {
         price: Number(String(product.price).replace(/[₹,]/g, "")),
       };
 
-      await axios.post("http://localhost:5000/api/cart/add", {
+      await axios.post("https://craftednest.onrender.com/api/cart/add", {
         userId,
         product: cleanProduct,
       });
