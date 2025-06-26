@@ -13,6 +13,7 @@ import Cart from './Components/Cart/Cart.jsx'
 import User from './Components/User/User.jsx'
 import Signup from './Components/Signup/Signup.jsx'
 import Chat from './Components/Chat/Chat.jsx'
+import Wishlist from './Components/Wishlist/Wishlist.jsx'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -31,6 +32,7 @@ const router=createBrowserRouter(
       <Route path='/' element={<User/>}/>
       <Route path='/signup' element={<Signup/>}/>
       <Route path='/chat' element={<Chat/>}/>
+      <Route path='/wishlist' element={<Wishlist/>}/>
     </Route>
     
   )

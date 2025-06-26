@@ -1,5 +1,3 @@
-
-
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
@@ -91,3 +89,6 @@ router.post('/add', async (req, res) => {
 });
 
 module.exports = router;
+
+const wishlistRoutes = require('./routes/wishlist');
+app.use('/api/wishlist', wishlistRoutes);

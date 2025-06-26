@@ -40,6 +40,26 @@ function Product() {
     }
   };
 
+  // Wishlist handler
+  const handleWishlist = async (product) => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const userId = storedUser?.id || "guest";
+    try {
+      await axios.post("/api/wishlist/add", {
+        userId,
+        product: {
+          _id: product._id,
+          name: product.name,
+          price: Number(String(product.price).replace(/[₹,]/g, "")),
+          image: product.image,
+        },
+      });
+      toast.success("Added to wishlist!");
+    } catch (err) {
+      toast.error("Failed to add to wishlist");
+    }
+  };
+
   // Fetch products from backend API
   useEffect(() => {
     setLoading(true);
@@ -228,11 +248,8 @@ function Product() {
                     >
                       <FontAwesomeIcon icon={faCartShopping} className="text-xs sm:text-sm" /> Add to Cart
                     </button>
-                    <button
-                      className="w-full flex items-center justify-center gap-1 sm:gap-2 bg-white text-black font-semibold px-2 sm:px-4 py-1 sm:py-2 text-xs sm:text-base rounded-lg border border-gray-300  hover:bg-gray-300 transition-colors duration-300"
-                      aria-label="Add to Wishlist"
-                    >
-                      <FontAwesomeIcon icon={faHeart} className="text-base sm:text-lg" /> Wishlist
+                    <button onClick={() => handleWishlist(product)} className="text-red-500 h-10 w-10 flex items-center">
+                      <FontAwesomeIcon icon={faHeart} style={{ fontSize: '1.5rem' }} />
                     </button>
                   </div>
                 </div>

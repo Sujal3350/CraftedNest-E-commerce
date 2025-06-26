@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faCartShopping, faBars, faTimes, faComment, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faHeart, faCartShopping, faBars, faTimes, faComment, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { RiGeminiFill } from "react-icons/ri";
 import { toast } from 'react-toastify';
 import { auth } from '../firebase'; // Import Firebase auth
 import { onAuthStateChanged, signOut } from 'firebase/auth'; // Import Firebase auth methods
+
+
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -135,6 +137,13 @@ function Header() {
             >
               <FontAwesomeIcon icon={faComment} className="text-lg" />
             </NavLink>
+            <NavLink 
+              to="/wishlist" 
+              className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <FontAwesomeIcon icon={faHeart} className="text-lg" title="Wishlist" />
+            </NavLink>
           </div>
         </div>
       )}
@@ -182,6 +191,9 @@ function Header() {
         )}
         <NavLink to="/chat" className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`}>
           <RiGeminiFill className="text-lg" />
+        </NavLink>
+        <NavLink to="/wishlist" className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`}>
+          <FontAwesomeIcon icon={faHeart} className="text-lg" title="Wishlist" />
         </NavLink>
       </div>
     </header>
