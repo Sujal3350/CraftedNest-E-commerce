@@ -34,6 +34,9 @@ function Wishlist() {
           image: product.image,
         },
       });
+      // Remove from wishlist after adding to cart
+      await axios.post('/api/wishlist/remove', { userId, productId: product.productId });
+      setWishlist(wishlist.filter(item => item.productId !== product.productId));
       toast.success('Item is added to the cart');
     } catch (err) {
       toast.error('Failed to add to cart');

@@ -21,7 +21,7 @@ function Footer() {
           <div className='flex flex-col items-center sm:items-start'>
             <h3 className='text-base sm:text-lg font-semibold text-gray-800 mb-3 sm:mb-4'>Quick Links</h3>
             <ul className='flex flex-col items-center sm:items-start gap-1 sm:gap-2 text-xs sm:text-sm'>
-              <li><a href="#" className='text-gray-600 hover:text-orange-700 font-medium'>About Us</a></li>
+              <li><a href="about" className='text-gray-600 hover:text-orange-700 font-medium'>About Us</a></li>
               <li><a href="#" className='text-gray-600 hover:text-orange-700 font-medium'>FAQs</a></li>
               <li><a href="#" className='text-gray-600 hover:text-orange-700 font-medium'>Returns & Refunds</a></li>
               <li><a href="#" className='text-gray-600 hover:text-orange-700 font-medium'>Privacy Policy</a></li>
