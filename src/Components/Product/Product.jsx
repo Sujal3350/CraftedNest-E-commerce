@@ -45,7 +45,7 @@ function Product() {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     const userId = storedUser?.id || "guest";
     try {
-      await axios.post("/api/wishlist/add", {
+      await axios.post("https://craftednest.onrender.com/api/wishlist/add", {
         userId,
         product: {
           _id: product._id,
