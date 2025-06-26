@@ -223,13 +223,13 @@ function Product() {
                   <div className="p-2 sm:p-4 pt-0 flex items-center justify-between">
                     <button
                       onClick={() => handleAddToCart(product)}
-                      className="flex items-center gap-1 sm:gap-2 bg-gray-100 text-black font-semibold px-2 sm:px-4 py-1 sm:py-2 text-xs sm:text-base rounded-lg  "
+                      className="flex items-center gap-1 sm:gap-2 bg-gray-100 text-black font-semibold px-2 sm:px-4 py-1 sm:py-2 text-xs sm:text-base rounded-lg hover:text-white hover:bg-black transition-colors duration-300"
                       aria-label="Add to Cart"
                     >
                       <FontAwesomeIcon icon={faCartShopping} className="text-xs sm:text-sm" /> Add to Cart
                     </button>
                     <button
-                      className="  bg-gray-100 text-gray- font-semibold px-2 sm:px-4 py-1 sm:py-2 text-xs sm:text-base rounded-lg flex items-center "
+                      className="bg-gray-100 text-gray-600 font-semibold px-2 sm:px-4 py-1 sm:py-2 text-xs sm:text-base rounded-lg flex items-center hover:text-white hover:bg-black transition-colors duration-300"
                       aria-label="Add to Wishlist"
                     >
                       <FontAwesomeIcon icon={faHeart} style={{ fontSize: '1.25rem sm:1.5rem' }}  /> 
