@@ -218,9 +218,9 @@ function Product() {
               {filteredProducts.map((product) => (
                 <div
                   key={product._id || product.name}
-                  className="bg-gray-200 rounded-lg sm:rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-200 group"
+                  className="bg-gray-50 rounded-lg sm:rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-200 group"
                 >
-                  <div className="p-2 sm:p-4 flex justify-center items-center bg-gray-200">
+                  <div className="p-2 sm:p-4 flex justify-center items-center bg-gray-50">
                     <img
                       src={product.image}
                       alt={product.name}
@@ -240,16 +240,16 @@ function Product() {
                     </div>
                     <div className="text-xs sm:text-sm text-gray-700 mb-1 sm:mb-2">⭐ {product.rating} ({product.reviews} reviews)</div>
                   </div>
-                  <div className="p-2 sm:p-4 pt-0 flex flex-col gap-2">
+                  <div className="p-2 sm:p-4 pt-0 flex">
                     <button
                       onClick={() => handleAddToCart(product)}
-                      className="w-full flex items-center justify-center gap-1 sm:gap-2 bg-black text-white font-semibold px-2 sm:px-4 py-1 sm:py-2 text-xs sm:text-base rounded-lg hover:text-black hover:bg-gray-300 transition-colors duration-300"
+                      className="w-4/5 flex items-center justify-center gap-1 sm:gap-2 bg-black text-white font-semibold px-2 sm:px-4 py-1 sm:py-2 text-xs sm:text-base rounded-lg hover:text-black hover:bg-gray-300 transition-colors duration-300"
                       aria-label="Add to Cart"
                     >
                       <FontAwesomeIcon icon={faCartShopping} className="text-xs sm:text-sm" /> Add to Cart
                     </button>
-                    <button onClick={() => handleWishlist(product)} className="text-red-500 h-10 w-10 flex items-center">
-                      <FontAwesomeIcon icon={faHeart} style={{ fontSize: '1.5rem' }} />
+                    <button onClick={() => handleWishlist(product)} className="w-1/5 flex items-center justify-center gap-1 sm:gap-2  text-gray-300 font-semibold px-2 sm:px-4 py-1 sm:py-2 text-xs sm:text-base rounded-lg hover:text-red-500 ">
+                      <FontAwesomeIcon icon={faHeart} style={{ fontSize: '1.2rem' }} /> 
                     </button>
                   </div>
                 </div>
