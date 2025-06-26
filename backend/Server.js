@@ -6,9 +6,6 @@ require('dotenv').config();
 
 const app = express();
 
-const wishlistRoute = require('./routes/wishlist');
-app.use('/api/wishlist', wishlistRoute);
-
 app.use(cors({ origin: '*' }));
 app.use(express.json());
 app.use(express.static('dist')); // Serve frontend build (adjust if needed)
