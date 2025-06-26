@@ -13,6 +13,26 @@ function Product() {
   const [categories, setCategories] = useState([]);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [wishlistIds, setWishlistIds] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('wishlistIds')) || [];
+    } catch {
+      return [];
+    }
+  });
+
+  // Sync with localStorage when it changes (e.g., after removing from wishlist page)
+  useEffect(() => {
+    const syncWishlist = () => {
+      try {
+        setWishlistIds(JSON.parse(localStorage.getItem('wishlistIds')) || []);
+      } catch {
+        setWishlistIds([]);
+      }
+    };
+    window.addEventListener('storage', syncWishlist);
+    return () => window.removeEventListener('storage', syncWishlist);
+  }, []);
 
   // Handle Add to Cart
   const handleAddToCart = async (product) => {
@@ -44,19 +64,40 @@ function Product() {
   const handleWishlist = async (product) => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     const userId = storedUser?.id || "guest";
-    try {
-      await axios.post("https://craftednest.onrender.com/api/wishlist/add", {
-        userId,
-        product: {
-          _id: product._id,
-          name: product.name,
-          price: Number(String(product.price).replace(/[₹,]/g, "")),
-          image: product.image,
-        },
-      });
-      toast.success("Added to wishlist!");
-    } catch (err) {
-      toast.error("Failed to add to wishlist");
+    const productId = String(product._id);
+    if (wishlistIds.includes(productId)) {
+      // Remove from wishlist if already present
+      try {
+        await axios.post("https://craftednest.onrender.com/api/wishlist/remove", {
+          userId,
+          productId,
+        });
+        setWishlistIds(prev => prev.filter(id => id !== productId));
+        // Update localStorage for sync with other pages
+        localStorage.setItem('wishlistIds', JSON.stringify(wishlistIds.filter(id => id !== productId)));
+        toast.success("Removed from wishlist!");
+      } catch (err) {
+        toast.error("Failed to remove from wishlist");
+      }
+    } else {
+      // Add to wishlist
+      try {
+        await axios.post("https://craftednest.onrender.com/api/wishlist/add", {
+          userId,
+          product: {
+            _id: product._id,
+            name: product.name,
+            price: Number(String(product.price).replace(/[₹,]/g, "")),
+            image: product.image,
+          },
+        });
+        setWishlistIds(prev => [...prev, productId]);
+        // Update localStorage for sync with other pages
+        localStorage.setItem('wishlistIds', JSON.stringify([...wishlistIds, productId]));
+        toast.success("Added to wishlist!");
+      } catch (err) {
+        toast.error("Failed to add to wishlist");
+      }
     }
   };
 
@@ -72,6 +113,17 @@ function Product() {
       })
       .catch(err => console.error(err))
       .finally(() => setLoading(false));
+  }, []);
+
+  // Fetch wishlist for current user
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const userId = storedUser?.id || "guest";
+    axios.get("https://craftednest.onrender.com/api/wishlist/" + userId)
+      .then(res => {
+        setWishlistIds(res.data.map(item => String(item.productId)));
+      })
+      .catch(() => setWishlistIds([]));
   }, []);
 
   // Filter products based on search term, category, and price range
@@ -248,8 +300,12 @@ function Product() {
                     >
                       <FontAwesomeIcon icon={faCartShopping} className="text-xs sm:text-sm" /> Add to Cart
                     </button>
-                    <button onClick={() => handleWishlist(product)} className="w-1/5 flex items-center justify-center gap-1 sm:gap-2  text-gray-300 font-semibold px-2 sm:px-4 py-1 sm:py-2 text-xs sm:text-base rounded-lg hover:text-red-500 ">
-                      <FontAwesomeIcon icon={faHeart} style={{ fontSize: '1.2rem' }} /> 
+                    <button
+                      onClick={() => handleWishlist(product)}
+                      className={`w-1/5 flex items-center justify-center gap-1 sm:gap-2 font-semibold px-2 sm:px-4 py-1 sm:py-2 text-xs sm:text-base rounded-lg ${wishlistIds.includes(String(product._id)) ? 'text-red-500' : 'text-gray-300'} `}
+                      aria-label={wishlistIds.includes(String(product._id)) ? 'Remove from wishlist' : 'Add to wishlist'}
+                    >
+                      <FontAwesomeIcon icon={faHeart} style={{ fontSize: '1.2rem' }} />
                     </button>
                   </div>
                 </div>

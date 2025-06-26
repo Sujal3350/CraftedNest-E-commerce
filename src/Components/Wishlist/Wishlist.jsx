@@ -23,6 +23,11 @@ function Wishlist() {
     fetchWishlist();
   }, [userId]);
 
+  useEffect(() => {
+    // Update wishlistIds in localStorage for Product page to sync
+    localStorage.setItem('wishlistIds', JSON.stringify(wishlist.map(item => String(item.productId))));
+  }, [wishlist]);
+
   const handleAddToCart = async (product) => {
     try {
       await axios.post('/api/cart/add', {
@@ -47,6 +52,9 @@ function Wishlist() {
     try {
       await axios.post('/api/wishlist/remove', { userId, productId });
       setWishlist(wishlist.filter(item => item.productId !== productId));
+      // Update wishlistIds in localStorage
+      const updated = wishlist.filter(item => item.productId !== productId).map(item => String(item.productId));
+      localStorage.setItem('wishlistIds', JSON.stringify(updated));
       toast.success('Removed from wishlist');
     } catch (err) {
       toast.error('Failed to remove');
