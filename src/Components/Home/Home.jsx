@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight, faHeart, faComment } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import kitchen from '../../assets/kitchen.webp';
 import chair from '../../assets/Cane Lounge Chair.jpg';
 import sofa from '../../assets/decor.avif';
 import shelf from '../../assets/shelf.jpg';
-import axios from 'axios';
 import homebg from '../../assets/home bg.avif';
-import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
 function Home() {
@@ -17,59 +15,12 @@ function Home() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleAddToCart = async (product) => {
-    // Use logged-in userId from localStorage (set during login)
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    const userId = storedUser?.id || "guest";
-
-    try {
-      const cleanProduct = {
-        id: product.id,
-        name: product.name,
-        image: product.image,
-        // ✅ Ensure prices are numbers (remove ₹ and commas)
-        price: Number(String(product.price).replace(/[₹,]/g, "")),
-      };
-
-      const res = await axios.post("https://craftednest.onrender.com/api/cart/add", {
-        userId,
-        product: cleanProduct,
-      });
-
-      toast.success("Added to cart successfully!");
-    } catch (error) {
-      console.error("Error adding to cart", error);
-      toast.error("Failed to add to cart.");
-    }
-  };
-
-  const handleAddToWishlist = async (product) => {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    const userId = storedUser?.id || "guest";
-    try {
-      await axios.post("/api/wishlist/add", {
-        userId,
-        product: {
-          _id: product.id || product._id,
-          name: product.name,
-          price: Number(String(product.price).replace(/[₹,]/g, "")),
-          image: product.image,
-        },
-      });
-      toast.success("Added to wishlist!");
-      navigate('/wishlist');
-    } catch (err) {
-      toast.error("Failed to add to wishlist");
-    }
-  };
-
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
   const handleSubscribe = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
     if (!email.trim()) {
       setError('Email is required.');
     } else if (!emailRegex.test(email)) {
@@ -82,12 +33,10 @@ function Home() {
     }
   };
 
-
-
-
   const products = [
     {
       id: 1,
+      slug: 'sheesham-wood-sofa',
       name: 'Sheesham Wood Sofa Set',
       description: 'Elegant traditional sofa set made from premium Sheesham wood with hand-carved details',
       price: '₹25,999',
@@ -98,6 +47,7 @@ function Home() {
     },
     {
       id: 2,
+      slug: 'cane-lounge-chair',
       name: 'Cane Lounge Chair',
       description: 'Handcrafted rattan cane chair with a modern twist – eco-friendly and perfect for living spaces',
       price: '₹5,299',
@@ -108,7 +58,8 @@ function Home() {
     },
     {
       id: 3,
-      name: 'Smart Kitchen Chimney ',
+      slug: 'smart-kitchen-chimney',
+      name: 'Smart Kitchen Chimney',
       description: '90cm wall-mounted chimney with motion sensor, auto-clean technology & strong suction for Indian cooking.',
       price: '₹8,999',
       originalPrice: '₹11,499',
@@ -118,6 +69,7 @@ function Home() {
     },
     {
       id: 4,
+      slug: 'wooden-wall-shelf',
       name: 'Handcrafted Wooden Wall Shelf',
       description: 'Elegant sheesham wood wall shelf with 3 tiers – perfect for décor, plants, or essentials in any room.',
       price: '₹1,499',
@@ -132,11 +84,7 @@ function Home() {
     <div className="min-h-screen bg-[#F7F7F7] font-poppins">
       {/* Hero Section */}
       <section className={`relative h-screen overflow-hidden ${isVisible ? 'animate-fade-in' : ''}`}>
-        <img
-          src={homebg}
-          alt="Hero Background"
-          className="absolute inset-0 object-cover  w-full h-full"
-        />
+        <img src={homebg} alt="Hero Background" className="absolute inset-0 object-cover w-full h-full" />
         <div className="absolute inset-0 bg-black/40"></div>
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-white text-center px-4 sm:px-6">
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight">Transform Your Space with CraftedNest</h1>
@@ -151,47 +99,31 @@ function Home() {
       </section>
 
       {/* Product Grid */}
-      <section
-        className={`py-12 sm:py-16 ${isVisible ? 'animate-slide-up' : ''}`}
-        style={{ animationDelay: '0.2s', background: 'linear-gradient(to bottom, #F7F7F7, white)' }}
-      >
-        <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-10 text-gray-900 text-center font-poppins">
-          Featured Collections
-        </h2>
+      <section className={`py-12 sm:py-16 ${isVisible ? 'animate-slide-up' : ''}`} style={{ background: 'linear-gradient(to bottom, #F7F7F7, white)' }}>
+        <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-10 text-gray-900 text-center font-poppins">Featured Collections</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-4 sm:px-8">
           {products.map((product) => (
             <div
               key={product.id}
-              className="bg-white rounded-xl shadow-md hover:shadow-lg transition duration-300 overflow-hidden border border-gray-100"
+              className="bg-white rounded-xl shadow-md hover:shadow-lg transition duration-300 overflow-hidden border border-gray-100 group relative"
             >
-              {/* Image */}
-              <div className="p-4 flex justify-center items-center">
+              <div className="p-4 flex justify-center items-center relative">
                 <img
                   src={product.image}
                   alt={product.name}
                   className="rounded-md object-cover w-full h-48 max-w-full"
                 />
+                {/* Shop Now Button (only visible on hover) */}
+                <button
+                  onClick={() => navigate(`/product`)}
+                  className="absolute bottom-4 opacity-0 group-hover:opacity-100 left-1/2 transform -translate-x-1/2 transition-opacity duration-300 bg-orange-500 text-white text-sm px-4 py-2 rounded shadow-lg hover:bg-orange-600"
+                >
+                  Shop Now
+                </button>
               </div>
-              {/* Content */}
               <div className="px-4 pb-4">
                 <h3 className="text-lg font-semibold font-poppins text-gray-900">{product.name}</h3>
                 <p className="text-sm text-gray-600 font-poppins mt-1 mb-3">{product.description}</p>
-                {/* Price */}
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-xl font-bold text-gray-900">{product.price}</span>
-                  {product.originalPrice && (
-                    <span className="text-sm text-gray-400 line-through">{product.originalPrice}</span>
-                  )}
-                </div>
-                {/* Cart & Wishlist */}
-                <div className="flex items-center justify-between px-0 pb-4 pt-0">
-                  <button onClick={() => handleAddToCart(product)} className="flex items-center gap-2 bg-gray-100 text-black font-bold px-4 py-2 border border-gray-300 rounded font-poppins transition">
-                    Add to Cart
-                  </button>
-                  <button onClick={() => handleAddToWishlist(product)} className="text-red-500 h-10 w-10 flex items-center" aria-label="Add to wishlist">
-                    <FontAwesomeIcon icon={faHeart} style={{ fontSize: '1.5rem' }} />
-                  </button>
-                </div>
               </div>
             </div>
           ))}
