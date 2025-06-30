@@ -1,6 +1,8 @@
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { RiDeleteBin6Line } from "react-icons/ri";
+
 
 function Cart() {
   const [cartItems, setCartItems] = useState([]);
@@ -103,9 +105,9 @@ function Cart() {
                     </button>
                     <button
                       onClick={() => removeItem(item.productId)}
-                      className="ml-2 text-red-500 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 text-sm"
+                      className="ml-2 text-red-500 dark:text-red-400"
                     >
-                      Remove
+                      <RiDeleteBin6Line className='text-xl'/>
                     </button>
                   </div>
                 </div>
