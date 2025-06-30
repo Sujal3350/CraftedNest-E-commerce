@@ -1,127 +1,203 @@
-
 import React, { useState } from "react";
 import Image from "../../assets/image.png";
 import GoogleSvg from "../../assets/google.svg";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase"; 
 import { toast } from 'react-toastify';
+import { motion } from "framer-motion";
 
 const User = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        when: "beforeChildren"
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100
+      }
+    }
+  };
+
   const handleClick = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
       
-      // Optionally store user info in localStorage for cart
       const user = auth.currentUser;
       localStorage.setItem("user", JSON.stringify({ id: user.uid, email: user.email }));
 
       toast.success("Login successful!");
-      navigate("/home"); // ✅ Use navigate instead of window.location.href
+      navigate("/home");
     } catch (error) {
       toast.error("Login failed. Please check your credentials.");
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <div className="flex flex-col md:flex-row h-screen font-poppins bg-[#F7F7F7] dark:bg-gray-800">
+    <div className="flex flex-col md:flex-row h-screen font-poppins bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900">
       {/* Left Side Image */}
-      <div className="hidden md:flex flex-1 bg-[#F7F7F7] dark:bg-gray-800 justify-center items-center p-4 md:p-0 order-1 md:order-none">
-        <img src={Image} alt="Login visual" className="w-64 sm:w-80 md:w-[400px]" />
-      </div>
+      <motion.div 
+        initial={{ opacity: 0, x: -50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5 }}
+        className="hidden md:flex flex-1 justify-center items-center p-8 bg-gradient-to-br from-blue-50 to-orange-50 dark:from-gray-800 dark:to-gray-900"
+      >
+        <div className="relative w-full h-full max-w-lg flex items-center justify-center">
+          <img 
+            src={Image} 
+            alt="Login visual" 
+            className="w-full max-w-md transform hover:scale-105 transition-transform duration-500" 
+          />
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="absolute bottom-10 left-0 right-0 text-center"
+          >
+            <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-300">Crafted with care</h3>
+            <p className="text-gray-500 dark:text-gray-400 mt-2">Your perfect shopping experience awaits</p>
+          </motion.div>
+        </div>
+      </motion.div>
 
       {/* Right Side Form */}
-      <div className="flex-1 flex justify-center items-center px-4 py-6 md:p-0 order-2 md:order-none">
-        <div className="w-full max-w-sm sm:max-w-md mx-auto flex flex-col justify-center">
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        className="flex-1 flex justify-center items-center px-4 py-6 md:p-0"
+      >
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="w-full max-w-sm sm:max-w-md mx-auto flex flex-col justify-center bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 sm:p-10"
+        >
           {/* Logo */}
-          <div className="flex justify-center pt-8 md:pt-12">
-            <span className="text-2xl sm:text-3xl font-extrabold text-gray-800 dark:text-white tracking-tight drop-shadow-md">
-              Crafted<span className="italic font-serif text-gray-800 dark:text-white drop-shadow-2xl">Nest</span>
+          <motion.div variants={itemVariants} className="flex justify-center pt-4">
+            <span className="text-3xl font-extrabold text-gray-800 dark:text-white tracking-tight">
+              Crafted<span className="italic font-serif text-orange-600 dark:text-orange-400">Nest</span>
             </span>
-          </div>
+          </motion.div>
 
           {/* Form Content */}
-          <div className="text-center my-6 md:my-8">
-            <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 dark:text-white mb-2">Welcome back!</h2>
-            <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 mb-4 sm:mb-6">Please enter your details</p>
+          <motion.div variants={itemVariants} className="text-center my-8">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Welcome back!</h2>
+            <p className="text-gray-500 dark:text-gray-400 mb-6">Please enter your details</p>
 
-            <div className="flex flex-col space-y-4">
-              <input
-                type="email"
-                placeholder="Email"
-                className="w-full px-3 sm:px-4 py-2 sm:py-3 border-b border-gray-500 dark:border-gray-400 focus:outline-none text-sm sm:text-base bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-              />
+            <div className="flex flex-col space-y-5">
+              <motion.div variants={itemVariants}>
+                <input
+                  type="email"
+                  placeholder="Email"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-500 dark:focus:ring-orange-400 text-base bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                />
+              </motion.div>
 
-              <div className="relative">
+              <motion.div variants={itemVariants} className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
                   placeholder="Password"
-                  className="w-full px-3 sm:px-4 py-2 sm:py-3 border-b border-gray-500 dark:border-gray-400 focus:outline-none text-sm sm:text-base bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-500 dark:focus:ring-orange-400 text-base bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all"
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                 />
-                {showPassword ? (
-                  <FaEyeSlash
-                    className="absolute right-3 bottom-3 text-base sm:text-xl text-gray-600 dark:text-gray-300 cursor-pointer"
-                    onClick={() => setShowPassword(!showPassword)}
-                  />
-                ) : (
-                  <FaEye
-                    className="absolute right-3 bottom-3 text-base sm:text-xl text-gray-600 dark:text-gray-300 cursor-pointer"
-                    onClick={() => setShowPassword(!showPassword)}
-                  />
-                )}
-              </div>
+                <button 
+                  type="button"
+                  className="absolute right-3 bottom-3 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? (
+                    <FaEyeSlash className="text-lg" />
+                  ) : (
+                    <FaEye className="text-lg" />
+                  )}
+                </button>
+              </motion.div>
 
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center text-xs sm:text-sm text-gray-700 dark:text-gray-300 gap-2 sm:gap-0">
-                <div className="flex items-center gap-2">
-                  <input type="checkbox" id="remember-checkbox" />
-                  <label htmlFor="remember-checkbox">Remember for 30 days</label>
-                </div>
-                <a href="#" className="hover:underline text-gray-700 dark:text-gray-300">
+              <motion.div variants={itemVariants} className="flex justify-between items-center text-sm text-gray-600 dark:text-gray-400">
+                <label className="flex items-center space-x-2 cursor-pointer">
+                  <input 
+                    type="checkbox" 
+                    className="h-4 w-4 text-orange-600 dark:text-orange-400 focus:ring-orange-500 border-gray-300 dark:border-gray-600 rounded"
+                  />
+                  <span>Remember me</span>
+                </label>
+                <Link to="/forgot-password" className="hover:text-orange-600 dark:hover:text-orange-400 transition-colors">
                   Forgot password?
-                </a>
-              </div>
+                </Link>
+              </motion.div>
 
-              <div className="flex flex-col gap-3 mt-4 sm:mt-6">
+              <motion.div variants={itemVariants} className="flex flex-col gap-3 mt-2">
                 <button
                   onClick={handleClick}
-                  type="button"
-                  className="bg-black dark:bg-gray-700 text-white py-2 sm:py-3 rounded-full font-semibold hover:bg-white dark:hover:bg-gray-600 hover:text-black dark:hover:text-white border border-black dark:border-gray-700 transition duration-300 text-sm sm:text-base"
+                  disabled={isLoading}
+                  className="relative flex items-center justify-center bg-orange-600 dark:bg-orange-700 hover:bg-orange-700 dark:hover:bg-orange-600 text-white py-3 px-4 rounded-lg font-medium transition-all hover:shadow-lg disabled:opacity-70"
                 >
-                  Log In
+                  {isLoading ? (
+                    <span className="flex items-center">
+                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Processing...
+                    </span>
+                  ) : (
+                    <span className="flex items-center">
+                      Sign In <FaArrowRight className="ml-2" />
+                    </span>
+                  )}
                 </button>
                 <button
                   type="button"
-                  className="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 flex items-center justify-center gap-2 sm:gap-3 py-2 sm:py-3 rounded-full font-medium transition duration-300 text-sm sm:text-base text-gray-900 dark:text-white"
+                  className="flex items-center justify-center gap-3 py-3 px-4 rounded-lg font-medium transition-all border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 hover:shadow"
                 >
-                  <img src={GoogleSvg} alt="Google icon" className="w-5 sm:w-6" />
-                  Log In with Google
+                  <img src={GoogleSvg} alt="Google icon" className="w-5" />
+                  Continue with Google
                 </button>
-              </div>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Bottom Text */}
-          <p className="text-center text-xs sm:text-sm text-gray-700 dark:text-gray-300 pb-8 md:pb-10">
+          <motion.div variants={itemVariants} className="text-center text-sm text-gray-500 dark:text-gray-400 pb-4">
             Don't have an account?{" "}
-            <Link to="/signup" className="font-semibold hover:underline text-gray-900 dark:text-white">
-              Sign Up
+            <Link 
+              to="/signup" 
+              className="font-medium text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 transition-colors"
+            >
+              Sign up for free
             </Link>
-          </p>
-        </div>
-      </div>
+          </motion.div>
+        </motion.div>
+      </motion.div>
     </div>
   );
 };

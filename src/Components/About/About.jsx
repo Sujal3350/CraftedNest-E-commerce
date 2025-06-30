@@ -1,27 +1,49 @@
-
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckCircle, faLeaf, faTruck, faHeart, faPlus, faMinus, faSearch, faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
+import member from '../../assets/member.png';
+import { 
+  faCheckCircle, 
+  faLeaf, 
+  faTruck, 
+  faHeart, 
+  faPlus, 
+  faMinus, 
+  faSearch, 
+  faEnvelope, 
+  faPhone,
+  faStar,
+  faHandsHelping,
+  faAward,
+  faShieldAlt
+} from '@fortawesome/free-solid-svg-icons';
 import decor from '../../assets/decor.avif';
 import storage from '../../assets/storage.avif';
 import cookware from '../../assets/cookware.avif';
+// import teamImage from '../../assets/team.jpg';
+// import craftImage from '../../assets/craftsmanship.jpg';
 
 const FAQItem = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md overflow-hidden">
+    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border border-gray-200 dark:border-gray-700">
       <button
-        className="w-full text-left p-4 sm:p-6 flex justify-between items-center text-gray-900 dark:text-white font-semibold hover:bg-gray-50 dark:hover:bg-gray-700 transition duration-300"
+        className="w-full text-left p-5 sm:p-6 flex justify-between items-center text-gray-900 dark:text-white font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200"
         onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
       >
-        {question}
-        <FontAwesomeIcon icon={isOpen ? faMinus : faPlus} className="text-orange-500 dark:text-orange-400" />
+        <span className="text-base sm:text-lg">{question}</span>
+        <FontAwesomeIcon 
+          icon={isOpen ? faMinus : faPlus} 
+          className="text-orange-500 dark:text-orange-400 text-sm" 
+        />
       </button>
       <div
         className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96' : 'max-h-0'}`}
       >
-        <p className="p-4 sm:p-6 text-sm sm:text-base text-gray-600 dark:text-gray-300">{answer}</p>
+        <div className="p-5 sm:p-6 pt-0 text-sm sm:text-base text-gray-600 dark:text-gray-300">
+          {answer}
+        </div>
       </div>
     </div>
   );
@@ -33,29 +55,24 @@ function About() {
   const [faqData, setFaqData] = useState([]);
   const [hardcodedFaqs] = useState([
     {
-      question: 'How do I get started?',
-      answer:
-        "When you sign up, you'll start with the Free plan. It's ideal for new teams and allows unlimited team members, but only 1 active editable project at a time. For more advanced features, check out our Basic, Premium, or Enterprise plans.",
+      question: 'How do I get started with CraftedNest?',
+      answer: "Browse our collections online or visit one of our stores. Our team is always ready to help you find the perfect pieces for your home. Sign up for an account to save your favorites and track orders easily."
     },
     {
-      question: 'What is included in the Free Plan?',
-      answer:
-        'The Free Plan includes unlimited team members, 1 active editable project, and basic features. For more advanced tools, consider upgrading to a paid plan.',
+      question: 'What makes CraftedNest products special?',
+      answer: 'We combine traditional craftsmanship with modern design, using sustainable materials and ethical production methods. Each piece is carefully selected or designed to bring both beauty and functionality to your home.'
     },
     {
-      question: 'How do I cancel my membership?',
-      answer:
-        'To cancel your membership, go to your account settings and select "Cancel Subscription." Follow the prompts to confirm. You’ll receive a confirmation email.',
+      question: 'What is your return policy?',
+      answer: 'We offer a 30-day return policy for most items. Items must be in original condition with packaging. Some large furniture items may have different policies - please check product details or contact us for specifics.'
     },
     {
-      question: 'How do I transfer my membership to a different account?',
-      answer:
-        'To transfer your membership, contact our support team via email or phone. Provide the new account details, and we’ll assist you with the process.',
+      question: 'Do you offer international shipping?',
+      answer: 'Currently we ship within India only. We\'re working to expand our international shipping options in the future. Sign up for our newsletter to stay updated on new shipping destinations.'
     },
     {
-      question: 'What is the refund policy?',
-      answer:
-        'We offer a 7-day refund policy from the date of purchase. Contact us within this period with your order details for a full refund.',
+      question: 'How can I track my order?',
+      answer: 'Once your order ships, you\'ll receive a confirmation email with tracking information. You can also check your order status by logging into your account on our website.'
     },
   ]);
 
@@ -72,200 +89,346 @@ function About() {
   ).slice(0, 5);
 
   return (
-    <div className="min-h-screen bg-[#F7F7F7] dark:bg-gray-700 font-poppins flex flex-col items-center py-8 sm:py-12 px-4 sm:px-6 lg:px-10">
-      <div className="max-w-7xl w-full">
-        {/* Hero Section */}
-        <section className="relative h-80 sm:h-96 lg:h-[500px] rounded-2xl shadow-2xl mb-8 sm:mb-12 overflow-hidden flex items-center justify-center">
-          <div
-            className="absolute inset-0 bg-cover bg-center backdrop-blur-sm"
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 font-poppins">
+      {/* Hero Section */}
+      <section className="relative h-[70vh] max-h-[800px] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0">
+          <img 
             style={{
               backgroundImage: 'url(https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80)',
               filter: 'blur(4px)',
               transform: 'scale(1.05)',
             }}
-          ></div>
-          <div className="absolute inset-0 bg-black/40 dark:bg-black/60 rounded-2xl"></div>
-          <div className="relative text-center text-white px-4 sm:px-6 z-10 max-w-3xl mx-auto">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight drop-shadow-lg">
-              Crafted<span className="italic font-serif text-orange-300 dark:text-orange-400">Nest</span>
-            </h1>
-            <p className="text-base sm:text-lg lg:text-xl mt-4 sm:mt-6 leading-relaxed opacity-90">
-              At CraftedNest, we believe every home deserves style, comfort, and smart solutions. From elegant kitchenware to cozy living essentials, we bring quality to your doorstep.
+            alt="CraftedNest team" 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30"></div>
+        </div>
+        
+        <div className="relative z-10 text-center px-6 max-w-4xl mx-auto text-white">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
+            Crafted<span className="text-orange-400">Nest</span>
+          </h1>
+          <p className="text-lg sm:text-xl md:text-2xl mb-8 leading-relaxed">
+            We blend timeless craftsmanship with contemporary design to create home essentials that tell your story
+          </p>
+          <div className="flex justify-center gap-4">
+            <button className="px-8 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-medium transition-all duration-300 transform hover:scale-105">
+              Our Collections
+            </button>
+            <button className="px-8 py-3 bg-transparent border-2 border-white hover:bg-white hover:text-gray-900 text-white rounded-lg font-medium transition-all duration-300 transform hover:scale-105">
+              Meet The Team
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Our Story */}
+      <section className="py-16 px-6 sm:px-8 max-w-7xl mx-auto">
+        <div className="flex flex-col lg:flex-row gap-12 items-center">
+          <div className="lg:w-1/2">
+            <img 
+              src={member} 
+              alt="Craftsmanship" 
+              className="rounded-xl shadow-xl w-full h-auto"
+            />
+          </div>
+          <div className="lg:w-1/2">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-6">
+              Our Story
+            </h2>
+            <div className="prose dark:prose-invert max-w-none">
+              <p className="text-gray-600 dark:text-gray-300 mb-4 text-lg">
+                Founded in 2015 in the heart of Gujarat, CraftedNest began as a small workshop dedicated to preserving traditional Indian craftsmanship. What started with just three artisans creating hand-carved wooden furniture has grown into a beloved brand serving thousands of homes across India.
+              </p>
+              <p className="text-gray-600 dark:text-gray-300 mb-4 text-lg">
+                Today, we partner with over 200 local artisans and small workshops across the country, blending their time-honored techniques with contemporary design sensibilities. Each piece in our collection tells a story - of the hands that made it, the materials that shaped it, and the home it will become part of.
+              </p>
+              <div className="flex flex-wrap gap-4 mt-8">
+                <div className="bg-orange-100 dark:bg-orange-900/30 px-4 py-2 rounded-full flex items-center gap-2">
+                  <FontAwesomeIcon icon={faAward} className="text-orange-500" />
+                  <span className="text-sm font-medium">50+ Design Awards</span>
+                </div>
+                <div className="bg-orange-100 dark:bg-orange-900/30 px-4 py-2 rounded-full flex items-center gap-2">
+                  <FontAwesomeIcon icon={faHandsHelping} className="text-orange-500" />
+                  <span className="text-sm font-medium">200+ Artisans</span>
+                </div>
+                <div className="bg-orange-100 dark:bg-orange-900/30 px-4 py-2 rounded-full flex items-center gap-2">
+                  <FontAwesomeIcon icon={faStar} className="text-orange-500" />
+                  <span className="text-sm font-medium">20K+ Happy Homes</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* What We Offer */}
+      <section className="py-16 px-6 sm:px-8 bg-white dark:bg-gray-800">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              What We Offer
+            </h2>
+            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto text-lg">
+              Thoughtfully designed home essentials that combine beauty, functionality and sustainability
             </p>
           </div>
-        </section>
 
-        {/* Our Story */}
-        <section className={`mb-12 sm:mb-16 ${isVisible ? 'animate-fade-in' : ''}`}>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white text-center mb-6 sm:mb-8 relative">
-            Our Story
-          </h2>
-          <div className="relative bg-gradient-to-r from-orange-50 dark:from-gray-800 to-white dark:to-gray-900 p-6 sm:p-8 lg:p-10 rounded-2xl shadow-lg border-l-4 border-orange-700 dark:border-orange-600">
-            <p className="text-sm sm:text-base lg:text-lg text-gray-700 dark:text-gray-300 leading-relaxed text-center max-w-3xl mx-auto">
-              What started as a small home essentials shop in Gujarat, inspired by our love for traditional craftsmanship, has grown into a pan-India brand serving over 20,000 happy customers. We partner with local artisans to bring handcrafted, modern designs to your home, blending tradition with innovation.
-            </p>
-          </div>
-        </section>
-
-        {/* What We Offer */}
-        <section className={`mb-12 sm:mb-16 ${isVisible ? 'animate-fade-in' : ''}`}>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white text-center mb-6 sm:mb-8">
-            What We Offer
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {/* Cookware */}
-            <div className={`h-60 relative bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-2xl shadow-md hover:shadow-xl transition duration-300 text-center overflow-hidden ${isVisible ? 'animate-slide-up' : ''}`} style={{ animationDelay: '0s' }}>
-              <div
-                className="absolute inset-0 bg-cover bg-center backdrop-blur-sm"
-                style={{ backgroundImage: `url(${cookware})`, filter: 'blur(2px)', transform: 'scale(1.05)' }}
-              ></div>
-              <div className="absolute inset-0 bg-black/30 dark:bg-black/50 rounded-2xl"></div>
-              <div className="relative z-10 flex flex-col items-center justify-center h-full">
-                <h3 className="text-2xl font-bold text-white mb-2 drop-shadow-md">
-                  Cookware
-                </h3>
-                <p className="text-sm sm:text-base font-bold text-white/90 max-w-xs drop-shadow-md">
-                  Durable, stylish pots and pans for every kitchen.
-                </p>
-              </div>
-            </div>
-
-            {/* Decor */}
-            <div className={`h-60 relative bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-2xl shadow-md hover:shadow-xl transition duration-300 text-center overflow-hidden ${isVisible ? 'animate-slide-up' : ''}`} style={{ animationDelay: '0.2s' }}>
-              <div
-                className="absolute inset-0 bg-cover bg-center backdrop-blur-sm"
-                style={{ backgroundImage: `url(${decor})`, filter: 'blur(2px)', transform: 'scale(1.05)' }}
-              ></div>
-              <div className="absolute inset-0 bg-black/30 dark:bg-black/50 rounded-2xl"></div>
-              <div className="relative z-10 flex flex-col items-center justify-center h-full">
-                <h3 className="text-2xl font-bold text-white mb-2 drop-shadow-md">
-                  Decor
-                </h3>
-                <p className="text-sm font-bold sm:text-base text-white/90 max-w-xs drop-shadow-md">
-                  Elegant pieces to elevate your living space.
-                </p>
-              </div>
-            </div>
-
-            {/* Storage */}
-            <div className={`h-60 relative bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-2xl shadow-md hover:shadow-xl transition duration-300 text-center overflow-hidden ${isVisible ? 'animate-slide-up' : ''}`} style={{ animationDelay: '0.4s' }}>
-              <div
-                className="absolute inset-0 bg-cover bg-center backdrop-blur-sm"
-                style={{ backgroundImage: `url(${storage})`, filter: 'blur(2px)', transform: 'scale(1.05)' }}
-              ></div>
-              <div className="absolute inset-0 bg-black/30 dark:bg-black/50 rounded-2xl"></div>
-              <div className="relative z-10 flex flex-col items-center justify-center h-full">
-                <h3 className="text-2xl font-bold text-white mb-2 drop-shadow-md">
-                  Storage
-                </h3>
-                <p className="text-sm sm:text-base text-white/90 max-w-xs drop-shadow-md font-bold">
-                  Smart solutions for a clutter-free home.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Our Values */}
-        <section className={`mb-12 sm:mb-16 ${isVisible ? 'animate-fade-in' : ''}`}>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white text-center mb-6 sm:mb-8 relative">
-            Our Values
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { icon: faCheckCircle, title: 'Quality First', desc: 'Premium products built to last.' },
-              { icon: faLeaf, title: 'Sustainability', desc: 'Eco-friendly materials and practices.' },
-              { icon: faTruck, title: 'Fast Delivery', desc: 'Safe and timely doorstep delivery.' },
-              { icon: faHeart, title: 'Customer Satisfaction', desc: 'Your happiness is our priority.' },
-            ].map((value, index) => (
-              <div
+              { 
+                image: cookware, 
+                title: 'Kitchen Essentials', 
+                description: 'Premium cookware that makes every meal special',
+                features: ['Non-toxic materials', 'Ergonomic designs', 'Easy maintenance']
+              },
+              { 
+                image: decor, 
+                title: 'Home Decor', 
+                description: 'Elegant pieces that reflect your personal style',
+                features: ['Handcrafted details', 'Versatile designs', 'Timeless appeal']
+              },
+              { 
+                image: storage, 
+                title: 'Smart Storage', 
+                description: 'Solutions to organize and elevate your space',
+                features: ['Space-saving designs', 'Durable materials', 'Multi-functional']
+              }
+            ].map((item, index) => (
+              <div 
                 key={index}
-                className={`bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-2xl shadow-md text-center hover:bg-orange-50 dark:hover:bg-gray-700 hover:shadow-lg transition-all duration-300 ${isVisible ? 'animate-slide-up' : ''}`}
-                style={{ animationDelay: `${index * 0.2}s` }}
+                className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 h-96"
               >
-                <FontAwesomeIcon icon={value.icon} className="text-orange-500 dark:text-orange-400 text-4xl sm:text-5xl mb-4" />
-                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-2">{value.title}</h3>
-                <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300">{value.desc}</p>
+                <img 
+                  src={item.image} 
+                  alt={item.title} 
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <h3 className="text-2xl font-bold mb-2">{item.title}</h3>
+                  <p className="mb-4 opacity-90">{item.description}</p>
+                  <ul className="space-y-1 text-sm opacity-90">
+                    {item.features.map((feature, i) => (
+                      <li key={i} className="flex items-center">
+                        <FontAwesomeIcon icon={faCheckCircle} className="text-orange-400 mr-2 text-xs" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Why Choose Us */}
-        <section className={`mb-12 sm:mb-16 ${isVisible ? 'animate-fade-in' : ''}`}>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white text-center mb-6 sm:mb-8 relative">
-            Why Choose Us?
-          </h2>
-          <div className="bg-gradient-to-r from-white dark:from-gray-800 to-orange-50 dark:to-gray-900 p-6 sm:p-8 lg:p-10 rounded-2xl shadow-lg border-r-4 border-orange-700 dark:border-orange-600">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-              {[
-                { us: 'Premium quality at affordable rates', others: 'Overpriced or low quality' },
-                { us: 'Handpicked modern designs', others: 'Outdated styles' },
-                { us: '24x7 support', others: 'Slow or no response' },
-              ].map((item, index) => (
-                <div
-                  key={index}
-                  className={`flex items-center space-x-4 p-4 sm:p-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 ${isVisible ? 'animate-slide-up' : ''}`}
-                  style={{ animationDelay: `${index * 0.2}s` }}
-                >
-                  <FontAwesomeIcon icon={faCheckCircle} className="text-orange-500 dark:text-orange-400 text-2xl flex-shrink-0" />
-                  <div>
-                    <p className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white">{item.us}</p>
-                    <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 italic">{item.others}</p>
-                  </div>
+      {/* Our Values */}
+      <section className="py-16 px-6 sm:px-8 bg-gray-50 dark:bg-gray-900">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              Our Values
+            </h2>
+            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto text-lg">
+              The principles that guide everything we do
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { 
+                icon: faCheckCircle, 
+                title: 'Quality Craftsmanship', 
+                description: 'We obsess over every detail to deliver products that stand the test of time',
+                color: 'text-blue-500'
+              },
+              { 
+                icon: faLeaf, 
+                title: 'Sustainable Practices', 
+                description: 'Eco-friendly materials and responsible manufacturing processes',
+                color: 'text-green-500'
+              },
+              { 
+                icon: faShieldAlt, 
+                title: 'Ethical Sourcing', 
+                description: 'Fair wages and safe working conditions for all our partners',
+                color: 'text-purple-500'
+              },
+              { 
+                icon: faHeart, 
+                title: 'Customer Love', 
+                description: 'Your satisfaction is our ultimate measure of success',
+                color: 'text-pink-500'
+              }
+            ].map((value, index) => (
+              <div
+                key={index}
+                className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 text-center h-full flex flex-col"
+              >
+                <div className={`${value.color} text-4xl mb-6`}>
+                  <FontAwesomeIcon icon={value.icon} />
                 </div>
-              ))}
-            </div>
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">{value.title}</h3>
+                <p className="text-gray-600 dark:text-gray-300 mt-auto">{value.description}</p>
+              </div>
+            ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Frequently Asked Questions */}
-        <section className={`mb-12 sm:mb-16 ${isVisible ? 'animate-fade-in' : ''}`}>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white text-center mb-6 sm:mb-8">
-            Frequently Asked Questions
-          </h2>
-          <div className="w-full max-w-2xl mx-auto">
-            <div className="relative mb-6">
-              <input
-                type="text"
-                placeholder="Search for a question"
-                className="w-full p-3 pl-10 rounded-lg border border-gray-300 dark:text-white dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-500 dark:focus:ring-orange-400"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-              <FontAwesomeIcon
-                icon={faSearch}
-                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-white"
-              />
-            </div>
-            <div className="space-y-4">
-              {filteredFaqs.length === 0 ? (
-                <p className="text-gray-600 dark:text-white text-center">No results found.</p>
-              ) : (
-                filteredFaqs.map((faq, index) => (
-                  <FAQItem key={index} question={faq.question} answer={faq.answer} />
-                ))
-              )}
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
-              <div className={`bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-md text-center hover:shadow-lg transition duration-300 ${isVisible ? 'animate-slide-up' : ''}`} style={{ animationDelay: '0s' }}>
-                <FontAwesomeIcon icon={faEnvelope} className="text-orange-500 dark:text-orange-400 text-2xl mb-4" />
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Email Us</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300">
-                  Have questions or need assistance? Reach out to us via email. We're here to help!
-                </p>
+      {/* Why Choose Us */}
+      <section className="py-16 px-6 sm:px-8 bg-white dark:bg-gray-800">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              Why Choose CraftedNest?
+            </h2>
+            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto text-lg">
+              The CraftedNest difference goes beyond our products
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2">
+              <div className="bg-gradient-to-r from-orange-50 to-white dark:from-gray-900 dark:to-gray-800 p-8 rounded-xl shadow-sm">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {[
+                    { 
+                      title: 'Expert Design Consultation', 
+                      description: 'Our design specialists help you create cohesive, beautiful spaces',
+                      icon: faStar
+                    },
+                    { 
+                      title: 'Hassle-Free Delivery', 
+                      description: 'White-glove delivery and assembly for large items',
+                      icon: faTruck
+                    },
+                    { 
+                      title: 'Extended Warranties', 
+                      description: 'Peace of mind with our industry-leading warranties',
+                      icon: faShieldAlt
+                    },
+                    { 
+                      title: 'Customization Options', 
+                      description: 'Many pieces can be customized to your exact needs',
+                      icon: faCheckCircle
+                    }
+                  ].map((item, index) => (
+                    <div
+                      key={index}
+                      className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-xs hover:shadow-sm transition-shadow duration-300 flex items-start"
+                    >
+                      <div className={`text-orange-500 mr-4 mt-1 text-xl`}>
+                        <FontAwesomeIcon icon={item.icon} />
+                      </div>
+                      <div>
+                        <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">{item.title}</h4>
+                        <p className="text-gray-600 dark:text-gray-300 text-sm">{item.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div className={`bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-md text-center hover:shadow-lg transition duration-300 ${isVisible ? 'animate-slide-up' : ''}`} style={{ animationDelay: '0.2s' }}>
-                <FontAwesomeIcon icon={faPhone} className="text-orange-500 dark:text-orange-400 text-2xl mb-4" />
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Call Us</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300">
-                  Need help or have inquiries? Call us anytime. We're here for you.
-                </p>
-              </div>
+            </div>
+            
+            <div className="bg-orange-50 dark:bg-orange-900/10 p-8 rounded-xl shadow-sm border border-orange-100 dark:border-orange-900/20">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Our Promise</h3>
+              <ul className="space-y-4">
+                {[
+                  "100% satisfaction guarantee",
+                  "Ethically made products",
+                  "Price match guarantee",
+                  "Lifetime customer support"
+                ].map((item, index) => (
+                  <li key={index} className="flex items-start">
+                    <FontAwesomeIcon 
+                      icon={faCheckCircle} 
+                      className="text-orange-500 mr-3 mt-1 flex-shrink-0" 
+                    />
+                    <span className="text-gray-700 dark:text-gray-300">{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-16 px-6 sm:px-8 bg-gray-50 dark:bg-gray-900">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto text-lg">
+              Can't find what you're looking for? Contact our team anytime.
+            </p>
+          </div>
+
+          <div className="mb-8 relative">
+            <input
+              type="text"
+              placeholder="Search FAQs..."
+              className="w-full p-4 pl-12 rounded-lg border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500 dark:focus:ring-orange-400 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <FontAwesomeIcon
+              icon={faSearch}
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500"
+            />
+          </div>
+
+          <div className="space-y-4 mb-12">
+            {filteredFaqs.length === 0 ? (
+              <div className="text-center py-8">
+                <p className="text-gray-600 dark:text-gray-300">No matching questions found. Try a different search term.</p>
+              </div>
+            ) : (
+              filteredFaqs.map((faq, index) => (
+                <FAQItem key={index} question={faq.question} answer={faq.answer} />
+              ))
+            )}
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 text-center">
+              <div className="bg-orange-100 dark:bg-orange-900/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                <FontAwesomeIcon icon={faEnvelope} className="text-orange-500 text-2xl" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">Email Support</h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-4">
+                Have questions or need assistance? Our team typically responds within 24 hours.
+              </p>
+              <a 
+                href="mailto:support@craftednest.com" 
+                className="inline-block px-6 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg transition-colors duration-300"
+              >
+                Email Us
+              </a>
+            </div>
+            
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 text-center">
+              <div className="bg-orange-100 dark:bg-orange-900/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                <FontAwesomeIcon icon={faPhone} className="text-orange-500 text-2xl" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">Call Us</h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-4">
+                Available Monday to Saturday, 9AM to 6PM IST for immediate assistance.
+              </p>
+              <a 
+                href="tel:+911234567890" 
+                className="inline-block px-6 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg transition-colors duration-300"
+              >
+                +91 123 456 7890
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
