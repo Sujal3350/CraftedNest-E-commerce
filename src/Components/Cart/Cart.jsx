@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -59,18 +60,18 @@ function Cart() {
   };
 
   return (
-    <div className="p-4 sm:p-6 max-w-6xl mx-auto">
-      <h2 className="text-xl sm:text-2xl text-center font-bold mb-6">Your Cart</h2>
+    <div className="min-h-screen p-4 sm:p-6  mx-auto bg-white dark:bg-gray-700">
+      <h2 className="text-xl sm:text-2xl text-center font-bold text-gray-900 dark:text-white mb-6">Your Cart</h2>
 
       {cartItems.length === 0 ? (
-        <p className="text-gray-600 text-center">Your cart is empty</p>
+        <p className="text-gray-600 dark:text-gray-300 text-center">Your cart is empty</p>
       ) : (
         <>
-          <div className="space-y-4">
+          <div className="space-y-4 dark:bg-gray-800 p-4 rounded-lg shadow-md">
             {cartItems.map((item) => (
               <div
                 key={item.productId}
-                className="flex items-center justify-between gap-4 border-b pb-4 flex-wrap sm:flex-nowrap"
+                className="flex items-center justify-between gap-4 border-b pb-4 flex-wrap sm:flex-nowrap border-gray-200 dark:border-gray-700"
               >
                 {/* Product Image */}
                 <img
@@ -81,28 +82,28 @@ function Cart() {
 
                 {/* Product Details */}
                 <div className="flex-1 min-w-[180px]">
-                  <h3 className="text-base font-semibold leading-tight">{item.name}</h3>
-                  <p className="text-sm text-gray-600">₹{item.price.toFixed(2)}</p>
+                  <h3 className="text-base font-semibold text-gray-900 dark:text-white leading-tight">{item.name}</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">₹{item.price.toFixed(2)}</p>
 
                   {/* Quantity Buttons */}
                   <div className="flex items-center gap-2 mt-2 flex-wrap sm:flex-nowrap">
                     <button
                       onClick={() => handleRemoveQuantity(item)}
-                      className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300"
+                      className="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded hover:bg-gray-300 dark:hover:bg-gray-600"
                       disabled={item.quantity === 0}
                     >
                       -
                     </button>
-                    <span className="px-2">{item.quantity}</span>
+                    <span className="px-2 text-gray-900 dark:text-white">{item.quantity}</span>
                     <button
                       onClick={() => handleAddQuantity(item)}
-                      className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300"
+                      className="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded hover:bg-gray-300 dark:hover:bg-gray-600"
                     >
                       +
                     </button>
                     <button
                       onClick={() => removeItem(item.productId)}
-                      className="ml-2 text-red-500 hover:text-red-700 text-sm"
+                      className="ml-2 text-red-500 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 text-sm"
                     >
                       Remove
                     </button>
@@ -110,7 +111,7 @@ function Cart() {
                 </div>
 
                 {/* Total for Item */}
-                <div className="text-right font-semibold text-sm sm:text-base min-w-[80px]">
+                <div className="text-right font-semibold text-sm sm:text-base text-gray-900 dark:text-white min-w-[80px]">
                   ₹{(item.price * item.quantity).toFixed(2)}
                 </div>
               </div>
@@ -119,10 +120,10 @@ function Cart() {
 
           {/* Total & Checkout */}
           <div className="mt-6 flex flex-col md:flex-row justify-between items-center gap-4">
-            <h3 className="text-xl font-bold">Total: ₹{calculateTotal()}</h3>
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white">Total: ₹{calculateTotal()}</h3>
             <button
               onClick={handleCheckout}
-              className="w-full md:w-auto px-6 py-2 bg-black text-white rounded hover:bg-white hover:text-black border border-black transition-colors duration-300"
+              className="w-full md:w-auto px-6 py-2 bg-black dark:bg-gray-800 p-4 rounded-lg shadow-md  text-white  hover:bg-white dark:hover:bg-gray-600 hover:text-black dark:hover:text-white border border-black dark:border-gray-700 transition-colors duration-300"
             >
               Proceed to Checkout
             </button>

@@ -4,39 +4,52 @@ import { faUser, faHeart, faCartShopping, faBars, faTimes, faComment, faSignOutA
 import { NavLink, useNavigate } from 'react-router-dom';
 import { RiGeminiFill } from "react-icons/ri";
 import { toast } from 'react-toastify';
-import { auth } from '../firebase'; // Import Firebase auth
-import { onAuthStateChanged, signOut } from 'firebase/auth'; // Import Firebase auth methods
-
-
+import { auth } from '../firebase';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { FaMoon, FaSun } from "react-icons/fa";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false); // Initialize as false
+  const [loggedIn, setLoggedIn] = useState(false);
   const navigate = useNavigate();
 
-  // Listen to Firebase auth state changes
+  // Initialize theme from localStorage
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem("theme") || "light";
+  });
+
+  // Apply theme on mount and on theme change
+  useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => (prev === "light" ? "dark" : "light"));
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        // User is logged in
         setLoggedIn(true);
         localStorage.setItem('loggedIn', 'true');
       } else {
-        // User is logged out
         setLoggedIn(false);
         localStorage.setItem('loggedIn', 'false');
       }
     });
-
-    // Cleanup subscription on unmount
     return () => unsubscribe();
   }, []);
 
   const handleLogout = async () => {
     try {
-      await signOut(auth); // Sign out from Firebase
-      localStorage.removeItem('user'); // Clear user data from localStorage
-      localStorage.setItem('loggedIn', 'false'); // Update localStorage
+      await signOut(auth);
+      localStorage.removeItem('user');
+      localStorage.setItem('loggedIn', 'false');
       toast.success("Logout successful!");
       navigate('/');
     } catch (error) {
@@ -46,155 +59,106 @@ function Header() {
   };
 
   return (
-    <header className='bg-[#F7F7F7] sticky top-0 z-50 w-full h-16 flex items-center justify-between px-4 sm:px-6 lg:px-10 border-b border-gray-300' style={{ boxShadow: 'inset 0 -1px 3px rgba(0,0,0,0.1)' }}>
+    <header className='bg-[#F7F7F7] dark:bg-gray-900 dark:text-white sticky top-0 z-50 w-full h-16 flex items-center justify-between px-4 sm:px-6 lg:px-10 border-b border-gray-300 dark:border-gray-700 shadow-sm'>
       
       {/* Brand */}
       <div className='flex items-center'>
-        <span className="text-2xl sm:text-3xl font-extrabold text-gray-800 tracking-tight drop-shadow-md">
-          Crafted<span className="italic font-serif text-gray-800 drop-shadow-2xl">Nest</span>
+        <span className="text-2xl sm:text-3xl font-extrabold text-gray-800 dark:text-white tracking-tight drop-shadow-md">
+          Crafted<span className="italic font-serif text-gray-800 dark:text-white drop-shadow-2xl">Nest</span>
         </span>
       </div>
 
-      {/* Menu Toggle Button - Mobile Only */}
+      {/* Mobile Menu Toggle */}
       <button 
-        className='lg:hidden text-gray-800 text-2xl'
+        className='lg:hidden text-gray-800 dark:text-white text-2xl'
         onClick={() => setIsMenuOpen(!isMenuOpen)}
       >
         <FontAwesomeIcon icon={isMenuOpen ? faTimes : faBars} />
       </button>
 
-      {/* Mobile Dropdown (nav + icons) */}
+      {/* Mobile Dropdown Menu */}
       {isMenuOpen && (
-        <div className="lg:hidden absolute top-16 left-0 w-full bg-[#F7F7F7] flex flex-col items-center p-4 shadow-lg z-50">
-          
-          {/* Nav Links */}
-          <ul className='flex flex-col gap-4 text-gray-800 font-medium items-center mb-4'>
-            <li>
-              <NavLink 
-                to="/home" 
-                className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink 
-                to="/product" 
-                className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Product
-              </NavLink>
-            </li>
-            <li>
-              <NavLink 
-                to="/about" 
-                className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                About
-              </NavLink>
-            </li>
-            <li>
-              <NavLink 
-                to="/contact" 
-                className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Contact
-              </NavLink>
-            </li>
+        <div className="lg:hidden absolute top-16 left-0 w-full bg-[#F7F7F7] dark:bg-gray-900 text-gray-800 dark:text-white flex flex-col items-center p-4 shadow-lg z-50">
+          <ul className='flex flex-col gap-4 font-medium items-center mb-4'>
+            {['/home', '/product', '/about', '/contact'].map((path, index) => (
+              <li key={index}>
+                <NavLink 
+                  to={path} 
+                  className={({ isActive }) => `${isActive ? "text-orange-700" : ""} hover:text-orange-700`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {path.replace('/', '').charAt(0).toUpperCase() + path.slice(2)}
+                </NavLink>
+              </li>
+            ))}
           </ul>
 
-          {/* Icons */}
-          <div className="flex justify-center gap-2 w-full max-w-[171px]">
-            <NavLink 
-              to="/cart" 
-              className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <FontAwesomeIcon icon={faCartShopping} className="text-lg" />
+          <div className="flex justify-center gap-4">
+            <NavLink to="/cart" onClick={() => setIsMenuOpen(false)}>
+              <FontAwesomeIcon icon={faCartShopping} className="text-lg hover:text-orange-700" />
             </NavLink>
-            {/* User/Login/Logout Icon */}
             {loggedIn ? (
-              <button onClick={() => { setIsMenuOpen(false); handleLogout(); }} className="text-gray-800 hover:text-orange-700">
-                <FontAwesomeIcon icon={faSignOutAlt} className="text-lg" title="Logout" />
+              <button onClick={() => { setIsMenuOpen(false); handleLogout(); }}>
+                <FontAwesomeIcon icon={faSignOutAlt} className="text-lg hover:text-orange-700" title="Logout" />
               </button>
             ) : (
-              <NavLink 
-                to="/signup" 
-                className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <FontAwesomeIcon icon={faUser} className="text-lg" title="Login" />
+              <NavLink to="/signup" onClick={() => setIsMenuOpen(false)}>
+                <FontAwesomeIcon icon={faUser} className="text-lg hover:text-orange-700" title="Login" />
               </NavLink>
             )}
-            <NavLink 
-              to="/chat" 
-              className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <FontAwesomeIcon icon={faComment} className="text-lg" />
+            <NavLink to="/chat" onClick={() => setIsMenuOpen(false)}>
+              <FontAwesomeIcon icon={faComment} className="text-lg hover:text-orange-700" />
             </NavLink>
-            <NavLink 
-              to="/wishlist" 
-              className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <FontAwesomeIcon icon={faHeart} className="text-lg" title="Wishlist" />
+            <NavLink to="/wishlist" onClick={() => setIsMenuOpen(false)}>
+              <FontAwesomeIcon icon={faHeart} className="text-lg hover:text-orange-700" />
             </NavLink>
           </div>
         </div>
       )}
 
-      {/* Desktop Nav Links */}
+      {/* Desktop Navigation */}
       <nav className="hidden lg:flex items-center gap-8">
-        <ul className='flex gap-6 text-gray-800 font-medium items-center'>
-          <li>
-            <NavLink to="/home" className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`}>
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/product" className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`}>
-              Product
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/about" className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`}>
-              About
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/contact" className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`}>
-              Contact
-            </NavLink>
-          </li>
+        <ul className='flex gap-6 font-medium'>
+          {['/home', '/product', '/about', '/contact'].map((path, index) => (
+            <li key={index}>
+              <NavLink 
+                to={path} 
+                className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800 dark:text-white"} hover:text-orange-700`}
+              >
+                {path.replace('/', '').charAt(0).toUpperCase() + path.slice(2)}
+              </NavLink>
+            </li>
+          ))}
         </ul>
       </nav>
 
       {/* Desktop Icons */}
-      <div className="hidden items-center lg:flex justify-between gap-5">
-        <NavLink to="/cart" className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`}>
+      <div className="hidden lg:flex items-center gap-5">
+        <NavLink to="/cart" className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800 dark:text-white"} hover:text-orange-700`}>
           <FontAwesomeIcon icon={faCartShopping} className="text-lg" />
         </NavLink>
-        {/* User/Login/Logout Icon */}
         {loggedIn ? (
-          <button onClick={handleLogout} className="text-gray-800 hover:text-orange-700">
+          <button onClick={handleLogout} className="text-gray-800 dark:text-white hover:text-orange-700">
             <FontAwesomeIcon icon={faSignOutAlt} className="text-lg" title="Logout" />
           </button>
         ) : (
-          <NavLink to="/user" className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`}>
+          <NavLink to="/user" className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800 dark:text-white"} hover:text-orange-700`}>
             <FontAwesomeIcon icon={faUser} className="text-lg" title="Login" />
           </NavLink>
         )}
-        <NavLink to="/chat" className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`}>
+        <NavLink to="/chat" className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800 dark:text-white"} hover:text-orange-700`}>
           <RiGeminiFill className="text-lg" />
         </NavLink>
-        <NavLink to="/wishlist" className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800"} hover:text-orange-700`}>
+        <NavLink to="/wishlist" className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-800 dark:text-white"} hover:text-orange-700`}>
           <FontAwesomeIcon icon={faHeart} className="text-lg" title="Wishlist" />
         </NavLink>
+        <button
+          onClick={toggleTheme}
+          className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white hover:scale-110 transition duration-300"
+          title="Toggle Theme"
+        >
+          {theme === "light" ? <FaMoon /> : <FaSun />}
+        </button>
       </div>
     </header>
   );
