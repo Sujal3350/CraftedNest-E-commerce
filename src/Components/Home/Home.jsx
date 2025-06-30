@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
@@ -7,6 +6,10 @@ import chair from '../../assets/Cane Lounge Chair.jpg';
 import sofa from '../../assets/decor.avif';
 import shelf from '../../assets/shelf.jpg';
 import homebg from '../../assets/home bg.avif';
+import bed from '../../assets/bed.webp';
+import diningTable from '../../assets/diningTable.webp';
+import coffetable from '../../assets/coffetable.avif';
+
 import { useNavigate } from 'react-router-dom';
 
 function Home() {
@@ -79,10 +82,55 @@ function Home() {
       reviews: 92,
       image: shelf,
     },
+    {
+      id: 5,
+      slug: 'modern-sofa-set',
+      name: 'Modern Sofa Set',
+      description: 'Stylish and comfortable sofa set with plush cushions and a contemporary design.',
+      price: '₹30,000',
+      originalPrice: '₹35,000',
+      rating: 4.9,
+      reviews: 150,
+      image: sofa,
+    },
+    {
+      id: 6,
+      slug: 'designer-coffee-table',
+      name: 'Designer Coffee Table',
+      description: 'Elegant coffee table with a glass top and wooden base, perfect for modern living rooms.',
+      price: '₹12,000',
+      originalPrice: '₹15,000',
+      rating: 4.8,
+      reviews: 85,
+      image: coffetable,
+    },
+    {
+      id: 7,
+      slug: 'luxury-bed',
+      name: 'Luxury Bed',
+      description: 'King-size luxury bed with a plush headboard and premium mattress for ultimate comfort.',
+      price: '₹45,000',
+      originalPrice: '₹50,000',
+      rating: 4.9,
+      reviews: 120,
+      image: bed,
+    },
+    {
+      id: 8,
+      slug: 'modern-dining-table',
+      name: 'Modern Dining Table',
+      description: 'Spacious dining table with a sleek design, perfect for family gatherings.',
+      price: '₹25,000',
+      originalPrice: '₹30,000',
+      rating: 4.7,
+      reviews: 95,
+      image: diningTable,
+    },
   ];
 
   return (
-    <div className="min-h-screen bg-[#F7F7F7] dark:bg-gray-900 font-poppins dark:text-white">
+    <div className="min-h-screen bg-[#F7F7F7] dark:bg-gray-900 font-poppins dark:text-white relative overflow-x-hidden">
+
       {/* Hero Section */}
       <section className={`relative h-screen overflow-hidden ${isVisible ? 'animate-fade-in' : ''}`}>
         <img src={homebg} alt="Hero Background" className="absolute inset-0 object-cover w-full h-full" />
@@ -99,14 +147,34 @@ function Home() {
         </div>
       </section>
 
-      {/* Product Grid */}
-      <section className={`py-12 sm:py-16 ${isVisible ? 'animate-slide-up' : ''}`} style={{ background: 'linear-gradient(to bottom, #F7F7F7, white)' }}>
-        <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-10 text-gray-900 dark:text- text-center font-poppins">Featured Collections</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-4 sm:px-8">
+      {/* Product Grid Section with Arrow Scroll */}
+      <section className={`py-12 sm:py-16 relative ${isVisible ? 'animate-slide-up' : ''}`} style={{ background: 'linear-gradient(to bottom, #F7F7F7, white)' }}>
+        <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-10 text-gray-900 dark:text-white text-center font-poppins">
+          Featured Collections
+        </h2>
+
+        {/* Left Arrow */}
+        <button
+          className="absolute left-2 top-[65%] z-20 bg-white dark:bg-gray-800 text-gray-700 dark:text-white p-3 rounded-full shadow hover:bg-orange-500 hover:text-white transition"
+          onClick={() => document.getElementById('product-scroll').scrollBy({ left: -300, behavior: 'smooth' })}
+        >
+          &#8592;
+        </button>
+
+        {/* Right Arrow */}
+        <button
+          className="absolute right-2 top-[65%] z-20 bg-white dark:bg-gray-800 text-gray-700 dark:text-white p-3 rounded-full shadow hover:bg-orange-500 hover:text-white transition"
+          onClick={() => document.getElementById('product-scroll').scrollBy({ left: 300, behavior: 'smooth' })}
+        >
+          &#8594;
+        </button>
+
+        {/* Scrollable Product Grid */}
+        <div id="product-scroll" className="flex gap-6 overflow-x-auto px-6 scroll-smooth no-scrollbar">
           {products.map((product) => (
             <div
               key={product.id}
-              className="bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg transition duration-300 overflow-hidden border border-gray-100 dark:border-gray-700 group relative"
+              className="min-w-[280px] max-w-[280px] bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg transition duration-300 overflow-hidden border border-gray-100 dark:border-gray-700 group relative"
             >
               <div className="p-4 flex justify-center items-center relative">
                 <img
@@ -114,7 +182,6 @@ function Home() {
                   alt={product.name}
                   className="rounded-md object-cover w-full h-48 max-w-full"
                 />
-                {/* Shop Now Button (only visible on hover) */}
                 <button
                   onClick={() => navigate(`/product`)}
                   className="absolute bottom-4 opacity-0 group-hover:opacity-100 left-1/2 transform -translate-x-1/2 transition-opacity duration-300 bg-orange-500 dark:bg-orange-600 text-white text-sm px-4 py-2 rounded shadow-lg hover:bg-orange-600 dark:hover:bg-orange-700"
