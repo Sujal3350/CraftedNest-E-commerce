@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faInstagram, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
+import { faPhoneAlt, faEnvelope, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 
 function Contact() {
   const [result, setResult] = useState('');
@@ -46,48 +47,81 @@ function Contact() {
           {/* Contact Information and Map */}
           <div className="flex flex-col gap-6">
             {/* Contact Info */}
-            <div className="bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700">
-              <h3 className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-white mb-4">Get in Touch</h3>
-              <ul className="space-y-3 text-sm sm:text-base text-gray-600 dark:text-gray-300">
-                <li>
-                  <span className="font-medium">Phone:</span>{' '}
-                  <a href="tel:+919879283930" className="text-orange-700 dark:text-orange-400">
-                    +91 98792-83930
-                  </a>
-                </li>
-                <li>
-                  <span className="font-medium">Email:</span>{' '}
-                  <a href="https://mailto:sujalpatel3350@gmail.com" className="text-orange-700 dark:text-orange-400">
-                    sujalpatel3350@gmail.com
-                  </a>
-                </li>
-                <li>
-                  <span className="font-medium">Address:</span>{' '}
-                  <a
-                    href="https://www.google.com/maps/place/DRB+Commerce+College/@21.152034,72.7963094,902m/data=!3m2!1e3!4b1!4m6!3m5!1s0x3be04dff37092877:0x39a0fba9ce2971c5!8m2!3d21.152029!4d72.7988897!16s%2Fg%2F1tdbpb7b?entry=ttu&g_ep=EgoyMDI1MDYxNS4wIKXMDSoASAFQAw%3D%3D"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-orange-700 dark:text-orange-400"
-                  >
-                    DRB Commerce College, Surat, Gujarat 395001, India
-                  </a>
-                </li>
-              </ul>
-            </div>
+            {/* Contact Information */}
+            <div className="space-y-8">
+              {/* Contact Card */}
+              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 border border-gray-100 dark:border-gray-700">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
+                  <span className="w-6 h-6 rounded-full bg-orange-700 flex items-center justify-center text-white">
+                    <FontAwesomeIcon icon={faMapMarkerAlt} className="text-xs" />
+                  </span>
+                  Contact Information
+                </h2>
+                
+                <div className="space-y-6">
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 rounded-lg bg-orange-100 dark:bg-gray-700 text-orange-700 dark:text-orange-700 mt-1">
+                      <FontAwesomeIcon icon={faPhoneAlt} />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-800 dark:text-white">Phone</h3>
+                      <a 
+                        href="tel:+919879283930" 
+                        className="text-orange-700 dark:text-white hover:text-orange-700 dark:hover:text-orange-300 transition-colors"
+                      >
+                        +91 98792 83930
+                      </a>
+                    </div>
+                  </div>
 
-            {/* Google Map Embed */}
-            <div className="bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700">
-              <h3 className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-white mb-4">Our Location</h3>
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d902.0!2d72.7963094!3d21.152034!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04dff37092877%3A0x39a0fba9ce2971c5!2sDRB%20Commerce%20College!5e0!3m2!1sen!2sus!4v1634567890123!5m2!1sen!2sus"
-                width="100%"
-                height="300"
-                style={{ border: 0 }}
-                allowFullScreen=""
-                loading="lazy"
-                title="CraftedNest Location - DRB Commerce College"
-                className="rounded-lg"
-              ></iframe>
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 rounded-lg bg-orange-100 dark:bg-gray-700 text-orange-700 dark:text-orange-700 mt-1">
+                      <FontAwesomeIcon icon={faEnvelope} />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-800 dark:text-white">Email</h3>
+                      <a 
+                        href="mailto:sujalpatel3350@gmail.com" 
+                        className="text-orange-600 dark:text-white hover:text-orange-700 dark:hover:text-orange-300 transition-colors"
+                      >
+                        sujalpatel3350@gmail.com
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 rounded-lg bg-orange-100 dark:bg-gray-700 text-orange-700 dark:text-orange-700 mt-1">
+                      <FontAwesomeIcon icon={faMapMarkerAlt} />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-800 dark:text-white">Address</h3>
+                      <a
+                        href="https://www.google.com/maps/place/DRB+Commerce+College/@21.152034,72.7963094,902m/data=!3m2!1e3!4b1!4m6!3m5!1s0x3be04dff37092877:0x39a0fba9ce2971c5!8m2!3d21.152029!4d72.7988897!16s%2Fg%2F1tdbpb7b?entry=ttu&g_ep=EgoyMDI1MDYxNS4wIKXMDSoASAFQAw%3D%3D"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-orange-600 dark:text-white hover:text-orange-700 dark:hover:text-orange-300 transition-colors"
+                      >
+                        DRB Commerce College, Surat, Gujarat 395001, India
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Google Map Embed */}
+              <div className="bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700">
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-white mb-4">Our Location</h3>
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d902.0!2d72.7963094!3d21.152034!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04dff37092877%3A0x39a0fba9ce2971c5!2sDRB%20Commerce%20College!5e0!3m2!1sen!2sus!4v1634567890123!5m2!1sen!2sus"
+                  width="100%"
+                  height="300"
+                  style={{ border: 0 }}
+                  allowFullScreen=""
+                  loading="lazy"
+                  title="CraftedNest Location - DRB Commerce College"
+                  className="rounded-lg"
+                ></iframe>
+              </div>
             </div>
           </div>
 

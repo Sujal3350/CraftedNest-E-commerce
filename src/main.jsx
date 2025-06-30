@@ -16,6 +16,8 @@ import Chat from './Components/Chat/Chat.jsx'
 import Wishlist from './Components/Wishlist/Wishlist.jsx'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ReturnsRefunds from './Components/Returns & Refunds/ReturnsRefunds.jsx'
+import PrivatePolicy from './Components/PrivacyPolicy/PrivacyPolicy.jsx'
 
 <ToastContainer position="top-right" autoClose={3000} />
 
@@ -33,6 +35,8 @@ const router=createBrowserRouter(
       <Route path='/signup' element={<Signup/>}/>
       <Route path='/chat' element={<Chat/>}/>
       <Route path='/wishlist' element={<Wishlist/>}/>
+      <Route path='/returnrefunds' element={<ReturnsRefunds/>}/>
+      <Route path='/privatepolicy' element={<PrivatePolicy/>}/>
     </Route>
     
   )
