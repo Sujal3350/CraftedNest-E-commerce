@@ -93,7 +93,7 @@ function Header() {
             ))}
           </ul>
 
-          <div className="flex justify-center gap-4">
+          <div className="flex justify-center gap-4 items-center">
             <NavLink to="/cart" onClick={() => setIsMenuOpen(false)}>
               <FontAwesomeIcon icon={faCartShopping} className="text-lg hover:text-orange-700" />
             </NavLink>
@@ -112,6 +112,14 @@ function Header() {
             <NavLink to="/wishlist" onClick={() => setIsMenuOpen(false)}>
               <FontAwesomeIcon icon={faHeart} className="text-lg hover:text-orange-700" />
             </NavLink>
+            {/* Theme Toggle Button for Mobile/Tablet */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white hover:scale-110 transition duration-300 ml-2"
+              title="Toggle Theme"
+            >
+              {theme === "light" ? <FaMoon /> : <FaSun />}
+            </button>
           </div>
         </div>
       )}
