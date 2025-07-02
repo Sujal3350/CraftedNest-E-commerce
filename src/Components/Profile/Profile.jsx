@@ -8,6 +8,8 @@ import { toast } from 'react-toastify';
 import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
 import { motion } from 'framer-motion';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 import axios from 'axios';
 
 function Profile() {
@@ -15,14 +17,34 @@ function Profile() {
   const [wishlistCount, setWishlistCount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [profilePic, setProfilePic] = useState(null);
+  const [userData, setUserData] = useState(null);
 
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem('user'));
-  const userId = user?.id || 'guest';
-  const username = user?.username || user?.email?.split('@')[0] || 'Guest';
-  const gmailId = user?.email || 'Not logged in';
+  const userFromStorage = JSON.parse(localStorage.getItem('user'));
+  const userId = userFromStorage?.id || 'guest';
+  const username = userData?.username || userFromStorage?.username || userFromStorage?.email?.split('@')[0] || 'Guest';
+  const gmailId = userData?.email || userFromStorage?.email || 'Not logged in';
 
   useEffect(() => {
+    const fetchUserData = async () => {
+      if (userId !== 'guest') {
+        try {
+          const userDoc = await getDoc(doc(db, "users", userId));
+          if (userDoc.exists()) {
+            setUserData(userDoc.data());
+            localStorage.setItem("user", JSON.stringify({
+              id: userId,
+              email: userDoc.data().email,
+              username: userDoc.data().username
+            }));
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+          toast.error("Failed to fetch user details");
+        }
+      }
+    };
+
     const fetchCounts = async () => {
       try {
         setIsLoading(true);
@@ -39,6 +61,8 @@ function Profile() {
         setIsLoading(false);
       }
     };
+
+    fetchUserData();
     fetchCounts();
   }, [userId]);
 
@@ -109,7 +133,7 @@ function Profile() {
     >
       <div className="max-w-md mx-auto">
 
-        {/* Profile Header with Picture */}
+        {/* Profile Header */}
         <motion.div
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -118,8 +142,9 @@ function Profile() {
         >
           <div className="relative">
             <img
-              src={profilePic || "/default-avatar.png"} 
+              src={profilePic || "/default-avatar.png"}
               className="w-24 h-24 rounded-full object-cover border-4 border-orange-500 shadow-lg"
+              alt="Profile"
             />
             <label htmlFor="profile-upload">
               <div className="absolute bottom-0 right-0 bg-orange-600 text-white p-2 rounded-full cursor-pointer shadow-lg hover:bg-orange-700 transition">

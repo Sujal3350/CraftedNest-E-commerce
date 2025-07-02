@@ -4,8 +4,9 @@ import GoogleSvg from "../../assets/google.svg";
 import { FaEye, FaEyeSlash, FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword , GoogleAuthProvider, signInWithPopup} from "firebase/auth";
-import { auth } from "../firebase"; 
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { auth, db } from "../firebase"; 
+import { doc, setDoc } from "firebase/firestore";
 import { toast } from 'react-toastify';
 import { motion } from "framer-motion";
 
@@ -41,13 +42,33 @@ const User = () => {
 
   const handleGoogleLogin = async () => {
     const provider = new GoogleAuthProvider();
+    setIsLoading(true);
     try {
-      await signInWithPopup(auth, provider);
+      const userCredential = await signInWithPopup(auth, provider);
+      const user = userCredential.user;
+
+      // Extract username from Google displayName or email
+      const googleUsername = user.displayName || user.email.split('@')[0];
+
+      // Save user details to Firestore
+      await setDoc(doc(db, "users", user.uid), {
+        email: user.email,
+        username: googleUsername,
+        createdAt: new Date(),
+        authProvider: "google",
+      }, { merge: true });
+
+      // Save to localStorage to match manual login
+      localStorage.setItem("user", JSON.stringify({ id: user.uid, email: user.email, username: googleUsername }));
+      localStorage.setItem("loggedIn", "true");
+
       toast.success("Logged in with Google!");
       navigate("/home");
     } catch (error) {
+      console.error("Google login error:", error);
       toast.error("Google login failed!");
-      console.error(error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -59,6 +80,7 @@ const User = () => {
       
       const user = auth.currentUser;
       localStorage.setItem("user", JSON.stringify({ id: user.uid, email: user.email }));
+      localStorage.setItem("loggedIn", "true");
 
       toast.success("Login successful!");
       navigate("/home");
@@ -137,7 +159,7 @@ const User = () => {
                 <input
                   type={showPassword ? "text" : "password"}
                   placeholder="Password"
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-500 dark:focus:ring-orange-400 text-base bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-500 dark:focus:ring-orange-400 text-base bg-white dark:bg-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all"
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                 />
@@ -157,7 +179,7 @@ const User = () => {
               <motion.div variants={itemVariants} className="flex justify-between items-center text-sm text-gray-600 dark:text-gray-400">
                 <label className="flex items-center space-x-2 cursor-pointer">
                   <input 
-                    type="checkbox" 
+                    type="text" 
                     className="h-4 w-4 text-orange-600 dark:text-orange-400 focus:ring-orange-500 border-gray-300 dark:border-gray-600 rounded"
                   />
                   <span>Remember me</span>

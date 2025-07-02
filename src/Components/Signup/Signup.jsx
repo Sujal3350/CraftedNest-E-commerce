@@ -23,9 +23,6 @@ const Signup = () => {
   const navigate = useNavigate();
   const provider = new GoogleAuthProvider();
 
-
-
-
   const handleRegister = async (e) => {
     e.preventDefault();
 
@@ -58,6 +55,7 @@ const Signup = () => {
       });
 
       localStorage.setItem("user", JSON.stringify({ id: user.uid, email: user.email, username: username }));
+      localStorage.setItem("loggedIn", "true");
       toast.success("Account created successfully!");
       navigate("/home");
     } catch (error) {
@@ -82,17 +80,36 @@ const Signup = () => {
     }
   };
 
- const handleGoogleSignup = async () => {
-     const provider = new GoogleAuthProvider();
-     try {
-       await signInWithPopup(auth, provider);
-       toast.success("Signed up with Google successfully!");
-       navigate("/home");
-     } catch (error) {
-       toast.error("Google signup failed!");
-       console.error(error.message);
-     }
-   };
+  const handleGoogleSignup = async () => {
+    setIsGoogleLoading(true);
+    try {
+      const userCredential = await signInWithPopup(auth, provider);
+      const user = userCredential.user;
+
+      // Extract username from Google displayName or email
+      const googleUsername = user.displayName || user.email.split('@')[0];
+
+      // Save user details to Firestore
+      await setDoc(doc(db, "users", user.uid), {
+        email: user.email,
+        username: googleUsername,
+        createdAt: new Date(),
+        authProvider: "google",
+      }, { merge: true }); // Use merge to avoid overwriting existing data
+
+      // Save to localStorage to match manual signup
+      localStorage.setItem("user", JSON.stringify({ id: user.uid, email: user.email, username: googleUsername }));
+      localStorage.setItem("loggedIn", "true");
+
+      toast.success("Signed up with Google successfully!");
+      navigate("/home");
+    } catch (error) {
+      console.error("Google signup error:", error);
+      toast.error("Google signup failed!");
+    } finally {
+      setIsGoogleLoading(false);
+    }
+  };
 
   return (
     <motion.div 
@@ -247,7 +264,7 @@ const Signup = () => {
                 />
                 <label htmlFor="terms-checkbox" className="ml-2 text-sm text-gray-700 dark:text-gray-300">
                   I agree to the{" "}
-                  <Link to="/terms" className="text-orange-600 dark:text-orange-500 hover:underline">
+                  <Link to="/terms" classat="text-orange-600 dark:text-orange-500 hover:underline">
                     Terms and Conditions
                   </Link>
                 </label>
@@ -260,13 +277,12 @@ const Signup = () => {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 disabled={isLoading}
-                
               >
                 {isLoading ? (
                   <>
                     <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      <path className="opacity-75" fill grandchild="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
                     Creating account...
                   </>
