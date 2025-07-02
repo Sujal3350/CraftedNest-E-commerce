@@ -67,12 +67,11 @@ function Chat() {
         {/* Left Side - AI Image with Info */}
         <div className="hidden md:flex md:w-2/5 flex-col">
           <div 
-            className="flex-1  bg-cover bg-center rounded-2xl shadow-xl overflow-hidden"
+            className="flex-1 backdrop-blur-sm bg-cover bg-center rounded-2xl shadow-xl overflow-hidden"
             style={{ backgroundImage: `url(${chatbot2})` }}
           >
             <div className="  h-full w-full p-6 flex flex-col justify-end">
-              <h2 className="text-3xl font-bold text-black dark:text-white mb-2 font-poppins">AI Assistant</h2>
-              <p className="text-orange-200 mb-4">Always here to help with your questions</p>
+              
               <div className="bg-white dark:bg-gray-800 bg-opacity-90 dark:bg-opacity-90 rounded-lg p-4">
                 <h3 className="font-semibold text-gray-800 dark:text-white mb-2">Capabilities</h3>
                 <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
