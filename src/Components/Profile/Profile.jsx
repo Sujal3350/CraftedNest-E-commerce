@@ -183,7 +183,7 @@ function Profile() {
                   </div>
                   <div>
                     <h3 className="font-medium text-gray-500 dark:text-gray-400">{item.title}</h3>
-                    <p className="text-xl font-semibold text-gray-800 dark:text-white">
+                    <p className="text-sm font-semibold text-gray-800 dark:text-white">
                       {isLoading && item.value !== username && item.value !== gmailId ? (
                         <span className="inline-block h-5 w-10 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></span>
                       ) : (
@@ -228,7 +228,7 @@ function Profile() {
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.6, duration: 0.5 }}
-          className="mt-8 bg-orange-600 dark:bg-orange-700 rounded-xl p-5 text-white shadow-lg"
+          className="mt-8 bg-orange-500 dark:bg-orange-700 rounded-xl p-5 text-white shadow-lg"
         >
           <h3 className="font-medium mb-3">Your Activity</h3>
           <div className="flex justify-between">
