@@ -97,30 +97,8 @@ function Profile() {
       icon: faEnvelope,
       title: "Email",
       value: gmailId,
-      color: "text-gray-600",
+      color: "text-red-600",
     },
-    {
-      icon: faHeart,
-      title: "Wishlist Items",
-      value: wishlistCount,
-      color: "text-red-500",
-      action: {
-        text: "View Wishlist",
-        path: "/wishlist",
-        color: "bg-pink-100 hover:bg-pink-200 text-pink-700"
-      }
-    },
-    {
-      icon: faCartShopping,
-      title: "Cart Items",
-      value: cartItemsCount,
-      color: "text-green-700",
-      action: {
-        text: "View Cart",
-        path: "/cart",
-        color: "bg-green-100 hover:bg-green-200 text-green-700"
-      }
-    }
   ];
 
   return (
@@ -192,15 +170,7 @@ function Profile() {
                     </p>
                   </div>
                 </div>
-                {item.action && (
-                  <Link
-                    to={item.action.path}
-                    className={`${item.action.color} px-3 py-1 rounded-full text-sm font-medium flex items-center`}
-                  >
-                    {item.action.text}
-                    <FontAwesomeIcon icon={faChevronRight} className="ml-1 text-xs" />
-                  </Link>
-                )}
+                
               </div>
             </motion.div>
           ))}
@@ -228,7 +198,7 @@ function Profile() {
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.6, duration: 0.5 }}
-          className="mt-8 bg-orange-500 dark:bg-orange-700 rounded-xl p-5 text-white shadow-lg"
+          className="mt-8 bg-orange-400 rounded-xl p-5 text-white shadow-lg"
         >
           <h3 className="font-medium mb-3">Your Activity</h3>
           <div className="flex justify-between">
