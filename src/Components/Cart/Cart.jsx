@@ -112,7 +112,7 @@ function Cart() {
         
         {isLoading ? (
           <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-500"></div>
           </div>
         ) : cartItems.length === 0 ? (
           <motion.div 
@@ -158,11 +158,11 @@ function Cart() {
                           <h3 className="text-lg font-semibold text-gray-900 dark:text-white truncate">{item.name}</h3>
                           <p className="text-orange-600 dark:text-orange-400 font-medium">₹{item.price.toFixed(2)}</p>
 
-                          <div className="flex items-center gap-4 mt-3">
-                            <div className="flex items-center border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+                          <div className="flex  items-center w-fit sm:gap-4 gap-2 mt-3">
+                            <div className="flex border border-gray-200 dark:border-gray-700 rounded-lg  items-center ">
                               <button
                                 onClick={() => handleRemoveQuantity(item)}
-                                className="px-3 py-1 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-200 text-gray-700 dark:text-gray-300"
+                                className=" px-3 py-1 bg-gray-50 dark:bg-gray-700 rounded-l-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-200 text-gray-700 dark:text-gray-300"
                                 disabled={item.quantity === 0}
                               >
                                 -
@@ -172,7 +172,7 @@ function Cart() {
                               </span>
                               <button
                                 onClick={() => handleAddQuantity(item)}
-                                className="px-3 py-1 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-200 text-gray-700 dark:text-gray-300"
+                                className="px-3 py-1 bg-gray-50 dark:bg-gray-700 rounded-r-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-200 text-gray-700 dark:text-gray-300"
                               >
                                 +
                               </button>
@@ -180,7 +180,7 @@ function Cart() {
                             
                             <button
                               onClick={() => removeItem(item.productId)}
-                              className="text-red-500 dark:text-red-400 hover:text-red-700 dark:hover:text-red-500 transition-colors duration-200 p-2"
+                              className="w-full   text-red-500 dark:text-red-400 hover:text-red-700 dark:hover:text-red-500 transition-colors duration-200 p-2"
                               aria-label="Remove item"
                             >
                               <RiDeleteBin6Line className="text-xl" />
@@ -328,10 +328,10 @@ function PaymentModal({ total, onClose, onSuccess }) {
               </button>
             </div>
             
-            <div className="bg-indigo-50 dark:bg-indigo-900/20 p-4 rounded-lg mb-6">
+            <div className="bg-orange-50 dark:bg-orange-900/20 p-4 rounded-lg mb-6">
               <div className="flex justify-between items-center">
                 <span className="text-gray-700 dark:text-gray-300 font-medium">Total Amount</span>
-                <span className="text-xl font-bold text-indigo-600 dark:text-indigo-400">₹{total}</span>
+                <span className="text-xl font-bold text-orange-600 dark:text-orange-400">₹{total}</span>
               </div>
             </div>
             
@@ -342,7 +342,7 @@ function PaymentModal({ total, onClose, onSuccess }) {
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+                  className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
                   placeholder="John Doe"
                   required
                 />
@@ -356,7 +356,7 @@ function PaymentModal({ total, onClose, onSuccess }) {
                     value={cardNumber.replace(/(\d{4})/g, '$1 ').trim()}
                     onChange={(e) => setCardNumber(e.target.value.replace(/\s/g, '').replace(/\D/g, '').slice(0, 16))}
                     maxLength="19"
-                    className="w-full p-3 pl-10 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+                    className="w-full p-3 pl-10 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
                     placeholder="1234 5678 9012 3456"
                     required
                   />
@@ -377,7 +377,7 @@ function PaymentModal({ total, onClose, onSuccess }) {
                     onChange={(e) => setExpiry(e.target.value.replace(/\D/g, '').slice(0, 4))}
                     maxLength="5"
                     placeholder="MM/YY"
-                    className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+                    className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
                     required
                   />
                 </div>
@@ -389,7 +389,7 @@ function PaymentModal({ total, onClose, onSuccess }) {
                       value={cvv}
                       onChange={(e) => setCvv(e.target.value.replace(/\D/g, '').slice(0, 3))}
                       maxLength="3"
-                      className="w-full p-3 pr-10 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+                      className="w-full p-3 pr-10 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
                       placeholder="123"
                       required
                     />
@@ -406,9 +406,9 @@ function PaymentModal({ total, onClose, onSuccess }) {
                 type="submit"
                 disabled={isProcessing}
                 className={`w-full py-3 rounded-lg font-semibold text-white transition-all duration-300 mt-6 ${
-                  isProcessing 
-                    ? 'bg-gray-400 dark:bg-gray-600 cursor-not-allowed' 
-                    : 'bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-700 dark:hover:bg-indigo-800 shadow-md hover:shadow-lg'
+                  isProcessing
+                    ? 'bg-gray-400 dark:bg-gray-600 cursor-not-allowed'
+                    : 'bg-orange-600 hover:bg-orange-700 dark:bg-orange-700 dark:hover:bg-orange-800 shadow-md hover:shadow-lg'
                 }`}
               >
                 {isProcessing ? (
