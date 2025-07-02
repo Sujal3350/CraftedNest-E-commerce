@@ -8,12 +8,16 @@ import { auth } from '../firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { FaMoon, FaSun } from "react-icons/fa";
 import { motion, AnimatePresence } from 'framer-motion';
+import axios from 'axios';
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
+
+  // Initialize cartItemsCount and wishlistCount with 0
   const [cartItemsCount, setCartItemsCount] = useState(0);
   const [wishlistCount, setWishlistCount] = useState(0);
+
   const [isScrolled, setIsScrolled] = useState(false);
   const navigate = useNavigate();
 
@@ -21,6 +25,9 @@ function Header() {
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem("theme") || "light";
   });
+
+  const user = JSON.parse(localStorage.getItem('user'));
+  const userId = user?.id || 'guest';
 
   // Apply theme on mount and on theme change
   useEffect(() => {
@@ -41,6 +48,35 @@ function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Fetch cart and wishlist counts
+  const fetchCounts = async () => {
+    try {
+      // Fetch cart items
+      const cartResponse = await axios.get(`https://craftednest.onrender.com/api/cart/${userId}`);
+      const cartItems = cartResponse.data.items || [];
+      setCartItemsCount(cartItems.length);
+
+      // Fetch wishlist items
+      const wishlistResponse = await axios.get(`https://craftednest.onrender.com/api/wishlist/${userId}`);
+      const wishlistItems = wishlistResponse.data || [];
+      setWishlistCount(wishlistItems.length);
+    } catch (error) {
+      console.error('Error fetching counts:', error);
+      toast.error('Failed to update cart or wishlist counts');
+    }
+  };
+
+  // Fetch counts on mount and when userId changes
+  useEffect(() => {
+    fetchCounts();
+  }, [userId]);
+
+  // Poll for updates every 5 seconds
+  useEffect(() => {
+    const interval = setInterval(fetchCounts, 5000);
+    return () => clearInterval(interval);
+  }, [userId]);
+
   const toggleTheme = () => {
     setTheme(prev => (prev === "light" ? "dark" : "light"));
     toast.info(`Switched to ${theme === "light" ? "dark" : "light"} mode`);
@@ -59,13 +95,6 @@ function Header() {
     return () => unsubscribe();
   }, []);
 
-  // Simulate cart and wishlist items (replace with actual data)
-  useEffect(() => {
-    // In a real app, you would fetch these from your state management or API
-    setCartItemsCount(1);
-    setWishlistCount(1);
-  }, []);
-
   const handleLogout = async () => {
     try {
       await signOut(auth);
@@ -73,6 +102,7 @@ function Header() {
       localStorage.setItem('loggedIn', 'false');
       toast.success("Logged out successfully!");
       navigate('/');
+      fetchCounts(); // Refresh counts after logout
     } catch (error) {
       console.error("Logout error:", error);
       toast.error("Logout failed. Please try again.");
@@ -213,31 +243,31 @@ function Header() {
 
       {/* Desktop Navigation */}
       <nav className="hidden lg:flex items-center gap-8">
-              <ul className='flex gap-6 font-medium'>
-                {navItems.map((item, index) => (
-                  <motion.li 
-                    key={index}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <NavLink 
-                      to={item.path} 
-                      className={({ isActive }) => 
-                        `${isActive ? "text-orange-700 font-semibold" : "text-gray-800 dark:text-white"} 
-                        hover:text-orange-700 transition-colors duration-200 relative group`
-                      }
-                    >
-                      {({ isActive }) => (
-                        <>
-                          {item.name}
-                          <span className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-600 transition-all duration-300 group-hover:w-full ${isActive ? "w-full" : ""}`}></span>
-                        </>
-                      )}
-                    </NavLink>
-                  </motion.li>
-                ))}
-              </ul>
-            </nav>
+        <ul className='flex gap-6 font-medium'>
+          {navItems.map((item, index) => (
+            <motion.li 
+              key={index}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <NavLink 
+                to={item.path} 
+                className={({ isActive }) => 
+                  `${isActive ? "text-orange-700 font-semibold" : "text-gray-800 dark:text-white"} 
+                  hover:text-orange-700 transition-colors duration-200 relative group`
+                }
+              >
+                {({ isActive }) => (
+                  <>
+                    {item.name}
+                    <span className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-600 transition-all duration-300 group-hover:w-full ${isActive ? "w-full" : ""}`}></span>
+                  </>
+                )}
+              </NavLink>
+            </motion.li>
+          ))}
+        </ul>
+      </nav>
 
       {/* Desktop Icons */}
       <div className="hidden lg:flex items-center gap-5">
