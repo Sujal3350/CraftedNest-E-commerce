@@ -40,25 +40,25 @@ function Footer() {
               <li>
                 <a href="about" className='text-gray-600 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-400 font-medium transition-colors duration-300 flex items-center gap-2'>
                   <span className='w-2 h-2 bg-orange-400 rounded-full'></span>
-                  About Us
+                  FAQs
                 </a>
               </li>
               <li>
                 <a href="about" className='text-gray-600 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-400 font-medium transition-colors duration-300 flex items-center gap-2'>
                   <span className='w-2 h-2 bg-orange-400 rounded-full'></span>
-                  FAQs
-                </a>
-              </li>
-              <li>
-                <a href="returnrefunds" className='text-gray-600 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-400 font-medium transition-colors duration-300 flex items-center gap-2'>
-                  <span className='w-2 h-2 bg-orange-400 rounded-full'></span>
-                  Returns & Refunds
+                  About Us
                 </a>
               </li>
               <li>
                 <a href="privatepolicy" className='text-gray-600 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-400 font-medium transition-colors duration-300 flex items-center gap-2'>
                   <span className='w-2 h-2 bg-orange-400 rounded-full'></span>
                   Privacy Policy
+                </a>
+              </li>
+              <li>
+                <a href="returnrefunds" className='text-gray-600 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-400 font-medium transition-colors duration-300 flex items-center gap-2'>
+                  <span className='w-2 h-2 bg-orange-400 rounded-full'></span>
+                  Returns & Refunds
                 </a>
               </li>
             </ul>
@@ -70,6 +70,12 @@ function Footer() {
               Customer Service
             </h3>
             <ul className='flex flex-col items-center md:items-start gap-3 text-sm sm:text-base'>
+              <li>
+                <a href="#" className='text-gray-600 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-400 font-medium transition-colors duration-300 flex items-center gap-2'>
+                  <span className='w-2 h-2 bg-orange-400 rounded-full'></span>
+                  Size Guide
+                </a>
+              </li>
               <li>
                 <a href="contact" className='text-gray-600 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-400 font-medium transition-colors duration-300 flex items-center gap-2'>
                   <span className='w-2 h-2 bg-orange-400 rounded-full'></span>
@@ -86,12 +92,6 @@ function Footer() {
                 <a href="#" className='text-gray-600 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-400 font-medium transition-colors duration-300 flex items-center gap-2'>
                   <span className='w-2 h-2 bg-orange-400 rounded-full'></span>
                   Shipping Info
-                </a>
-              </li>
-              <li>
-                <a href="#" className='text-gray-600 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-400 font-medium transition-colors duration-300 flex items-center gap-2'>
-                  <span className='w-2 h-2 bg-orange-400 rounded-full'></span>
-                  Size Guide
                 </a>
               </li>
             </ul>
