@@ -22,6 +22,9 @@ const Signup = () => {
   const navigate = useNavigate();
   const provider = new GoogleAuthProvider();
 
+
+
+
   const handleRegister = async (e) => {
     e.preventDefault();
 
@@ -77,29 +80,17 @@ const Signup = () => {
     }
   };
 
-  const handleGoogleSignup = async () => {
-    setIsGoogleLoading(true);
-    
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-
-      await setDoc(doc(db, "users", user.uid), {
-        email: user.email,
-        createdAt: new Date(),
-        authProvider: "google",
-      });
-
-      localStorage.setItem("user", JSON.stringify({ id: user.uid, email: user.email }));
-      toast.success("Signed up with Google successfully!");
-      navigate("/home");
-    } catch (error) {
-      console.error("Google signup error:", error);
-      toast.error("Google signup failed. Please try again.");
-    } finally {
-      setIsGoogleLoading(false);
-    }
-  };
+ const handleGoogleSignup = async () => {
+     const provider = new GoogleAuthProvider();
+     try {
+       await signInWithPopup(auth, provider);
+       toast.success("Signed up with Google successfully!");
+       navigate("/home");
+     } catch (error) {
+       toast.error("Google signup failed!");
+       console.error(error.message);
+     }
+   };
 
   return (
     <motion.div 
@@ -252,6 +243,7 @@ const Signup = () => {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 disabled={isLoading}
+                onClick={handleGoogleSignup}
               >
                 {isLoading ? (
                   <>

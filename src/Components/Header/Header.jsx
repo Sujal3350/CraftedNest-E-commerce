@@ -221,6 +221,7 @@ function Header() {
                           </span>
                         )}
                       </NavLink>
+                      
                       {loggedIn && (
                         <button
                           onClick={() => {
@@ -255,15 +256,7 @@ function Header() {
               >
                 {theme === "light" ? <FaMoon /> : <FaSun />}
               </button>
-              {loggedIn ? (
-                <button 
-                  onClick={() => { setIsMenuOpen(false); handleLogout(); }}
-                  className="p-2 hover:text-orange-700 transition-colors duration-200"
-                  aria-label="Logout"
-                >
-                  <FontAwesomeIcon icon={faSignOutAlt} className="text-lg" />
-                </button>
-              ) : (
+              {!loggedIn && (
                 <NavLink 
                   to="/signup" 
                   onClick={() => setIsMenuOpen(false)}
@@ -377,6 +370,7 @@ function Header() {
                     </span>
                   )}
                 </NavLink>
+                
                 {loggedIn && (
                   <button
                     onClick={() => {
