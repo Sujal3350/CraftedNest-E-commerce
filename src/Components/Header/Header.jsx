@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faHeart, faCartShopping, faBars, faTimes, faSignOutAlt, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faHeart, faCartShopping, faBars, faTimes, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { RiGeminiFill } from "react-icons/ri";
 import { toast } from 'react-toastify';
@@ -18,7 +18,6 @@ function Header() {
   const [wishlistCount, setWishlistCount] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
   const navigate = useNavigate();
-  const dropdownRef = useRef(null);
 
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem("theme") || "light";
@@ -26,8 +25,6 @@ function Header() {
 
   const user = JSON.parse(localStorage.getItem('user'));
   const userId = user?.id || 'guest';
-  const username = user?.username || user?.email?.split('@')[0] || 'Guest';
-  const gmailId = user?.email || 'Not logged in';
 
   useEffect(() => {
     if (theme === "dark") {
@@ -46,24 +43,15 @@ function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsProfileDropdownOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
   const fetchCounts = async () => {
     try {
-      const [cartResponse, wishlistResponse] = await Promise.all([
-        axios.get(`https://craftednest.onrender.com/api/cart/${userId}`),
-        axios.get(`https://craftednest.onrender.com/api/wishlist/${userId}`)
-      ]);
-      setCartItemsCount(cartResponse.data.items?.length || 0);
-      setWishlistCount(wishlistResponse.data?.length || 0);
+      const cartResponse = await axios.get(`https://craftednest.onrender.com/api/cart/${userId}`);
+      const cartItems = cartResponse.data.items || [];
+      setCartItemsCount(cartItems.length);
+
+      const wishlistResponse = await axios.get(`https://craftednest.onrender.com/api/wishlist/${userId}`);
+      const wishlistItems = wishlistResponse.data || [];
+      setWishlistCount(wishlistItems.length);
     } catch (error) {
       console.error('Error fetching counts:', error);
       toast.error('Failed to update cart or wishlist counts');
@@ -105,8 +93,6 @@ function Header() {
       toast.success("Logged out successfully!");
       navigate('/');
       fetchCounts();
-      setIsProfileDropdownOpen(false);
-      setIsMenuOpen(false);
     } catch (error) {
       console.error("Logout error:", error);
       toast.error("Logout failed. Please try again.");
@@ -177,26 +163,79 @@ function Header() {
                   </NavLink>
                 </motion.li>
               ))}
-              {loggedIn && (
-                <motion.li
-                  className="w-full text-center"
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: navItems.length * 0.1 }}
+              <motion.li
+                className="w-full text-center relative"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: navItems.length * 0.1 }}
+              >
+                <button
+                  className="w-full py-2 px-4 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center justify-center gap-2"
+                  onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
                 >
-                  <button 
-                    onClick={() => {
-                      setIsProfileDropdownOpen(!isProfileDropdownOpen);
-                      setIsMenuOpen(false);
-                    }}
-                    className="text-gray-800 dark:text-white py-2 px-4 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center justify-center gap-2 w-full"
-                    aria-label="Toggle profile dropdown"
-                  >
-                    <FontAwesomeIcon icon={faUser} className="text-lg" />
-                    Profile
-                  </button>
-                </motion.li>
-              )}
+                  <FontAwesomeIcon icon={faUser} className="text-lg" />
+                  Profile
+                </button>
+                <AnimatePresence>
+                  {isProfileDropdownOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute left-1/2 -translate-x-1/2 mt-2 w-64 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 z-50 p-4"
+                    >
+                      <NavLink
+                        to="/cart"
+                        className={({ isActive }) =>
+                          `${isActive ? "text-orange-700 font-semibold" : "text-gray-800 dark:text-white"} py-2 px-4 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center justify-between`
+                        }
+                        onClick={() => setIsProfileDropdownOpen(false)}
+                      >
+                        Cart
+                        {cartItemsCount > 0 && (
+                          <span className="bg-orange-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                            {cartItemsCount}
+                          </span>
+                        )}
+                      </NavLink>
+                      <NavLink
+                        to="/wishlist"
+                        className={({ isActive }) =>
+                          `${isActive ? "text-orange-700 font-semibold" : "text-gray-800 dark:text-white"} py-2 px-4 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center justify-between`
+                        }
+                        onClick={() => setIsProfileDropdownOpen(false)}
+                      >
+                        Wishlist
+                        {wishlistCount > 0 && (
+                          <span className="bg-orange-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                            {wishlistCount}
+                          </span>
+                        )}
+                      </NavLink>
+                      <NavLink
+                        to="/profile"
+                        className="py-2 px-4 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center justify-between text-gray-800 dark:text-white"
+                        onClick={() => setIsProfileDropdownOpen(false)}
+                      >
+                        Profile
+                      </NavLink>
+                      {loggedIn && (
+                        <button
+                          onClick={() => {
+                            setIsProfileDropdownOpen(false);
+                            handleLogout();
+                          }}
+                          className="w-full text-left py-2 px-4 text-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center justify-between"
+                        >
+                          Logout
+                          <FontAwesomeIcon icon={faSignOutAlt} className="text-lg" />
+                        </button>
+                      )}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.li>
             </ul>
 
             <div className="flex justify-center gap-4 items-center">
@@ -214,66 +253,8 @@ function Header() {
               >
                 {theme === "light" ? <FaMoon /> : <FaSun />}
               </button>
-              {!loggedIn && (
-                <NavLink 
-                  to="/signup" 
-                  onClick={() => setIsMenuOpen(false)}
-                  className="p-2 hover:text-orange-700 transition-colors duration-200"
-                  aria-label="Login"
-                >
-                  <FontAwesomeIcon icon={faUser} className="text-lg" />
-                </NavLink>
-              )}
+             
             </div>
-
-            {/* Mobile Profile Dropdown */}
-            <AnimatePresence>
-              {isProfileDropdownOpen && loggedIn && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.2 }}
-                  className="w-full bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 p-4 mt-4"
-                >
-                  <NavLink
-                    to="/profile"
-                    className="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
-                    onClick={() => setIsProfileDropdownOpen(false)}
-                  >
-                    <div className="flex items-center gap-3">
-                      <FontAwesomeIcon icon={faUser} className="text-blue-600 text-lg" />
-                      <span className="text-sm font-medium text-gray-800 dark:text-white">Profile</span>
-                    </div>
-                    <FontAwesomeIcon icon={faChevronRight} className="text-xs text-gray-500" />
-                  </NavLink>
-                  <NavLink
-                    to="/wishlist"
-                    className="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
-                    onClick={() => setIsProfileDropdownOpen(false)}
-                  >
-                    <div className="flex items-center gap-3">
-                      <FontAwesomeIcon icon={faHeart} className="text-red-500 text-lg" />
-                      <span className="text-sm font-medium text-gray-800 dark:text-white">Wishlist</span>
-                      <span className="text-sm font-semibold text-gray-800 dark:text-white">{wishlistCount}</span>
-                    </div>
-                    <FontAwesomeIcon icon={faChevronRight} className="text-xs text-gray-500" />
-                  </NavLink>
-                  <NavLink
-                    to="/cart"
-                    className="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
-                    onClick={() => setIsProfileDropdownOpen(false)}
-                  >
-                    <div className="flex items-center gap-3">
-                      <FontAwesomeIcon icon={faCartShopping} className="text-green-600 text-lg" />
-                      <span className="text-sm font-medium text-gray-800 dark:text-white">Cart</span>
-                      <span className="text-sm font-semibold text-gray-800 dark:text-white">{cartItemsCount}</span>
-                    </div>
-                    <FontAwesomeIcon icon={faChevronRight} className="text-xs text-gray-500" />
-                  </NavLink>
-                </motion.div>
-              )}
-            </AnimatePresence>
           </motion.div>
         )}
       </AnimatePresence>
@@ -306,13 +287,13 @@ function Header() {
         </ul>
       </nav>
 
-      {/* Desktop Icons and Profile Dropdown */}
-      <div className="hidden lg:flex items-center gap-5 relative" ref={dropdownRef}>
+      {/* Desktop Icons */}
+      <div className="hidden lg:flex items-center gap-5">
         <NavLink 
           to="/chat" 
           className={({ isActive }) => 
             `${isActive ? "text-orange-700" : "text-gray-800 dark:text-white"} 
-            hover:text-orange-700 transition-colors duration-200 relative`
+            hover:text-orange-700 transition-colors duration-200`
           }
         >
           <RiGeminiFill className="text-lg" />
@@ -327,81 +308,77 @@ function Header() {
         >
           {theme === "light" ? <FaMoon /> : <FaSun />}
         </motion.button>
-
-        {loggedIn ? (
-          <div className="relative">
-            <motion.button
-              onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
-              className="text-gray-800 dark:text-white hover:text-orange-700 transition-colors duration-200 relative focus:outline-none"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              aria-label="Toggle profile dropdown"
-            >
-              <FontAwesomeIcon icon={faUser} className="text-lg" />
-              {(cartItemsCount + wishlistCount) > 0 && (
-                <span className="absolute -top-2 -right-2 bg-orange-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
-                  {cartItemsCount + wishlistCount}
-                </span>
-              )}
-            </motion.button>
-
-            <AnimatePresence>
-              {isProfileDropdownOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.2 }}
-                  className="absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 z-50 p-4"
-                >
-                  <NavLink
-                    to="/profile"
-                    className="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
-                    onClick={() => setIsProfileDropdownOpen(false)}
-                  >
-                    <div className="flex items-center gap-3">
-                      <FontAwesomeIcon icon={faUser} className="text-blue-600 text-lg" />
-                      <span className="text-sm font-medium text-gray-800 dark:text-white">Profile</span>
-                    </div>
-                    <FontAwesomeIcon icon={faChevronRight} className="text-xs text-gray-500" />
-                  </NavLink>
-                  <NavLink
-                    to="/wishlist"
-                    className="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
-                    onClick={() => setIsProfileDropdownOpen(false)}
-                  >
-                    <div className="flex items-center gap-3">
-                      <FontAwesomeIcon icon={faHeart} className="text-red-500 text-lg" />
-                      <span className="text-sm font-medium text-gray-800 dark:text-white">Wishlist</span>
-                      <span className="text-sm font-semibold text-gray-800 dark:text-white">{wishlistCount}</span>
-                    </div>
-                    <FontAwesomeIcon icon={faChevronRight} className="text-xs text-gray-500" />
-                  </NavLink>
-                  <NavLink
-                    to="/cart"
-                    className="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
-                    onClick={() => setIsProfileDropdownOpen(false)}
-                  >
-                    <div className="flex items-center gap-3">
-                      <FontAwesomeIcon icon={faCartShopping} className="text-green-600 text-lg" />
-                      <span className="text-sm font-medium text-gray-800 dark:text-white">Cart</span>
-                      <span className="text-sm font-semibold text-gray-800 dark:text-white">{cartItemsCount}</span>
-                    </div>
-                    <FontAwesomeIcon icon={faChevronRight} className="text-xs text-gray-500" />
-                  </NavLink>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        ) : (
-          <NavLink 
-            to="/signup"
+        
+        <div className="relative hidden lg:block">
+          <motion.button
+            onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
             className="text-gray-800 dark:text-white hover:text-orange-700 transition-colors duration-200"
-            aria-label="Login"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            aria-label="Profile"
           >
             <FontAwesomeIcon icon={faUser} className="text-lg" />
-          </NavLink>
-        )}
+          </motion.button>
+          <AnimatePresence>
+            {isProfileDropdownOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                transition={{ duration: 0.2 }}
+                className="absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 z-50 p-4"
+              >
+                <NavLink
+                  to="/profile"
+                  className="py-2 px-4 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center justify-between text-gray-800 dark:text-white"
+                  onClick={() => setIsProfileDropdownOpen(false)}
+                >
+                  Profile
+                </NavLink>
+                <NavLink
+                  to="/cart"
+                  className={({ isActive }) =>
+                    `${isActive ? "text-orange-700 font-semibold" : "text-gray-800 dark:text-white"} py-2 px-4 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center justify-between`
+                  }
+                  onClick={() => setIsProfileDropdownOpen(false)}
+                >
+                  Cart
+                  {cartItemsCount > 0 && (
+                    <span className="bg-orange-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                      {cartItemsCount}
+                    </span>
+                  )}
+                </NavLink>
+                <NavLink
+                  to="/wishlist"
+                  className={({ isActive }) =>
+                    `${isActive ? "text-orange-700 font-semibold" : "text-gray-800 dark:text-white"} py-2 px-4 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center justify-between`
+                  }
+                  onClick={() => setIsProfileDropdownOpen(false)}
+                >
+                  Wishlist
+                  {wishlistCount > 0 && (
+                    <span className="bg-orange-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                      {wishlistCount}
+                    </span>
+                  )}
+                </NavLink>
+                {loggedIn && (
+                  <button
+                    onClick={() => {
+                      setIsProfileDropdownOpen(false);
+                      handleLogout();
+                    }}
+                    className="w-full text-left py-2 px-4 text-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center justify-between"
+                  >
+                    Logout
+                    <FontAwesomeIcon icon={faSignOutAlt} className="text-lg" />
+                  </button>
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
     </header>
   );

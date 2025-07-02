@@ -177,21 +177,7 @@ function Profile() {
         </motion.div>
 
         {/* Logout Button */}
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-          className="mt-8"
-        >
-          <button
-            onClick={handleLogout}
-            className="w-full bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-medium py-3 px-6 rounded-xl shadow-lg transition-all duration-300 flex items-center justify-center gap-3"
-          >
-            <FontAwesomeIcon icon={faSignOutAlt} />
-            Logout
-            <FontAwesomeIcon icon={faChevronRight} className="ml-auto" />
-          </button>
-        </motion.div>
+        
 
         {/* Activity Summary */}
         <motion.div
