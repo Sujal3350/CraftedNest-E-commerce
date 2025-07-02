@@ -15,6 +15,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [username, setUsername] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
@@ -51,11 +52,12 @@ const Signup = () => {
 
       await setDoc(doc(db, "users", user.uid), {
         email: user.email,
+        username: username,
         createdAt: new Date(),
         authProvider: "email",
       });
 
-      localStorage.setItem("user", JSON.stringify({ id: user.uid, email: user.email }));
+      localStorage.setItem("user", JSON.stringify({ id: user.uid, email: user.email, username: username }));
       toast.success("Account created successfully!");
       navigate("/home");
     } catch (error) {
@@ -150,6 +152,21 @@ const Signup = () => {
 
             {/* Form */}
             <form onSubmit={handleRegister} className="space-y-4">
+              {/* Username */}
+              <div>
+                <label htmlFor="username" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Username
+                </label>
+                <input
+                  id="username"
+                  type="text"
+                  placeholder="Enter your username"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 dark:bg-gray-700 dark:text-white transition duration-200"
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                />
+              </div>
+
               {/* Email */}
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
@@ -243,7 +260,7 @@ const Signup = () => {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 disabled={isLoading}
-                onClick={handleGoogleSignup}
+                
               >
                 {isLoading ? (
                   <>
