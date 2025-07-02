@@ -1,4 +1,4 @@
-import { useState ,FacadePattern ,State, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faHeart, faCartShopping, faBars, faTimes, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { NavLink, useNavigate } from 'react-router-dom';
@@ -221,6 +221,19 @@ function Header() {
                           </span>
                         )}
                       </NavLink>
+                      {loggedIn && (
+                        <button
+                          onClick={() => {
+                            setIsMenuOpen(false);
+                            setIsProfileDropdownOpen(false);
+                            handleLogout();
+                          }}
+                          className="w-full text-left py-2 px-4 text-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center justify-between"
+                        >
+                          Logout
+                          <FontAwesomeIcon icon={faSignOutAlt} className="text-lg" />
+                        </button>
+                      )}
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -228,6 +241,20 @@ function Header() {
             </ul>
 
             <div className="flex justify-center gap-4 items-center">
+              <NavLink 
+                to="/chat" 
+                onClick={() => setIsMenuOpen(false)}
+                className="p-2 hover:text-orange-700 transition-colors duration-200"
+              >
+                <RiGeminiFill className="text-lg" />
+              </NavLink>
+              <button
+                onClick={toggleTheme}
+                className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white hover:scale-110 transition duration-300"
+                aria-label="Toggle theme"
+              >
+                {theme === "light" ? <FaMoon /> : <FaSun />}
+              </button>
               {loggedIn ? (
                 <button 
                   onClick={() => { setIsMenuOpen(false); handleLogout(); }}
@@ -246,22 +273,6 @@ function Header() {
                   <FontAwesomeIcon icon={faUser} className="text-lg" />
                 </NavLink>
               )}
-              
-              <NavLink 
-                to="/chat" 
-                onClick={() => setIsMenuOpen(false)}
-                className="p-2 hover:text-orange-700 transition-colors duration-200"
-              >
-                <RiGeminiFill className="text-lg" />
-              </NavLink>
-              
-              <button
-                onClick={toggleTheme}
-                className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white hover:scale-110 transition duration-300 ml-2"
-                aria-label="Toggle theme"
-              >
-                {theme === "light" ? <FaMoon /> : <FaSun />}
-              </button>
             </div>
           </motion.div>
         )}
@@ -297,6 +308,26 @@ function Header() {
 
       {/* Desktop Icons */}
       <div className="hidden lg:flex items-center gap-5">
+        <NavLink 
+          to="/chat" 
+          className={({ isActive }) => 
+            `${isActive ? "text-orange-700" : "text-gray-800 dark:text-white"} 
+            hover:text-orange-700 transition-colors duration-200`
+          }
+        >
+          <RiGeminiFill className="text-lg" />
+        </NavLink>
+        
+        <motion.button
+          onClick={toggleTheme}
+          className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          aria-label="Toggle theme"
+        >
+          {theme === "light" ? <FaMoon /> : <FaSun />}
+        </motion.button>
+        
         <div className="relative">
           <motion.button
             onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
@@ -346,52 +377,22 @@ function Header() {
                     </span>
                   )}
                 </NavLink>
+                {loggedIn && (
+                  <button
+                    onClick={() => {
+                      setIsProfileDropdownOpen(false);
+                      handleLogout();
+                    }}
+                    className="w-full text-left py-2 px-4 text-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center justify-between"
+                  >
+                    Logout
+                    <FontAwesomeIcon icon={faSignOutAlt} className="text-lg" />
+                  </button>
+                )}
               </motion.div>
             )}
           </AnimatePresence>
         </div>
-        
-        {loggedIn ? (
-          <motion.button 
-            onClick={handleLogout}
-            className="text-gray-800 dark:text-white hover:text-orange-700 transition-colors duration-200"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            aria-label="Logout"
-          >
-            <FontAwesomeIcon icon={faSignOutAlt} className="text-lg" />
-          </motion.button>
-        ) : (
-          <NavLink 
-            to="/user" 
-            className={({ isActive }) => 
-              `${isActive ? "text-orange-700" : "text-gray-800 dark:text-white"} 
-              hover:text-orange-700 transition-colors duration-200`
-            }
-          >
-            <FontAwesomeIcon icon={faUser} className="text-lg" />
-          </NavLink>
-        )}
-        
-        <NavLink 
-          to="/chat" 
-          className={({ isActive }) => 
-            `${isActive ? "text-orange-700" : "text-gray-800 dark:text-white"} 
-            hover:text-orange-700 transition-colors duration-200`
-          }
-        >
-          <RiGeminiFill className="text-lg" />
-        </NavLink>
-        
-        <motion.button
-          onClick={toggleTheme}
-          className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          aria-label="Toggle theme"
-        >
-          {theme === "light" ? <FaMoon /> : <FaSun />}
-        </motion.button>
       </div>
     </header>
   );
