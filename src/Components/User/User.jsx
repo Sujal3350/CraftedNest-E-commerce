@@ -4,7 +4,7 @@ import GoogleSvg from "../../assets/google.svg";
 import { FaEye, FaEyeSlash, FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword , GoogleAuthProvider, signInWithPopup} from "firebase/auth";
 import { auth } from "../firebase"; 
 import { toast } from 'react-toastify';
 import { motion } from "framer-motion";
@@ -36,6 +36,18 @@ const User = () => {
         type: "spring",
         stiffness: 100
       }
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      await signInWithPopup(auth, provider);
+      toast.success("Logged in with Google!");
+      navigate("/home");
+    } catch (error) {
+      toast.error("Google login failed!");
+      console.error(error.message);
     }
   };
 
@@ -176,6 +188,7 @@ const User = () => {
                   )}
                 </button>
                 <button
+                  onClick={handleGoogleLogin}
                   type="button"
                   className="flex items-center justify-center gap-3 py-3 px-4 rounded-lg font-medium transition-all border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 hover:shadow"
                 >

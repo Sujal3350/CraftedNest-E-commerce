@@ -7,7 +7,9 @@ import {
   faChevronLeft, 
   faChevronRight,
   faPercent,
-  faGift
+  faGift,
+  faTruck,
+  faLeaf
 } from '@fortawesome/free-solid-svg-icons';
 import kitchen from '../../assets/kitchen.webp';
 import chair from '../../assets/Cane Lounge Chair.jpg';
@@ -119,6 +121,8 @@ function Home() {
       discount: 17,
     },
   ];
+
+  
 
   const renderRatingStars = (rating) => {
     const stars = [];
@@ -264,36 +268,46 @@ function Home() {
       </section>
 
       {/* Value Proposition Section */}
-      <section className="py-12 sm:py-16 bg-gradient-to-b bg-gray-100 dark:from-gray-900 dark:to-gray-800">
+       <section className="py-12 sm:py-16 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100 dark:border-gray-700">
-              <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-full flex items-center justify-center mb-4">
-                <FontAwesomeIcon icon={faStar} className="text-orange-500 text-xl" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-orange-300 dark:hover:border-orange-500 group">
+              <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-full flex items-center justify-center mb-4 group-hover:bg-orange-500 group-hover:text-white transition-colors duration-300">
+                <FontAwesomeIcon icon={faStar} className="text-orange-500 group-hover:text-white text-xl transition-colors duration-300" />
               </div>
-              <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Premium Quality</h3>
+              <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white group-hover:text-orange-500 dark:group-hover:text-orange-400 transition-colors duration-300">Premium Quality</h3>
               <p className="text-gray-600 dark:text-gray-300">
                 Each piece is crafted with attention to detail using the finest materials for lasting durability.
               </p>
             </div>
             
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100 dark:border-gray-700">
-              <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-full flex items-center justify-center mb-4">
-                <FontAwesomeIcon icon={faGift} className="text-orange-500 text-xl" />
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-orange-300 dark:hover:border-orange-500 group">
+              <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-full flex items-center justify-center mb-4 group-hover:bg-orange-500 group-hover:text-white transition-colors duration-300">
+                <FontAwesomeIcon icon={faGift} className="text-orange-500 group-hover:text-white text-xl transition-colors duration-300" />
               </div>
-              <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Exclusive Designs</h3>
+              <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white group-hover:text-orange-500 dark:group-hover:text-orange-400 transition-colors duration-300">Exclusive Designs</h3>
               <p className="text-gray-600 dark:text-gray-300">
                 Unique furniture pieces that blend traditional craftsmanship with contemporary aesthetics.
               </p>
             </div>
             
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100 dark:border-gray-700">
-              <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-full flex items-center justify-center mb-4">
-                <FontAwesomeIcon icon={faPercent} className="text-orange-500 text-xl" />
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-orange-300 dark:hover:border-orange-500 group">
+              <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-full flex items-center justify-center mb-4 group-hover:bg-orange-500 group-hover:text-white transition-colors duration-300">
+                <FontAwesomeIcon icon={faTruck} className="text-orange-500 group-hover:text-white text-xl transition-colors duration-300" />
               </div>
-              <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Member Benefits</h3>
+              <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white group-hover:text-orange-500 dark:group-hover:text-orange-400 transition-colors duration-300">Fast Delivery</h3>
               <p className="text-gray-600 dark:text-gray-300">
-                Subscribe to get exclusive discounts, early access to new collections, and design consultations.
+                Reliable shipping with careful packaging to ensure your furniture arrives in perfect condition.
+              </p>
+            </div>
+            
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-orange-300 dark:hover:border-orange-500 group">
+              <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-full flex items-center justify-center mb-4 group-hover:bg-orange-500 group-hover:text-white transition-colors duration-300">
+                <FontAwesomeIcon icon={faLeaf} className="text-orange-500 group-hover:text-white text-xl transition-colors duration-300" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white group-hover:text-orange-500 dark:group-hover:text-orange-400 transition-colors duration-300">Eco-Friendly</h3>
+              <p className="text-gray-600 dark:text-gray-300">
+                Sustainably sourced materials and environmentally conscious manufacturing processes.
               </p>
             </div>
           </div>
@@ -317,6 +331,8 @@ function Home() {
           </button>
         </div>
       </section>
+      
+
 
       {/* Subscription Modal */}
       {isModalOpen && (
