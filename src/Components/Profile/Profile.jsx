@@ -33,7 +33,6 @@ function Profile() {
   const address = userData?.address || userFromStorage?.address || 'Add your delivery address';
 
   useEffect(() => {
-    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
     const fetchUserData = async () => {
       if (userId !== 'guest') {
         try {
