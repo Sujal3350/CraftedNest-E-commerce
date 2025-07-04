@@ -12,7 +12,7 @@ const Order = () => {
     const fetchOrders = async () => {
       setLoading(true);
       try {
-        const res = await fetch(`/api/orders/user/${userId}`);
+        const res = await fetch(`https://craftednest.onrender.com/api/orders/user/${userId}`);
         const data = await res.json();
         setOrders(data);
       } catch (err) {

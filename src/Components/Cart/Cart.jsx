@@ -88,6 +88,7 @@ function Cart() {
         setShowPaymentModal(false);
         return;
       }
+      // Order placement API call
       const res = await axios.post('https://craftednest.onrender.com/api/orders/place', { userId, address });
       setCartItems([]);
       setShowPaymentModal(false);
