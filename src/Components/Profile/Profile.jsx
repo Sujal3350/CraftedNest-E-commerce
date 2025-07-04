@@ -64,9 +64,9 @@ function Profile() {
       try {
         setIsLoading(true);
         const [cartResponse, wishlistResponse, ordersResponse] = await Promise.all([
-          axios.get(`${API_BASE_URL}/api/cart/${userId}`),
-          axios.get(`${API_BASE_URL}/api/wishlist/${userId}`),
-          axios.get(`${API_BASE_URL}/api/orders/user/${userId}`)
+          axios.get(`/api/cart/${userId}`),
+          axios.get(`/api/wishlist/${userId}`),
+          axios.get(`/api/orders/user/${userId}`)
         ]);
         setCartItemsCount(cartResponse.data.items?.length || 0);
         setWishlistCount(wishlistResponse.data?.length || 0);
