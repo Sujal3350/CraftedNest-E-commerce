@@ -88,7 +88,7 @@ function Cart() {
         setShowPaymentModal(false);
         return;
       }
-      const res = await axios.post('/api/orders/place', { userId, address });
+      const res = await axios.post('https://craftednest.onrender.com/api/orders/place', { userId, address });
       setCartItems([]);
       setShowPaymentModal(false);
       toast.success('Order placed successfully! Redirecting to orders...');
