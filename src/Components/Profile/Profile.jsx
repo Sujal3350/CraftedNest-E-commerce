@@ -33,6 +33,7 @@ function Profile() {
   const address = userData?.address || userFromStorage?.address || 'Add your delivery address';
 
   useEffect(() => {
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
     const fetchUserData = async () => {
       if (userId !== 'guest') {
         try {
@@ -63,9 +64,9 @@ function Profile() {
       try {
         setIsLoading(true);
         const [cartResponse, wishlistResponse, ordersResponse] = await Promise.all([
-          axios.get(`/api/cart/${userId}`),
-          axios.get(`/api/wishlist/${userId}`),
-          axios.get(`/api/orders/user/${userId}`)
+          axios.get(`${API_BASE_URL}/api/cart/${userId}`),
+          axios.get(`${API_BASE_URL}/api/wishlist/${userId}`),
+          axios.get(`${API_BASE_URL}/api/orders/user/${userId}`)
         ]);
         setCartItemsCount(cartResponse.data.items?.length || 0);
         setWishlistCount(wishlistResponse.data?.length || 0);
