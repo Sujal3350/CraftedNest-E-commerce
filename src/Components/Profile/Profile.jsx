@@ -43,7 +43,8 @@ function Profile() {
               id: userId,
               email: userDoc.data().email,
               username: userDoc.data().username,
-              phone: userDoc.data().phone
+              phone: userDoc.data().phone,
+              address: userDoc.data().address || ''
             }));
           } else {
             // Fallback: use localStorage user if Firestore doc doesn't exist
