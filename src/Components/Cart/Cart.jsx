@@ -80,20 +80,24 @@ function Cart() {
 
   const handlePaymentSuccess = async () => {
     try {
-      // Remove each item from the cart individually
-      for (const item of cartItems) {
-        await axios.delete(`https://craftednest.onrender.com/api/cart/${userId}/${item.productId}`);
+      // Place order via backend using user's saved address
+      const user = JSON.parse(localStorage.getItem('user'));
+      const address = user?.address;
+      if (!address || !address.trim()) {
+        toast.error('No address found in your profile. Please update your address in your profile before placing an order.');
+        setShowPaymentModal(false);
+        return;
       }
+      const res = await axios.post('/api/orders/place', { userId, address });
       setCartItems([]);
       setShowPaymentModal(false);
-      toast.success('Payment successful! Redirecting to products...');
-      // Ensure navigation happens after state updates
+      toast.success('Order placed successfully! Redirecting to orders...');
       setTimeout(() => {
-        navigate('/product', { replace: true });
+        navigate('/orders', { replace: true });
       }, 2500);
     } catch (error) {
-      console.error('Error clearing cart:', error.response?.data || error.message);
-      toast.error('Failed to clear cart. Please try again.');
+      console.error('Error placing order:', error.response?.data || error.message);
+      toast.error('Failed to place order. Please try again.');
     }
   };
 

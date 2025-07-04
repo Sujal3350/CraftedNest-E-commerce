@@ -92,3 +92,6 @@ module.exports = router;
 
 const wishlistRoutes = require('./routes/wishlist');
 app.use('/api/wishlist', wishlistRoutes);
+
+const orderRoutes = require('./routes/order');
+app.use('/api/orders', orderRoutes);

@@ -16,8 +16,9 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [username, setUsername] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [address, setAddress] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
 
   const navigate = useNavigate();
@@ -41,6 +42,16 @@ const Signup = () => {
       return;
     }
 
+    if (!mobile.match(/^\d{10}$/)) {
+      toast.error("Please enter a valid 10-digit mobile number");
+      return;
+    }
+
+    if (!address.trim()) {
+      toast.error("Please enter your address");
+      return;
+    }
+
     setIsLoading(true);
 
     try {
@@ -50,11 +61,13 @@ const Signup = () => {
       await setDoc(doc(db, "users", user.uid), {
         email: user.email,
         username: username,
+        phone: mobile,
+        address: address,
         createdAt: new Date(),
         authProvider: "email",
       });
 
-      localStorage.setItem("user", JSON.stringify({ id: user.uid, email: user.email, username: username }));
+      localStorage.setItem("user", JSON.stringify({ id: user.uid, email: user.email, username: username, phone: mobile, address: address }));
       localStorage.setItem("loggedIn", "true");
       toast.success("Account created successfully!");
       navigate("/home");
@@ -80,36 +93,6 @@ const Signup = () => {
     }
   };
 
-  const handleGoogleSignup = async () => {
-    setIsGoogleLoading(true);
-    try {
-      const userCredential = await signInWithPopup(auth, provider);
-      const user = userCredential.user;
-
-      // Extract username from Google displayName or email
-      const googleUsername = user.displayName || user.email.split('@')[0];
-
-      // Save user details to Firestore
-      await setDoc(doc(db, "users", user.uid), {
-        email: user.email,
-        username: googleUsername,
-        createdAt: new Date(),
-        authProvider: "google",
-      }, { merge: true }); // Use merge to avoid overwriting existing data
-
-      // Save to localStorage to match manual signup
-      localStorage.setItem("user", JSON.stringify({ id: user.uid, email: user.email, username: googleUsername }));
-      localStorage.setItem("loggedIn", "true");
-
-      toast.success("Signed up with Google successfully!");
-      navigate("/home");
-    } catch (error) {
-      console.error("Google signup error:", error);
-      toast.error("Google signup failed!");
-    } finally {
-      setIsGoogleLoading(false);
-    }
-  };
 
   return (
     <motion.div 
@@ -184,6 +167,23 @@ const Signup = () => {
                 />
               </div>
 
+              {/* Mobile Number */}
+              <div>
+                <label htmlFor="mobile" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Mobile Number
+                </label>
+                <input
+                  id="mobile"
+                  type="tel"
+                  placeholder="Enter your 10-digit mobile number"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 dark:bg-gray-700 dark:text-white transition duration-200"
+                  onChange={(e) => setMobile(e.target.value)}
+                  required
+                  pattern="\d{10}"
+                  maxLength={10}
+                />
+              </div>
+
               {/* Email */}
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
@@ -253,6 +253,21 @@ const Signup = () => {
                 </div>
               </div>
 
+              {/* Address */}
+              <div>
+                <label htmlFor="address" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Address
+                </label>
+                <textarea
+                  id="address"
+                  placeholder="Enter your address"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 dark:bg-gray-700 dark:text-white transition duration-200"
+                  onChange={(e) => setAddress(e.target.value)}
+                  required
+                  rows={2}
+                />
+              </div>
+
               {/* Terms Checkbox */}
               <div className="flex items-center">
                 <input
@@ -294,22 +309,10 @@ const Signup = () => {
               {/* Divider */}
               <div className="flex items-center my-6">
                 <div className="flex-1 border-t border-gray-300 dark:border-gray-600"></div>
-                <span className="px-3 text-gray-500 dark:text-gray-400">or</span>
                 <div className="flex-1 border-t border-gray-300 dark:border-gray-600"></div>
               </div>
 
-              {/* Google Sign Up */}
-              <motion.button
-                type="button"
-                className="w-full py-3 px-4 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-white font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition duration-200 flex items-center justify-center"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={handleGoogleSignup}
-                disabled={isGoogleLoading}
-              >
-                <img src={GoogleSvg} alt="Google icon" className="w-5 h-5 mr-3" />
-                {isGoogleLoading ? "Signing up..." : "Continue with Google"}
-              </motion.button>
+             
             </form>
 
             {/* Login Link */}
