@@ -13,16 +13,16 @@ import { motion } from 'framer-motion';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import axios from 'axios';
+import OrderTab from '../Order/Order';
 
 function Profile() {
   const [cartItemsCount, setCartItemsCount] = useState(0);
   const [wishlistCount, setWishlistCount] = useState(0);
   const [ordersCount, setOrdersCount] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [profilePic, setProfilePic] = useState(null);
   const [userData, setUserData] = useState(null);
   const [activeTab, setActiveTab] = useState('profile');
-  const [apiError, setApiError] = useState(false);
 
   const navigate = useNavigate();
   const userFromStorage = JSON.parse(localStorage.getItem('user'));
@@ -30,87 +30,55 @@ function Profile() {
   const username = userData?.username || userFromStorage?.username || userFromStorage?.email?.split('@')[0] || 'Guest';
   const email = userData?.email || userFromStorage?.email || 'Not logged in';
   const phone = userData?.phone || '+91 XXXXX XXXXX';
-  const address = userData?.address || 'Add your delivery address';
+  const address = userData?.address || userFromStorage?.address || 'Add your delivery address';
 
   useEffect(() => {
     const fetchUserData = async () => {
-      try {
-        if (userId !== 'guest') {
+      if (userId !== 'guest') {
+        try {
           const userDoc = await getDoc(doc(db, "users", userId));
           if (userDoc.exists()) {
-            const data = userDoc.data();
-            setUserData({
-              name: data.name || "N/A",
-              phone: data.phone || "",
-              address: data.address || "",
-              imageUrl: data.imageUrl || ""
-            });
+            setUserData(userDoc.data());
+            localStorage.setItem("user", JSON.stringify({
+              id: userId,
+              email: userDoc.data().email,
+              username: userDoc.data().username,
+              phone: userDoc.data().phone
+            }));
           } else {
-            // Fallback to localStorage data if Firestore doc doesn't exist
-            setUserData(userFromStorage || {
-              name: "N/A",
-              phone: "",
-              address: "",
-              imageUrl: ""
-            });
+            // Fallback: use localStorage user if Firestore doc doesn't exist
+            setUserData(userFromStorage);
           }
-        } else {
-          setUserData({
-            name: "Guest",
-            phone: "",
-            address: "",
-            imageUrl: ""
-          });
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+          setUserData(userFromStorage); // fallback
+          toast.error("Failed to fetch user details");
         }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-        setUserData({
-          name: "Error loading data",
-          phone: "",
-          address: "",
-          imageUrl: ""
-        });
+      } else {
+        setUserData(userFromStorage);
       }
     };
 
     const fetchCounts = async () => {
       try {
         setIsLoading(true);
-        setApiError(false);
-        
-        // Reset counts to 0 before fetching
+        const [cartResponse, wishlistResponse, ordersResponse] = await Promise.all([
+          axios.get(`/api/cart/${userId}`),
+          axios.get(`/api/wishlist/${userId}`),
+          axios.get(`/api/orders/user/${userId}`)
+        ]);
+        setCartItemsCount(cartResponse.data.items?.length || 0);
+        setWishlistCount(wishlistResponse.data?.length || 0);
+        setOrdersCount(ordersResponse.data?.length || 0);
+      } catch (error) {
+        console.error('Error fetching counts:', error);
         setCartItemsCount(0);
         setWishlistCount(0);
         setOrdersCount(0);
-
-        const API_BASE = process.env.NODE_ENV === 'development' 
-          ? 'http://localhost:3000/api' 
-          : 'https://your-production-api.com/api';
-
-        const [cartResponse, wishlistResponse, ordersResponse] = await Promise.all([
-          axios.get(`${API_BASE}/cart/${userId}`).catch(() => ({ data: { items: [] }})),
-          axios.get(`${API_BASE}/wishlist/${userId}`).catch(() => ({ data: [] })),
-          axios.get(`${API_BASE}/orders/user/${userId}`).catch(() => ({ data: [] }))
-        ]);
-
-        // Validate and set counts
-        setCartItemsCount(validateCount(cartResponse.data.items?.length));
-        setWishlistCount(validateCount(wishlistResponse.data?.length));
-        setOrdersCount(validateCount(ordersResponse.data?.length));
-
-      } catch (error) {
-        console.error('Error fetching counts:', error);
-        setApiError(true);
-        toast.error('Failed to load your data');
+        toast.error('Failed to update counts');
       } finally {
         setIsLoading(false);
       }
-    };
-
-    // Helper function to validate counts
-    const validateCount = (count) => {
-      const num = Number(count);
-      return isNaN(num) || num < 0 ? 0 : num;
     };
 
     fetchUserData();
@@ -121,6 +89,7 @@ function Profile() {
     try {
       await signOut(auth);
       localStorage.removeItem('user');
+      localStorage.setItem('loggedIn', 'false');
       toast.success("Logged out successfully!");
       navigate('/');
     } catch (error) {
@@ -182,6 +151,7 @@ function Profile() {
       color: "bg-pink-100 text-pink-600",
       link: "/wishlist"
     },
+   
     {
       icon: faQuestionCircle,
       title: "Help Center",
@@ -205,32 +175,29 @@ function Profile() {
       className="min-h-screen bg-gray-50 dark:bg-gray-900"
     >
       {/* Profile Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 p-6 text-white">
+      <div className="bg-gray-200 text-white dark:border-gray-700 p-6 dark:bg-gray-800">
         <div className="max-w-6xl mx-auto flex flex-col items-center">
           <div className="relative mb-4">
-            {profilePic ? (
-              <img
-                src={profilePic}
-                alt="Profile"
-                className="w-24 h-24 rounded-full object-cover border-4 border-white/30 shadow-lg"
-              />
-            ) : (
-              <div className="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center">
-                <FontAwesomeIcon icon={faUser} className="text-3xl text-gray-500" />
+            <img
+              src={profilePic || "/default-avatar.png"}
+              className="w-24 h-24 rounded-full object-cover border-4 border-gray-700 dark:border-white shadow-xl"
+              alt="Profile"
+            />
+            <label htmlFor="profile-upload" className="cursor-pointer">
+              <div className="absolute bottom-0 right-0 bg-gray-700 text-white p-2 rounded-full shadow-lg">
+                <FontAwesomeIcon icon={faCamera} />
               </div>
-            )}
-            <label className="absolute bottom-0 right-0 bg-white rounded-full p-2 shadow cursor-pointer">
-              <FontAwesomeIcon icon={faCamera} className="text-blue-600" />
               <input
+                id="profile-upload"
                 type="file"
                 accept="image/*"
-                onChange={handleProfilePicChange}
                 className="hidden"
+                onChange={handleProfilePicChange}
               />
             </label>
           </div>
-          <h1 className="text-2xl font-bold">{username}</h1>
-          <p className="text-blue-100">{email}</p>
+          <h1 className="text-2xl text-gray-700 dark:text-white font-bold">{username}</h1>
+          <p className="text-sm text-gray-700 dark:text-white opacity-90">{email}</p>
         </div>
       </div>
 
@@ -248,43 +215,18 @@ function Profile() {
             onClick={() => setActiveTab('orders')}
             className={`px-4 py-2 font-medium ${activeTab === 'orders' ? 'text-orange-500 border-b-2 border-orange-500' : 'text-gray-500 dark:text-gray-400'}`}
           >
-            Orders ({ordersCount})
+            Orders
           </button>
           <button
-            onClick={() => setActiveTab('wishlist')}
+            onClick={() => navigate('/cart')}
             className={`px-4 py-2 font-medium ${activeTab === 'wishlist' ? 'text-orange-500 border-b-2 border-orange-500' : 'text-gray-500 dark:text-gray-400'}`}
           >
-            Wishlist ({wishlistCount})
+            Cart
           </button>
         </div>
 
-        {/* Loading State */}
-        {isLoading && (
-          <div className="flex justify-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-500"></div>
-          </div>
-        )}
-
-        {/* Error State */}
-        {apiError && !isLoading && (
-          <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-6">
-            <div className="flex">
-              <div className="flex-shrink-0">
-                <svg className="h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-                </svg>
-              </div>
-              <div className="ml-3">
-                <p className="text-sm text-red-700">
-                  Could not load your data. Please try refreshing the page.
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
-
         {/* Profile Tab */}
-        {!isLoading && !apiError && activeTab === 'profile' && (
+        {activeTab === 'profile' && (
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -303,11 +245,18 @@ function Profile() {
                       </div>
                       <div>
                         <h3 className="font-medium text-gray-500 dark:text-gray-400 text-sm">{item.title}</h3>
-                        <p className="font-semibold text-gray-800 dark:text-white">
-                          {item.value}
+                        <p className="font-semibold text-sm text-gray-800 dark:text-white">
+                          {isLoading ? (
+                            <span className="inline-block h-4 w-32 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></span>
+                          ) : (
+                            item.value
+                          )}
                         </p>
                       </div>
                     </div>
+                    <button className="text-orange-500 text-sm font-medium hover:text-orange-600">
+                      {item.action}
+                    </button>
                   </div>
                 ))}
               </div>
@@ -383,73 +332,19 @@ function Profile() {
         )}
 
         {/* Orders Tab */}
-        {!isLoading && !apiError && activeTab === 'orders' && (
+        {activeTab === 'orders' && (
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5 }}
             className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6"
           >
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl font-bold text-gray-800 dark:text-white">My Orders ({ordersCount})</h2>
-            </div>
-            
-            {ordersCount === 0 ? (
-              <div className="text-center py-12">
-                <div className="mx-auto w-24 h-24 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4">
-                  <FontAwesomeIcon icon={faShoppingBag} className="text-gray-400 text-2xl" />
-                </div>
-                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">No Orders Yet</h3>
-                <p className="text-gray-600 dark:text-gray-400 max-w-md mx-auto mb-6">
-                  You haven't placed any orders yet. Start shopping to see your orders here.
-                </p>
-                <button
-                  onClick={() => navigate('/products')}
-                  className="px-6 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-md transition-colors duration-200"
-                >
-                  Start Shopping
-                </button>
-              </div>
-            ) : (
-              <div className="space-y-4">
-                {/* Sample Order Card */}
-                <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition">
-                  <div className="flex justify-between items-start mb-3">
-                    <div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">Order #CN12345678</p>
-                      <p className="font-medium text-gray-900 dark:text-white">Placed on 15 May 2023</p>
-                    </div>
-                    <div className="bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-400 px-3 py-1 rounded-full text-xs font-medium">
-                      Delivered
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-4 mb-4">
-                    <img src="/product-sample.jpg" alt="Product" className="w-16 h-16 object-cover rounded" />
-                    <div>
-                      <h3 className="font-medium text-gray-900 dark:text-white">Sheesham Wood Sofa Set</h3>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">Qty: 1</p>
-                    </div>
-                    <div className="ml-auto text-right">
-                      <p className="font-bold text-gray-900 dark:text-white">₹25,999</p>
-                      <button className="text-orange-500 text-sm hover:text-orange-600">Buy Again</button>
-                    </div>
-                  </div>
-                  <div className="flex justify-end space-x-3">
-                    <button className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 transition">
-                      Track Order
-                    </button>
-                    <button className="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-md transition">
-                      Rate & Review
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
+            <OrderTab userId={userId} />
           </motion.div>
         )}
 
         {/* Wishlist Tab */}
-        {!isLoading && !apiError && activeTab === 'wishlist' && (
+        {activeTab === 'wishlist' && (
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -458,6 +353,7 @@ function Profile() {
           >
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-xl font-bold text-gray-800 dark:text-white">My Wishlist ({wishlistCount})</h2>
+              <button className="text-orange-500 hover:text-orange-600">View All</button>
             </div>
             
             {wishlistCount === 0 ? (
@@ -513,28 +409,26 @@ function Profile() {
         )}
 
         {/* Menu Items */}
-        {!isLoading && !apiError && (
-          <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4">
-            {menuItems.map((item, index) => (
-              <motion.div
-                key={index}
-                whileHover={{ y: -5 }}
-                className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 text-center hover:shadow-md transition cursor-pointer"
-                onClick={() => navigate(item.link)}
-              >
-                <div className={`w-12 h-12 ${item.color} rounded-full flex items-center justify-center mx-auto mb-3`}>
-                  <FontAwesomeIcon icon={item.icon} className="text-lg" />
-                </div>
-                <h3 className="font-medium text-gray-800 dark:text-white">{item.title}</h3>
-                {item.count !== undefined && (
-                  <span className="text-xs bg-orange-500 text-white rounded-full px-2 py-0.5 inline-block mt-1">
-                    {item.count}
-                  </span>
-                )}
-              </motion.div>
-            ))}
-          </div>
-        )}
+        <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4">
+          {menuItems.map((item, index) => (
+            <motion.div
+              key={index}
+              whileHover={{ y: -5 }}
+              className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 text-center hover:shadow-md transition cursor-pointer"
+              onClick={() => navigate(item.link)}
+            >
+              <div className={`w-12 h-12 ${item.color} rounded-full flex items-center justify-center mx-auto mb-3`}>
+                <FontAwesomeIcon icon={item.icon} className="text-lg" />
+              </div>
+              <h3 className="font-medium text-gray-800 dark:text-white">{item.title}</h3>
+              {item.count !== undefined && (
+                <span className="text-xs bg-orange-500 text-white rounded-full px-2 py-0.5 inline-block mt-1">
+                  {item.count}
+                </span>
+              )}
+            </motion.div>
+          ))}
+        </div>
       </div>
     </motion.div>
   );
