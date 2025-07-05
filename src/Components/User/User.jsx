@@ -78,11 +78,23 @@ const User = () => {
     setIsLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      
       const user = auth.currentUser;
-      localStorage.setItem("user", JSON.stringify({ id: user.uid, email: user.email,address: user.address || 'xyz' }));
+      // Fetch user details from Firestore
+      const userDocRef = doc(db, "users", user.uid);
+      const userDocSnap = await import("firebase/firestore").then(m => m.getDoc(userDocRef));
+      let userData = { id: user.uid, email: user.email };
+      if (userDocSnap.exists()) {
+        const data = userDocSnap.data();
+        userData = {
+          id: user.uid,
+          email: user.email,
+          username: data.username || user.email.split('@')[0],
+          phone: data.phone || '',
+          address: data.address || '',
+        };
+      }
+      localStorage.setItem("user", JSON.stringify(userData));
       localStorage.setItem("loggedIn", "true");
-
       toast.success("Login successful!");
       navigate("/home");
     } catch (error) {
