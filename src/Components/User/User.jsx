@@ -59,7 +59,7 @@ const User = () => {
       }, { merge: true });
 
       // Save to localStorage to match manual login
-      localStorage.setItem("user", JSON.stringify({ id: user.uid, email: user.email, username: googleUsername }));
+      localStorage.setItem("user", JSON.stringify({ id: user.uid, email: user.email, username: googleUsername ,address: user?.address || 'xyz'}));
       localStorage.setItem("loggedIn", "true");
 
       toast.success("Logged in with Google!");
