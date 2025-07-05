@@ -16,7 +16,8 @@ const User = () => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  
+
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -79,7 +80,7 @@ const User = () => {
       await signInWithEmailAndPassword(auth, email, password);
       
       const user = auth.currentUser;
-      localStorage.setItem("user", JSON.stringify({ id: user.uid, email: user.email }));
+      localStorage.setItem("user", JSON.stringify({ id: user.uid, email: user.email,address: user.address || 'xyz' }));
       localStorage.setItem("loggedIn", "true");
 
       toast.success("Login successful!");
