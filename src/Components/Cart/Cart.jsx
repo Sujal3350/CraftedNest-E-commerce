@@ -5,6 +5,7 @@ import { FiShoppingBag } from "react-icons/fi";
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { motion, AnimatePresence } from 'framer-motion';
+import { API_BASE_URL } from '../../Services/api';
 
 function Cart() {
   const [cartItems, setCartItems] = useState([]);
@@ -17,7 +18,7 @@ function Cart() {
     async function fetchCart() {
       try {
         setIsLoading(true);
-        const res = await axios.get(`https://craftednest.onrender.com/api/cart/${userId}`);
+        const res = await axios.get(`${API_BASE_URL}/api/cart/${userId}`);
         setCartItems(res.data.items || []);
       } catch (error) {
         console.error('Error fetching cart:', error);
@@ -31,7 +32,7 @@ function Cart() {
 
   const updateQuantity = async (productId, quantity) => {
     try {
-      const res = await axios.put(`https://craftednest.onrender.com/api/cart/${userId}`, {
+      const res = await axios.put(`${API_BASE_URL}/api/cart/${userId}`, {
         productId,
         quantity,
       });
@@ -57,7 +58,7 @@ function Cart() {
 
   const removeItem = async (productId) => {
     try {
-      const res = await axios.delete(`https://craftednest.onrender.com/api/cart/${userId}/${productId}`);
+      const res = await axios.delete(`${API_BASE_URL}/api/cart/${userId}/${productId}`);
       setCartItems(res.data.items || []);
       toast.success('Item removed from cart');
     } catch (error) {
@@ -89,7 +90,7 @@ function Cart() {
         return;
       }
       // Order placement API call
-      const res = await axios.post('https://craftednest.onrender.com/api/orders/place', { userId, address });
+      const res = await axios.post(`${API_BASE_URL}/api/orders/place`, { userId, address });
       setCartItems([]);
       setShowPaymentModal(false);
       toast.success('Order placed successfully! Redirecting to orders...');

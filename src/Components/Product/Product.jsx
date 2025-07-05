@@ -13,6 +13,7 @@ import {
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../../Services/api'; // Adjust the import path as necessary
 
 function Product() {
   const [products, setProducts] = useState([]);
@@ -58,7 +59,7 @@ function Product() {
         price: Number(String(product.price).replace(/[₹,]/g, "")),
       };
 
-      await axios.post("https://craftednest.onrender.com/api/cart/add", {
+      await axios.post(`${API_BASE_URL}/api/cart/add`, {
         userId,
         product: cleanProduct,
       });
@@ -95,7 +96,7 @@ function Product() {
     if (wishlistIds.includes(productId)) {
       // Remove from wishlist if already present
       try {
-        await axios.post("https://craftednest.onrender.com/api/wishlist/remove", {
+        await axios.post(`${API_BASE_URL}/api/wishlist/remove`, {
           userId,
           productId,
         });
@@ -124,7 +125,7 @@ function Product() {
     } else {
       // Add to wishlist
       try {
-        await axios.post("https://craftednest.onrender.com/api/wishlist/add", {
+        await axios.post(`${API_BASE_URL}/api/wishlist/add`, {
           userId,
           product: {
             _id: product._id,
@@ -161,7 +162,7 @@ function Product() {
   // Fetch products from backend API
   useEffect(() => {
     setLoading(true);
-    fetch('https://craftednest.onrender.com/api/products')
+    fetch(`${API_BASE_URL}/api/products`)
       .then(res => res.json())
       .then(data => {
         setProducts(data);
@@ -176,7 +177,7 @@ function Product() {
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     const userId = storedUser?.id || "guest";
-    axios.get("https://craftednest.onrender.com/api/wishlist/" + userId)
+    axios.get(`${API_BASE_URL}/api/wishlist/${userId}`)
       .then(res => {
         setWishlistIds(res.data.map(item => String(item.productId)));
       })

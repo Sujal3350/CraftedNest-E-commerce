@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../../Services/api'; // Adjust the import path as necessary
 
 const Order = () => {
   const [orders, setOrders] = useState([]);
@@ -12,7 +13,7 @@ const Order = () => {
     const fetchOrders = async () => {
       setLoading(true);
       try {
-        const res = await fetch(`https://craftednest.onrender.com/api/orders/user/${userId}`);
+        const res = await fetch(`${API_BASE_URL}/api/orders/user/${userId}`);
         const data = await res.json();
         setOrders(data);
       } catch (err) {

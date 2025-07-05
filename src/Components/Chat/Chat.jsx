@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import chatbot2 from '../../assets/chatbot2.png';
+import { API_BASE_URL } from '../../Services/api'; // Adjust the import path as necessary
 
 function Chat() {
   const [messages, setMessages] = useState([]);
@@ -47,7 +48,7 @@ function Chat() {
   };
 
   const fetchGeminiResponse = async (prompt) => {
-    const response = await fetch('https://craftednest.onrender.com/api/gemini', {
+    const response = await fetch(`${API_BASE_URL}/api/gemini`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ prompt }),

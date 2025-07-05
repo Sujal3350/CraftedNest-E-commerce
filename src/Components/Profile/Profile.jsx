@@ -14,6 +14,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import axios from 'axios';
 import OrderTab from '../Order/Order';
+import { API_BASE_URL } from '../../Services/api'; // Adjust the import path as necessary
 
 function Profile() {
   const [cartItemsCount, setCartItemsCount] = useState(0);
@@ -64,9 +65,9 @@ function Profile() {
       try {
         setIsLoading(true);
         const [cartResponse, wishlistResponse, ordersResponse] = await Promise.all([
-          axios.get(`/api/cart/${userId}`),
-          axios.get(`/api/wishlist/${userId}`),
-          axios.get(`/api/orders/user/${userId}`)
+          axios.get(`${API_BASE_URL}/api/cart/${userId}`),
+          axios.get(`${API_BASE_URL}/api/wishlist/${userId}`),
+          axios.get(`${API_BASE_URL}/api/orders/user/${userId}`)
         ]);
         setCartItemsCount(cartResponse.data.items?.length || 0);
         setWishlistCount(wishlistResponse.data?.length || 0);

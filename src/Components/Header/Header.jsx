@@ -9,6 +9,7 @@ import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { FaMoon, FaSun } from "react-icons/fa";
 import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
+import { API_BASE_URL } from '../../Services/api'; // Adjust the import path as necessary
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -45,11 +46,11 @@ function Header() {
 
   const fetchCounts = async () => {
     try {
-      const cartResponse = await axios.get(`https://craftednest.onrender.com/api/cart/${userId}`);
+      const cartResponse = await axios.get(`${API_BASE_URL}/api/cart/${userId}`);
       const cartItems = cartResponse.data.items || [];
       setCartItemsCount(cartItems.length);
 
-      const wishlistResponse = await axios.get(`https://craftednest.onrender.com/api/wishlist/${userId}`);
+      const wishlistResponse = await axios.get(`${API_BASE_URL}/api/wishlist/${userId}`);
       const wishlistItems = wishlistResponse.data || [];
       setWishlistCount(wishlistItems.length);
     } catch (error) {

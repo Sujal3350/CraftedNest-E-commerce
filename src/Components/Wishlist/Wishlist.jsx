@@ -3,6 +3,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { FiHeart, FiShoppingCart, FiTrash2, FiLoader } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
+import { API_BASE_URL } from '../../Services/api'; // Adjust the import path as necessary
 
 function Wishlist() {
   const [wishlist, setWishlist] = useState([]);
@@ -16,7 +17,7 @@ function Wishlist() {
     async function fetchWishlist() {
       try {
         setLoading(true);
-        const res = await axios.get(`https://craftednest.onrender.com/api/wishlist/${userId}`);
+        const res = await axios.get(`${API_BASE_URL}/api/wishlist/${userId}`);
         setWishlist(res.data);
       } catch (err) {
         toast.error('Failed to load wishlist');
@@ -34,8 +35,8 @@ function Wishlist() {
   const handleAddToCart = async (product) => {
     try {
       setProcessingItems(prev => ({ ...prev, [product.productId]: 'cart' }));
-      
-      await axios.post('https://craftednest.onrender.com/api/cart/add', {
+
+      await axios.post(`${API_BASE_URL}/api/cart/add`, {
         userId,
         product: {
           _id: product.productId,
@@ -44,10 +45,10 @@ function Wishlist() {
           image: product.image,
         },
       });
-      
-      await axios.post('https://craftednest.onrender.com/api/wishlist/remove', { 
-        userId, 
-        productId: product.productId 
+
+      await axios.post(`${API_BASE_URL}/api/wishlist/remove`, {
+        userId,
+        productId: product.productId
       });
       
       setWishlist(wishlist.filter(item => item.productId !== product.productId));
@@ -66,10 +67,10 @@ function Wishlist() {
   const handleRemove = async (productId, productName) => {
     try {
       setProcessingItems(prev => ({ ...prev, [productId]: 'remove' }));
-      
-      await axios.post('https://craftednest.onrender.com/api/wishlist/remove', { 
-        userId, 
-        productId 
+
+      await axios.post(`${API_BASE_URL}/api/wishlist/remove`, {
+        userId,
+        productId
       });
       
       setWishlist(wishlist.filter(item => item.productId !== productId));
