@@ -405,7 +405,7 @@ function Product() {
                   {/* Product Image */}
                   <div 
                     className="h-48 sm:h-56 bg-gray-100 dark:bg-gray-700 overflow-hidden cursor-pointer"
-                    onClick={() => navigate(`/product/${product.slug || product._id}`)}
+                    // onClick={() => navigate(`/product/${product.slug || product._id}`)}
                   >
                     <img
                       src={product.image}
