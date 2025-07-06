@@ -62,7 +62,7 @@ const Order = () => {
   if (loading) {
     return (
       <div className="min-h-[60vh] flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-500"></div>
       </div>
     );
   }
@@ -86,7 +86,7 @@ const Order = () => {
         </div>
         <button 
           onClick={() => window.location.reload()}
-          className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+          className="mt-4 px-4 py-2 bg-orange-600 text-white rounded hover:bg-orange-700 transition-colors"
         >
           Try Again
         </button>
@@ -118,10 +118,10 @@ const Order = () => {
     <div className="max-w-4xl mx-auto p-4 sm:p-6">
       <div className="flex items-center justify-between mb-8">
         <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 flex items-center">
-          <FaShoppingBag className="mr-2 text-blue-600" />
+          <FaShoppingBag className="mr-2 text-orange-600" />
           My Orders
         </h2>
-        <span className="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">
+        <span className="bg-orange-100 text-orange-800 text-sm font-medium px-3 py-1 rounded-full">
           {orders.length} {orders.length === 1 ? 'Order' : 'Orders'}
         </span>
       </div>
