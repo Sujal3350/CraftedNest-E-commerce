@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
 import { motion } from 'framer-motion';
-import { doc, getDoc } from 'firebase/firestore';
+import { ref, get } from 'firebase/database';
 import { db } from '../firebase';
 import axios from 'axios';
 import OrderTab from '../Order/Order';
@@ -37,18 +37,19 @@ function Profile() {
     const fetchUserData = async () => {
       if (userId !== 'guest') {
         try {
-          const userDoc = await getDoc(doc(db, "users", userId));
-          if (userDoc.exists()) {
-            setUserData(userDoc.data());
+          const userRef = ref(db, 'users/' + userId);
+          const snapshot = await get(userRef);
+          if (snapshot.exists()) {
+            setUserData(snapshot.val());
             localStorage.setItem("user", JSON.stringify({
               id: userId,
-              email: userDoc.data().email,
-              username: userDoc.data().username,
-              phone: userDoc.data().phone,
-              address: userDoc.data().address || ''
+              email: snapshot.val().email,
+              username: snapshot.val().username,
+              phone: snapshot.val().phone,
+              address: snapshot.val().address || ''
             }));
           } else {
-            // Fallback: use localStorage user if Firestore doc doesn't exist
+            // Fallback: use localStorage user if Realtime DB user doesn't exist
             setUserData(userFromStorage);
           }
         } catch (error) {
